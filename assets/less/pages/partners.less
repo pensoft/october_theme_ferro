@@ -1,0 +1,255 @@
+ul.partners_logos_list{
+  list-style-type: none;
+  padding: 0px;
+  margin: 0;
+  display: block;
+}
+ul.partners_logos_list li{
+  display: inline-flex;
+  text-align: center;
+  vertical-align: middle;
+  margin: 17px 17px 0 0;
+  background: @secondary-color;
+  border-radius: 50%;
+  padding: 20px;
+  .breakpoint-large-down({
+    margin: 17px 4px 0 4px;
+  });
+
+}
+
+
+ul.partners_logos_list li {
+  margin-top: 1rem;
+  transition: all .3s ease-in-out;
+}
+
+ul.partners_logos_list li:hover{
+  margin-top: 0;
+  box-shadow: 0 6px 27px rgba(0, 0, 0, 0.5);
+}
+
+.partner_cover.width{
+  height: 119px;
+  width: 119px;
+  line-height: 140px!important;
+}
+
+.partner_cover.height{
+  text-align: center;
+  height: 119px;
+  width: 119px;
+  line-height: 185px!important;
+}
+
+.fill_default:hover, .fill_default:hover > .st2, .st2:hover
+{
+  cursor: pointer;
+  fill: #9ce6ff!important;
+  opacity: 1!important;
+}
+
+/*advisory-board-container */
+
+.advisory-board-container{
+
+  h3.underline{
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+    text-align: left;
+    font-family: "Oswald";
+    display: block;
+    font-size: 36px;
+    line-height: 1.7em;
+  }
+
+  .card_profiles{
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+  .cards{
+    margin-left: 0.5rem!important;
+    margin-right: 0.5rem!important;
+    &.justify-content-between{
+      justify-content: left!important;
+    }
+  }
+
+  .card.profile {
+    width: 370px !important;
+    height: 530px;
+    background-color: #ffffff;
+    padding: 20px !important;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    font-family: Muli;
+
+    i.pr {
+      color: #8ca03c;
+    }
+
+    img{
+      width: 250px;
+      height: 250px;
+    }
+
+    .breakpoint-large-down({
+      margin: 1rem auto;
+    });
+  }
+
+  .card.profile:hover, .card-profiles:hover, .card-container:hover{
+    opacity: 1;
+  }
+
+  .card.profile .card-header{
+  }
+
+  .card-profile:hover a, .card-profiles:hover a{
+    background: none;
+    color: #00809e!important;
+  }
+
+  .card-profile a:hover{
+    color: #8ca03c!important;
+  }
+
+
+}
+
+.countries_list{
+  margin-top: 50px;
+  .country_map{
+    width: 47px;
+    height: 47px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 2px solid @link-color;
+    border-radius: 50%;
+    padding: 40px;
+    background: @white-color;
+    &:hover{
+      background: @link-color;
+    }
+  }
+  .country_label{
+    text-align: center;
+    color: #2F2F2F;
+    width: 135px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+  }
+}
+
+.partners_list .list{
+  display: flex;
+  flex-direction: row;
+  .breakpoint-large-down({
+    flex-direction: column;
+  });
+
+  .list-item{
+    box-shadow: 0 6px 27px rgba(0, 0, 0, 0.3);
+    .rounded(10px);
+    margin: 34px 34px 0 0;
+    padding: 34px;
+    max-width: 22%;
+    flex-basis: 22%;
+    display: inline;
+    background: @white-color;
+    a{
+      text-align: left;
+    }
+    a:first-child{
+      width: 100%;
+      height: 50px;
+      display: block;
+    }
+    .list-item-image{
+      //background-size: auto 50px!important;
+      background-size: contain!important;
+      max-width: 100%!important;
+      flex-basis: 100%!important;
+      padding: 0;
+      width: auto;
+      height: 50px;
+      //height: auto!important;
+      //width: auto!important;
+      //max-height: 50px!important;
+    }
+    .list-item-column{
+      padding: 0;
+    }
+    .list-item-column .btn{
+      font-family: Oswald;
+      margin-top: 20px;
+      color: @link-color;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    h3{
+      display: none;
+    }
+    .info{
+      display: none;
+    }
+    .breakpoint-large-down({
+      max-width: 100%;
+      flex-basis: 100%;
+      margin: 34px 0 0 0;
+    })
+  }
+}
+
+.partners_list{
+  margin-top: 50px!important;
+  img{
+    width: 100%;
+    max-height: 70px;
+    max-width: fit-content!important;
+    margin-bottom: 20px;
+  }
+  .partner-item{
+    box-shadow: 0 6px 27px rgba(0, 0, 0, 0.3);
+    .rounded(10px);
+    margin: 34px 34px 0 0;
+    padding: 34px;
+    max-width: 22%;
+    flex-basis: 22%;
+    background: @white-color;
+    .partner_cover{
+      margin-bottom: 20px;
+    }
+
+    .partner_website{
+      font-family: Oswald;
+      margin-top: 20px;
+    }
+    .breakpoint-large-down({
+      max-width: 100%;
+      flex-basis: 100%;
+
+    })
+  }
+}
+
+.dorsal{
+  display: block;
+  cursor: pointer;
+  color: @link-color;
+  margin-top: 10px;
+  font-family: Oswald;
+}
+
+.toogle-contact-paragraphs { display: none; }
+
+.see_all_partners_link{
+  width: 100%;
+}
+

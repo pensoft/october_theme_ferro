@@ -1,0 +1,65 @@
+.card-container {
+    .breakpoint-small-down({
+      width: -webkit-fill-available!important;
+    });
+}
+
+.card.profile {
+    width: 370px !important;
+    background-color: @secondary-color;
+    padding: 20px !important;
+    margin-bottom: 1rem;
+    .card-img-top {
+        margin-bottom: 1rem;
+    }
+}
+
+
+.card.profile .card-body {
+    background: none !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    .font-size(0.8);
+}
+
+.card.profile .card-header {
+    font-weight: bold;
+    text-align: left !important;
+    color: #1a3354;
+    margin-bottom: 1rem;
+}
+
+.contact_info h3{
+  font-family: Muli;
+  font-weight: bold;
+}
+
+.coordinator_image img{
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.profile-item{
+  margin-bottom: 40px;
+}
+
+.coordinator_info{
+  i{
+    float: left;
+    color: @link-color;
+    display: inline-block;
+    line-height: 30px;
+    margin-top: 0px;
+    margin-right: 5px;
+    &.p-location{
+      height: 73px;
+    }
+    &.p-mail{
+      margin-top: -4px;
+    }
+  }
+  a{
+    color: @text-color-default;
+  }
+}

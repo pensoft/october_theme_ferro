@@ -1,0 +1,110 @@
+url = "/media-center"
+layout = "default"
+title = "Media center"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+use Pensoft\Media\Models\MediaLogos;
+use Pensoft\Media\Models\Flyers;
+use Pensoft\Media\Models\Newsletters;
+use Pensoft\Media\Models\Presentations;
+use Pensoft\Media\Models\Pressreleases;
+use Pensoft\Media\Models\Videos;
+use Pensoft\Media\Models\Graphic;
+
+function onStart(){
+	$this['logos'] =  MediaLogos::get();
+	$this['flyers'] =  Flyers::get();
+	$this['newsletters'] =  Newsletters::get();
+	$this['presentations'] =  Presentations::get();
+	$this['pressreleases'] =  Pressreleases::get();
+	$this['videos'] =  Videos::get();
+	$this['graphics'] =  Graphic::get();
+}
+?>
+==
+<div class="container">
+	<h1 class="page_heading ml-1">Media center</h1>
+	<div class="row">
+		{% if logos.count() %}
+		<div class="col-sm-2 col-xs-6">
+			<div class="card-container text-center">
+				<a href="{{url('media-center')}}/logo" title="Logo">
+					<span class="card_image_container" style="background: url({{'pensoft/mediacenter-logo.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/logo" title="Logo"></span>
+					<span class="media_label">Logo</span>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+		{% if flyers.count() %}
+		<div class="col-sm-2 col-xs-6">
+			<div class="card-container text-center">
+				<a href="{{url('media-center')}}/flyer" title="Promotional materials">
+					<span class="card_image_container" style="background: url({{'pensoft/promotional-materials.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/flyer" title="Flyer and poster"></span>
+					<span class="media_label">Promotional materials</span>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+
+		{% if pressreleases.count() %}
+		<div class="col-sm-2 col-xs-6">
+			<div class="card-container text-center">
+				<a href="{{url('media-center')}}/press-releases" title="Press releases">
+					<span class="card_image_container" style="background: url({{'pensoft/press_releases.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/press-releases" title="Press releases"></span>
+					<span class="media_label">Press releases</span>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+		{% if presentations.count() %}
+		<div class="col-sm-2 col-xs-6">
+			<div class="card-container text-center">
+				<a href="{{url('media-center')}}/fact-sheets" title="Pilot Site Factsheets">
+					<span class="card_image_container" style="background: url({{'pensoft/factsheet_icon.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/fact-sheets" title="Pilot Site Factsheets"></span>
+					<span class="media_label">Pilot Site Factsheets</span>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+		{% if videos.count() %}
+		<div class="col-sm-2 col-xs-6">
+			<div class="card-container text-center">
+				<a href="{{url('media-center')}}/videos" title="Videos">
+					<span class="card_image_container" style="background: url({{'pensoft/videos.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/videos" title="Videos"></span>
+					<span class="media_label">Videos</span>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+
+
+		{% if newsletters.count() %}
+		<div class="col-sm-2 col-xs-6">
+			<div class="card-container text-center">
+				<a href="{{url('media-center')}}/newsletters" title="Newsletters">
+					<span class="card_image_container" style="background: url({{'pensoft/newsletters.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/newsletters" title="Newsletters"></span>
+					<span class="media_label">Newsletters</span>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+
+
+
+		{% if graphics.count() %}
+		<div class="col-sm-2 col-xs-6">
+			<div class="card-container text-center">
+				<a href="{{url('media-center')}}/policy-briefs" title="Policy briefs">
+					<span class="card_image_container" style="background: url({{'pensoft/fact_sheets.svg'|media}}) center center no-repeat;" href="{{url('media-center')}}/policy-briefs" title="Policy briefs"></span>
+					<span class="media_label">Policy briefs</span>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+
+	</div>
+	<p>&nbsp;</p>
+</div>

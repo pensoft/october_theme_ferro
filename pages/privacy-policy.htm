@@ -1,0 +1,21 @@
+url = "/privacy-policy"
+layout = "default"
+title = "Privacy policy"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[jumbotron]
+jumbotron = "privacy-policy"
+title = 0
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+==
+{% component 'siteSearchInclude' %}
+   <div class="container">
+   <h1 class="page_heading ml-1">Privacy Policy</h1>
+    {% component 'jumbotron' %}
+   </div>

@@ -1,0 +1,339 @@
+// https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use
+
+// .ps - Solid Rendering
+// .pr - Regular Rendering
+// .pl - Light
+// .pd - Duotone
+// .pb - Brands
+
+// <span style="font-size: 3em; color: Tomato;">
+//   <i class="ps p-camera"></i>
+// </span>
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icons/icomoon/icomoon.eot?ilrlqa');
+  src:  url('../fonts/icons/icomoon/icomoon.eot?ilrlqa#iefix') format('embedded-opentype'),
+    url('../fonts/icons/icomoon/icomoon.ttf?ilrlqa') format('truetype'),
+    url('../fonts/icons/icomoon/icomoon.woff?ilrlqa') format('woff'),
+    url('../fonts/icons/icomoon/icomoon.svg?ilrlqa#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'x-icon';
+  src:  url('../fonts/icons/x-icon/icomoon.eot?o4q3va');
+  src:  url('../fonts/icons/x-icon/icomoon.eot?o4q3va#iefix') format('embedded-opentype'),
+    url('../fonts/icons/x-icon/icomoon.ttf?o4q3va') format('truetype'),
+    url('../fonts/icons/x-icon/icomoon.woff?o4q3va') format('woff'),
+    url('../fonts/icons/x-icon/icomoon.svg?o4q3va#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.p, .pb, .pd, .pl, .pr, .ps {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    .font-size;
+    .line-height;
+
+    &.small, &.large, &.huge {
+      .line-height;
+      vertical-align: middle;
+    }
+    &.small {
+      .font-size(0.80);
+      &.p-twitter{
+        .font-size(0.75);
+        margin-top: 4px;
+        font-weight: bold;
+      }
+    }
+    &.normal {
+      .font-size(1.5);
+    }
+    &.big {
+      .font-size(2);
+      &.p-twitter{
+        font-size: 1.3em!important;
+        width: 36px!important;
+        height: 36px!important;
+        line-height: 36px!important;
+        text-align: center;
+      }
+      &.p-mail{
+        font-family: x-icon !important;
+        font-size: 1.2em!important;
+        width: 36px!important;
+        height: 36px!important;
+        line-height: 36px!important;
+        text-align: center;
+      }
+    }
+    &.middle {
+      .font-size(2.3);
+    }
+
+    &.medium {
+      .font-size(3);
+    }
+
+    &.large {
+      .font-size(3.5);
+      &.p-twitter{
+        .font-size(2.9);
+      }
+    }
+    &.huge {
+      .font-size(5);
+    }
+    &.p-primary {
+      color: @button-background-color!important;
+      background-color: @white-color!important;
+      padding: 10px!important;
+      line-height: 64px;
+      width: 84px;
+      height: 84px;
+      text-align: center;
+      .rounded(50%);
+    }
+    &.p-primary:hover {
+      opacity: 0.7!important;
+    }
+
+    &.p-facebook{
+      color: #4D6C9C!important;
+    }
+    // &.p-twitter{
+    //   color: black!important;
+    // }
+
+    &.p-secondary {
+      background: @dark-color!important;
+      color: @white-color!important;
+      border: 1px solid @white-color!important;
+      font-weight: 600;
+      padding: 5px!important;
+      .rounded(50%);
+      line-height: 1em!important;
+    }
+    &.p-secondary:hover {
+      background: @white-color!important;
+      color: @dark-color!important;
+      border: 1px solid @white-color!important;
+      line-height: 1em;
+      font-weight: 600;
+      padding: 5px!important;
+      opacity: 1!important;
+    }
+  
+    &.p-search {
+      color: #4D6C9C;
+    }
+    &.p-success {
+      color: @success-color;
+    }
+    &.p-danger {
+      color: @danger-color;
+    }
+    &.p-warning {
+      color: @warning-color;
+    }
+    &.p-info {
+      color: @info-color;
+    }
+    &.p-light {
+      color: @light-color;
+    }
+    &.p-dark {
+      color: @dark-color;
+    }
+    &.p-link {
+    color: @primary-color;
+    }
+    &.p-subscribe {
+      font-size: 1.3em!important;
+      width: 36px!important;
+      height: 36px!important;
+      line-height: 36px!important;
+      text-align: center;
+    }
+
+}
+
+.ps {
+    font-family: "icomoon";
+    font-weight: 900;
+}
+.pr {
+    font-family: "icomoon";
+    font-weight: 400;
+    &.p-twitter{
+      justify-content: center;
+      text-align: center;
+      font-family: "x-icon";
+      font-weight: 400;
+    }
+    &.p-mail{
+      justify-content: center;
+      text-align: center;
+      font-family: "x-icon";
+      font-weight: 400;
+    }
+}
+.pl {
+    font-family: "icomoon";
+    font-weight: 300;
+}
+.pd {
+    font-family: "icomoon";
+    font-weight: 900;
+}
+.pb {
+    font-family: "icomoon";
+    font-weight: 400;
+}
+
+.icons {
+  display: flex;
+  font-family: "icomoon";
+  font-weight: 400;
+
+
+  .p + .p, .pb+.pb, .pd+.pd, .pl+.pl, .pr+.pr, .ps+.ps {
+    margin-left: 10px;
+  }
+
+  &.icons-vertical {
+    flex-direction: column;
+
+    .p + .p, .pb+.pb, .pd+.pd, .pl+.pl, .pr+.pr, .ps+.ps {
+      margin-left: 0;
+      margin-top:@margin-base-space;
+    }
+  }
+}
+
+
+.p-researchgate:before {
+  content: "\e900";
+}
+.p-location:before {
+  content: "\e90a";
+}
+.p-time:before {
+  content: "\e901";
+}
+.p-gearwheel:before {
+  content: "\e902";
+}
+.p-country-ch:before {
+  content: "\e903";
+}
+.p-country-de:before {
+  content: "\e904";
+}
+.p-country-fr:before {
+  content: "\e905";
+}
+.p-country-pl:before {
+  content: "\e900";
+}
+.p-search:before {
+  content: "\ea82";
+}
+.p-facebook:before {
+  content: "\eaeb";
+}
+.p-instagram:before {
+  content: "\eaec";
+}
+.p-linkedin:before {
+  content: "\eaed";
+}
+.p-mail:before {
+  content: "\e900";
+}
+.p-website:before {
+  content: "\e903";
+}
+.p-organisation:before {
+  content: "\e911";
+}
+.p-phone:before {
+  content: "\e904";
+}
+.p-mendeley:before {
+  content: "\eaef";
+}
+.p-reddit:before {
+  content: "\eaf0";
+}
+.p-RSS:before {
+  content: "\eaf1";
+}
+.p-twitter:before {
+  font-family: 'x-icon';
+  content: "\e901";
+}
+.p-youtube:before {
+  content: "\eaf3";
+}
+.p-subscribe:before {
+  content: "\e907";
+}
+.p-subscribe2:before {
+  content: "\e902";
+}
+.p-key:before {
+  content: "\eaf4";
+}
+.p-minus:before {
+  content: "\eaf5";
+}
+.p-person:before {
+  content: "\eaf6";
+}
+.p-plus:before {
+  content: "\eaf7";
+}
+.p-hamburger:before {
+  content: "\eaf8";
+}
+.p-share1:before {
+  content: "\eaf9";
+}
+.p-back:before {
+  content: "\eafb";
+}
+.p-colapse:before {
+  content: "\eafc";
+}
+.p-remove:before {
+  content: "\eafd";
+}
+.p-trash:before {
+  content: "\eafe";
+}
+.p-download:before {
+  content: "\eaff";
+}
+.p-drag:before {
+  content: "\eb00";
+}
+.p-expand:before {
+  content: "\eb01";
+}
+.p-forward:before {
+  content: "\eb02";
+}
+.p-add:before {
+  content: "\eb03";
+}

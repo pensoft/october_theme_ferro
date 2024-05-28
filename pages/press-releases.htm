@@ -1,0 +1,62 @@
+url = "/media-center/press-releases"
+layout = "default"
+title = "Media center"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[builderList mediaPressReleasesList]
+modelClass = "pensoft\Media\Models\Pressreleases"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+<?php
+use Pensoft\Media\Models\Pressreleases;
+
+function onStart(){
+	$this['mediaPressreleasesList'] =  Pressreleases::get();
+}
+?>
+==
+<div class="container">
+
+	<a href="/media-center" class="back-to"> &#10094; Back to Media center</a><br><br>
+
+	<h1 class="page_heading">Presss releases</h1>
+
+	<div class="row">
+		{% set records = mediaPressreleasesList %}
+		{% set displayColumn = mediaPressreleasesList.displayColumn %}
+		{% set noRecordsMessage = mediaPressreleasesList.noRecordsMessage %}
+		{% set detailsPage = mediaPressreleasesList.detailsPage %}
+		{% set detailsKeyColumn = mediaPressreleasesList.detailsKeyColumn %}
+		{% set detailsUrlParameter = mediaPressreleasesList.detailsUrlParameter %}
+
+		{% for record in records %}
+		{# Use spaceless tag to remove spaces inside the A tag. #}
+		{% spaceless %}
+		<div class="col-xs">
+			<div class="card-container library-item">
+				<span class="card_title">{{record.name}}</span><br><br>
+				<span class=""> {{record.date |date('F Y')}}</span> <br><br>
+				<div class="body">{{record.description | raw}}</div>
+				<div class="row link mt-3">
+					{% for link in record.link %}
+					<a href="{{link.url}}" target="_blank" class="btn btn-primary">{{link.text}}</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+
+		{% endspaceless %}
+		{% else %}
+		{{ noRecordsMessage }}
+		{% endfor %}
+	</div>
+</div>

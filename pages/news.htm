@@ -1,0 +1,202 @@
+url = "/news/:id?|[a-zA-Z\-0-9]"
+layout = "default"
+title = "News"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[list]
+maxItems = 15
+templates = "template3"
+thumb_width = 506
+thumb_height = 311
+no_records_message = "Stay tuned for upcoming news!"
+
+[related_articles]
+limit = 9
+thumb_width = 474
+thumb_height = 291
+==
+<?php
+use Pensoft\Articles\Models\Category;
+use Pensoft\Articles\Models\Article;
+
+function urlencode($string){
+    return trim(urlencode($string));
+}
+function onStart()
+{
+	$this['article'] = Pensoft\Articles\Models\Article::where('slug', $this->param('id'))->first();
+    $this['categories'] = Category::orderBy('sort_order')->orderBy('created_at', 'desc')->get();
+	
+    $categoryId = input('categoryId', 'all');
+
+    if ($categoryId !== 'all' && !is_numeric($categoryId)) {
+        return redirect('news');
+    }
+	
+    $this['categoryId'] = $categoryId;
+
+    if ($categoryId === 'all') {
+        $records = Article::news()->where('published_at', '<=', 'now')
+                                  ->where('published', 'true')
+                                  ->orderBy('published_at', 'DESC')
+                                  ->paginate(12);
+    } else {
+        $records = Article::news()->whereHas('categories', function ($query) use ($categoryId) {
+                     $query->where('id', $categoryId);
+                 })->where('published_at', '<=', 'now')
+                   ->where('published', 'true')
+                   ->orderBy('published_at', 'DESC')
+                   ->paginate(12);
+    }
+
+    if ($categoryId !== 'all') {
+        $records->appends(['categoryId' => $categoryId]);
+    }
+
+    $this['records'] = $records;
+
+    $this['article'] = Pensoft\Articles\Models\Article::where('slug', $this->param('id'))->first();
+if($this['article']){
+$this['is_detail_page'] = $this['article'] ? true : false;
+$this['allow_share'] = $this['article']['allow_share'] == 'yes' ? true : false;
+if($this['is_detail_page']){
+	$seoTitle = $this['article']['title'];
+	$seoKeywords = $this['article']['meta_keywords'] ?: $this['article']['keywords'];
+	$seoDescription = str_limit(Html::strip($this['article']['content']), 255);
+
+	if (class_exists('\BennoThommo\Meta\Meta')) {
+		if($seoTitle) {
+			\BennoThommo\Meta\Meta::set('title', $seoTitle);
+		}
+		if($seoKeywords) {
+			\BennoThommo\Meta\Meta::set('keywords', $seoKeywords);
+		}
+		if($seoDescription) {
+			\BennoThommo\Meta\Meta::set('description', $seoDescription);
+		}
+	}
+}
+if($this['is_detail_page'] and $this['allow_share']){
+$this['page_url'] = $this->pageUrl('');
+$this['encoded_title'] = urlencode($this['article']['title']);
+$this['slug'] = $this['article']['slug'];
+\BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
+\BennoThommo\Meta\Meta::set('twitter:title', $this['article']['title']);
+\BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['article']['content']), 255));
+\BennoThommo\Meta\Meta::set('og:title', $this['article']['title']);
+\BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['article']['content']), 255) );
+\BennoThommo\Meta\Meta::set('og:type', 'article');
+\BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
+if($this['article']['cover']){
+	\BennoThommo\Meta\Meta::set('twitter:image', $this['article']['cover']->getThumb(600, null, ['mode' => 'auto']));
+
+\BennoThommo\Meta\Meta::set('og:image', $this['article']['cover']->getThumb(600, 314, ['mode' => 'crop']));
+\BennoThommo\Meta\Meta::set('og:image:width', 600);
+\BennoThommo\Meta\Meta::set('og:image:height', 314);
+}
+
+}
+}
+
+
+if($this['is_detail_page']){
+$related = array();
+if($this['article']['slug']){
+$article = Article::where('slug', $this['article']['slug'])->first();
+$arrayOfTags = explode(",", $article->keywords);
+
+$related = Article::where('slug', '!=', $this['article']['slug']);
+
+$orWhere = '( ';
+$c = 1;
+
+foreach($arrayOfTags as $tag){
+$orWhere .= ' keywords ILIKE \'%'.trim($tag).'%\' ';
+if($c < count($arrayOfTags)){
+$orWhere .= ' or ';
+}
+$c++;
+}
+$orWhere .= ')';
+$related = $related
+->whereRaw($orWhere)
+->limit(2)
+->get();
+
+$this['related'] = $related;
+}
+}
+}
+?>
+==
+<div class="container">
+
+	{% if is_detail_page %}
+	<div class="row single-news-item">
+		<div class="col-xs-12 col-md-5">
+			{% if article.cover %}
+			<img class="content left" src="{{ article.cover|crop_image|resize(673, auto, { mode: 'crop' }) }}" />
+			{% endif %}
+			{% if article.caption %}
+                {{article.caption|raw}}
+                {% endif %}
+			{% if article.allow_share == 'yes' %}
+				<div class="btn btn-primary share-btn" id="share-{{article.slug}}">Share</div>
+			{% endif %}
+
+		</div>
+
+		<div class="col-xs-12 col-md-7">
+
+
+			<div class="news-title">
+				<h1 class="single-new-title">{{article.title}}</h1>
+
+			</div>
+
+			<div class="text-published">{{article.pretty_published_at}}</div>
+			<div class="content">
+				{{article.content|raw}}
+			</div>
+
+
+
+		</div>
+	</div>
+    {% if related.count > 0 %}
+    <div class="row" style="margin-top: 100px;">
+        <div class="col-xs-12"><h1 class="single-new-title">Related articles</h1></div>
+        <div class="col-xs-12">
+            {% component 'related_articles' %}
+        </div>
+    </div>
+    {% endif %}
+	<script>
+        createCustomTippy('#share-{{article.slug}}', {content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" ></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter small" href="http://twitter.com/share?text={{article.title}}&url={{page_url}}" target="_blank"></a>{% endif %}{% if this.theme.linkedin %}<a class="pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank"></a>{% endif %}</div>'})
+	</script>
+	
+	{% else %}
+	<h1 class="page_heading mb-2" style="margin-left: 5px;">News</h1>
+
+	<div class="category-tabs-container mb-2">
+		{% if categories.count > 0 %}
+		<div class="row category-tabs" id="category-tabs">
+			<a href="{{ 'news'|page }}" class="{{ 'all' == categoryId ? 'active' : '' }}">All News</a>
+			{% for category in categories %}
+			<a href="{{ 'news'|page }}?categoryId={{ category.id }}" class="{{ category.id == categoryId ? 'active' : '' }}">{{ category.name }}</a>
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+	<div class="newslist-records" id="newslist-records">
+		{% partial 'components/newslist-records' %}
+	</div>
+	            
+	<div class="row container">
+		{{ records.render|raw }}
+	</div>
+
+	{% endif %}
+</div>

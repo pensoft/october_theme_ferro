@@ -1,0 +1,77 @@
+url = "/about"
+layout = "default"
+title = "About"
+is_hidden = 0
+meta_description = "about page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[jumbotron background]
+jumbotron = "backgound"
+title = 1
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+
+[jumbotron goals]
+jumbotron = "objectives"
+title = 1
+background = "unset"
+templates = "template1"
+description_limit = 0
+
+[accordion]
+maxItems = 10
+accordion = 1
+elementId = "structure"
+active = 0
+collapsible = "true"
+heightStyle = "content"
+iconsHeader = "ui-icon-blank"
+iconsHeaderActive = "ui-icon-blank"
+templates = "template3"
+
+[jumbotron]
+jumbotron = "about-page-image"
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+
+[jumbotron jumbotron2]
+jumbotron = "rest-coast-will-address"
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+==
+{% component 'siteSearchInclude' %}
+<div class="container">
+    <h1 class="page_heading ml-1">About</h1>
+    <div class="row middle-xs">
+        <div class="col-md-6 col-xs-12">
+             <div class="we_will">
+                {% component 'jumbotron2' %}
+             </div>
+             <div class="background">
+                {% component 'background' %}
+             </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            {% component 'jumbotron' %}
+        </div>
+    </div>
+    <div class="row top-xs">
+        <div class="col-md-6 col-xs-12 about_goals_page">
+            {% component 'goals' %}
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="container-fluid work_packages " style="background-color:unset;">
+    	        <div class="container">
+                    {% component 'accordion' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

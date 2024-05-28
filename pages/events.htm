@@ -1,0 +1,203 @@
+url = "/events/:slug?|[a-zA-Z\-0-9]"
+layout = "default"
+title = "Events"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[calendar]
+default = "true"
+limit = "null"
+category = "null"
+language = "en"
+redirect_to_detailed_page = 1
+==
+<?php
+use Pensoft\Calendar\Models\Entry;
+use Pensoft\EventReporting\Models\EventsreportingData as Data;
+use Pensoft\EventReporting\Models\EventsreportingAttendants as Attendant;
+
+function onStart(){
+
+    if($this->param('slug')){
+        $this['entry'] =  Entry::select(
+        '*',
+        'title',
+        'place',
+        'description',
+        'url',
+
+        DB::raw("to_char(\"start\", 'DD') as start_day"),
+        DB::raw("to_char(\"start\", 'YYYY') as start_year"),
+        DB::raw("to_char(\"end\", 'DD') as end_day"),
+        DB::raw("to_char(\"end\", 'YYYY') as end_year"),
+        DB::raw("to_char(\"start\", 'month') as start_month"),
+        DB::raw("to_char(\"end\", 'month') as end_month"),
+        DB::raw("
+        \"end\" is not null as has_end
+        ")
+
+
+        )->where('slug', $this->param('slug'))->first();
+
+
+        $this['attendees'] = new class {
+            public function getIM($id) {
+            return Attendant::where('event_id', $id)
+            ->join('users', 'users.id', '=', 'pensoft_eventreporting_attendants.user_id')
+            ->get();
+            }
+        };
+        $this['internalData'] = new class {
+            public function getIM($id) {
+                return Data::where('slug', $id)->first();
+            }
+        };
+}
+
+    $this['entries'] = Entry::orderBy('start', 'desc')->paginate(20);
+
+    $this['slug'] = $this->param('slug');
+}
+?>
+==
+<div class="container">
+	{% if not slug %}
+	<h1 class="page_heading">Events</h1>
+	<div class="tabs">
+		<a class="" href="#listView">List view</a>
+		<a class="" href="#calendarView">Calendar view</a>
+	</div>
+	<!--tabs content	-->
+
+	
+	<div class="row" id="listView">
+		<div class="events_list_container">
+			{% for entry in entries %}
+			{% set url = entry.url ?  entry.url : '/events/' ~ entry.slug %}
+
+			<div class="event_list_item">
+				<div class="row between-xs time_and_date">
+					<div class="col-md-2 start-md col-xs-12 center-xs">{{entry.event_date}}</div>
+					<div class="col-md-8 start-md col-xs-12 center-xs"><a class="button" href="{{ url }}" target="_blank" style="font-weight: normal; font-family: muli;">{{entry.title}}</a></div>
+					<div class="col-md-2 end-md col-xs-12 center-xs">{{entry.start|date('l')}}</div>
+				
+					<!--<div class="col-xs-1">{{entry.start|date('g:i')}}</div> <div class="col-xs-11">{{entry.title}}</div>-->
+					
+				</div>
+			</div>
+
+			{% endfor %}
+		</div>
+		<div class="row container">
+			{{ entries.fragment('listView').render|raw }}
+		</div>
+
+	</div>
+	<div class="row" id="calendarView">
+		{% component 'calendar' %}
+	</div>
+	{% else %}
+
+	{% if entry %}
+	<div class="row newslist single-news-item">
+		{% set materials = entry.materials %}
+		{% if entry.cover_image or materials %}
+		<div class="col-xs-12 col-md-5">
+			{% if entry.cover_image %}
+			<img class="content left" src="{{entry.cover_image|crop_image|resize(673, 411, {'mode':'crop'})}}" alt="{{entry.cover_image.title}}">
+			{% endif %}
+			<div class="btn btn-primary share-btn" id="share-{{slug}}">Share</div>
+
+			{% if materials %}
+			<ul class="event_materials">
+				<h1 class="display-1">Materials</h1>
+				{% for item in materials %}
+				{% set url = item.button_file ? item.button_file|media : item.button_url %}
+				<li>
+					<h2>{{ item.title }}</h2>
+					<a class="btn btn-primary" href="{{ url }}" target="_blank">{{ item.button_title }}</a>
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+
+		</div>
+
+		<div class="col-xs-12 col-md-7">
+			{% else %}
+			<div class="col-xs-12 col-md-12">
+				{% endif %}
+
+				<div class="news-title">
+					<h1 class="single-new-title">{{ entry.title }}</h1>
+
+				</div>
+				{% if entry.event_date %}
+				<div class="event-date">
+					 {{entry.event_date}}
+				</div>
+				{% endif %}
+
+				{% if entry.place %}
+				<div class="event-place"> {{ entry.place }}</div>
+				{% endif %}
+
+				<div class="content mt-2 mb-2">
+					{{ entry.description|raw }}
+				</div>
+                {% if internalData.getIM(entry.slug).organiser %}
+                <div class="content">
+                    <span class="text-bold">Organiser:</span>
+                    <span class="text-ligth">{{internalData.getIM(entry.slug).organiser}}</span>
+                </div>
+                {% endif %}
+                {% if user %}
+                {% if attendees.getIM(entry.id).count %}
+                <div class="content">
+                    <span class="text-bold">Attendees:</span>
+
+                    {% for profile in attendees.getIM(entry.id) %}
+                    <span class="text-ligth">{{profile.name}} {{profile.surname}}</span>
+                    {% if not loop.last %},&nbsp;{% endif %}
+                    {% endfor %}
+
+
+                </div>
+                {% endif %}
+
+                {% endif %}
+
+
+                {% if entry.url %}
+                <a href="{{entry.url}}" class="btn btn-primary mb-1 mt-1" target="_blank">Go to event website</a>
+                {% endif %}
+			</div>
+		</div>
+
+        {% if user  %}
+        <div class="col-xs-12 col-md-7">
+            <a href="{{'event-attendance-form'|page}}/{{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+            {% if internalData.getIM(entry.slug).id %}
+            <a href="{{'event-attendance-report'|page}}" class="btn btn-primary mb-1 mt-1">Edit</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+		{% else %}
+		{% endif %}
+
+		{% endif %}
+
+	</div>
+	<script>
+		createTippy('#share-{{slug}}', {content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" ></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter" href="https://twitter.com/intent/tweet?text={{encoded_title}}{{page_url}}" target="_blank"></a>{% endif %}{% if this.theme.linkedin %}<a class="pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank"></a>{% endif %}</div>'})
+
+		var documentHasScroll = function() {
+			return window.innerHeight <= document.body.offsetHeight;
+		};
+		function ready() {
+			// keepFooter(documentHasScroll());
+		}
+		document.addEventListener("DOMContentLoaded", ready);
+	</script>

@@ -1,0 +1,46 @@
+<div class="newslist row">
+    {% for record in records %}
+    {% spaceless %}
+    <div class="col-xs-12 col-md-3 news-item">
+        <div class="row news_column">
+            {% if record.cover %}
+            <a class="news-image col-xs-12 center-xs" href="{{'news'|page}}/{{record.slug}}">
+                <img class="news-img-top" src="{{record.cover.getThumb(506, 311, {'mode': 'crop'})}}">
+            </a>
+            {% else %}
+            <a class="news-image col-xs-12 center-xs" href="{{'news'|page}}/{{record.slug}}">
+                <img class="news-img-top" src="{{'pensoft/No_Image_Available.jpg'|media }}" style="height: 311px; width: 506px;">
+            </a>
+            {% endif %}
+            <div class="news-container col-xs-12">
+                <div class="text-published">{{record.published_at}}</div>
+                <div class="news-title">
+                    <h3 class="card-title"><a href="{{'news'|page}}/{{record.slug}}">{{ record.title|length > 99 ? record.title|slice(0, 99) ~ '...' : record.title  }}</a></h3>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="{{record.url}}" class="btn btn-primary">{{'Read article' |_}}</a>
+                    </div>
+                    <div class="col-xs-6">
+                        {% if allow_share == 'yes' %}
+                            {% if this.theme.twitter %}
+                            <a href="https://twitter.com/intent/tweet?text={{record.title_encoded}}{{record.url}}" target="_blank" class="col-xs col-md-12 btn p-primary pr p-twitter big"></a>
+                            {% endif %}
+                            {% if this.theme.facebook %}
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{record.url}}&amp;src=sdkpreparse" target="_blank" class="col-xs col-md-12 btn pr p-primary p-facebook big"></a>
+                            {% endif %}
+                            {% if this.theme.linkedin %}
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{record.url}}" target="_blank" class="col-xs col-md-12 btn pr p-primary p-linkedin big"></a>
+                            {% endif %}
+                        {% endif %}</div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endspaceless %}
+    {% else %}
+    No news
+    {% endfor %}
+</div>

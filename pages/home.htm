@@ -1,0 +1,134 @@
+url = "/"
+layout = "default"
+title = "REST-COAST"
+is_hidden = 0
+meta_description = "homepage desc"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[article_highlights]
+maxItems = 3
+title = "Latest news"
+baseUrl = "/news"
+templates = "template4"
+thumb_width = 506
+thumb_height = 311
+
+[Timeline]
+limit = 3
+upcoming = 1
+marked_for_display = 0
+templates = "template3"
+
+[jumbotron vision]
+jumbotron = "vision"
+title = 1
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+
+[jumbotron mission]
+jumbotron = "mssion"
+title = 1
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+
+[jumbotron goals]
+jumbotron = "goal"
+title = 1
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+
+[jumbotron numbers]
+jumbotron = "rest-coast-numbers"
+title = 1
+background = "#ffffff"
+templates = "template1"
+description_limit = 0
+==
+<!-- 3 blocks -->
+<div class="container-fluid">
+	<div class="container">
+		<div class="row between-md around-xs">
+			<div class="col-sm-4 col-xs-12 vision">
+				{% component 'vision' %}
+			</div>
+			<div class="col-sm-4 col-xs-12 mission">
+				{% component 'mission' %}
+			</div>
+			<div class="col-sm-4 col-xs-12 goals">
+				{% component 'goals' %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- numbers -->
+<div class="numbers_container">
+	{% component 'numbers' %}
+</div>
+
+
+<!-- latest from news -->
+<div class="container-fluid bg-secondary">
+	{% component 'article_highlights' %}
+</div>
+<div class="container-fluid">
+	<div class="container">
+		<h1 class="base_heading">EVENTS</h1>
+		{% component 'Timeline' %}
+		
+	</div>
+</div>
+<div class="container-fluid bg-secondary">
+	<div class="container">
+	<div class="row d-flex justify-content-evenly">
+		<div class="col-sm-5 col-xs-12">
+			<h1 class="base_heading">Latest updates</h1>
+			{% if this.theme.facebook %}
+			<div class="fb-page" 
+				data-href="{{this.theme.facebook_url}}" 
+				data-tabs="timeline" 
+				data-width="500" 
+				data-height="300" 
+				data-small-header="false" 
+				data-adapt-container-width="true"
+				data-hide-cover="false" 
+				data-show-facepile="false">
+				<blockquote cite="{{this.theme.facebook_url}}" class="fb-xfbml-parse-ignore">
+					<a href="{{this.theme.facebook_url}}">{{this.theme.name}}</a>
+				</blockquote>
+			</div>
+			{% endif %}
+		</div>
+		<div class="col-sm-3 col-xs-12 social-media-container">
+			<h1 class="base_heading">Follow Rest-Coast</h1>
+			<div class="subscribe-container">
+				<div class="subscribe-items">
+					{% if this.theme.twitter %}
+					<a href="{{this.theme.twitter_url}}" target="_blank" class="btn p-primary pr p-twitter large"></a>
+					{% endif %}
+					{% if this.theme.facebook %}
+					<a href="{{this.theme.facebook_url}}" target="_blank" class="btn pr p-primary p-facebook large"></a>
+					{% endif %}
+					{% if this.theme.linkedin %}
+					<a href="{{this.theme.linkedin_url}}" target="_blank" class="btn pr p-primary p-linkedin large"></a>
+					{% endif %}
+					{% if this.theme.youtube %}
+					<a href="{{this.theme.youtube_url}}" target="_blank" class="btn pr p-primary p-youtube large"></a>
+					{% endif %}
+					{% if this.theme.instagram %}
+					<a href="{{this.theme.instagram_url}}" target="_blank" class="btn pr p-primary p-instagram large"></a>
+					{% endif %}
+					{% if this.theme.researchgate %}
+					<a href="{{this.theme.researchgate_url}}" target="_blank" class="btn pr p-primary p-researchgate large" style="width: 64px;"></a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
