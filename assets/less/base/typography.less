@@ -1,5 +1,4 @@
 @import "fonts/@{font-family}.less";
-@import "fonts/oswald.less";
 
 .font-size(@ratio: 1) {
     & when (@font-size > 0px) {
@@ -12,7 +11,7 @@
 
 .line-height(@line-height-default: @line-height){
     & when (isnumber(@line-height-default)){
-        line-height: @line-height-default;    
+        line-height: @line-height-default;
     }
     & when (isstring(@line-height-default)){
         line-height: normal;
@@ -21,10 +20,10 @@
 
 .letter-spacing(@letter-spacing-default: @letter-spacing){
     & when (isnumber(@letter-spacing-default)){
-        letter-spacing: @letter-spacing-default;    
+        letter-spacing: @letter-spacing-default;
     }
     & when (isstring(@letter-spacing-default)){
-        letter-spacing: normal;    
+        letter-spacing: normal;
     }
 }
 
@@ -72,11 +71,11 @@ h1,.h1, h2,.h2, h3,.h3, h4,.h4, h5,.h5, h6,.h6,.title {
     &.base_heading {
       padding-left: 0;
       padding-right: 0;
-      margin-bottom: 0;
+      //margin-bottom: 50px;
       text-align: left;
-      color: @heading-text-color;
 
       &.inner-page{
+          margin-top: 80px;
         margin-bottom: @margin-base-space!important;
         text-transform: none;
       }
@@ -107,7 +106,6 @@ a {
 p {
     margin-top: 0;
     margin-bottom: @margin-base-space;
-    color: @text-color-default;
     &.lead {
         .font-size(1.25);
         font-weight: 300;

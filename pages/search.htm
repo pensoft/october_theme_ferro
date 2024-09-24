@@ -22,11 +22,12 @@ function onInit()
 ?>
 ==
 <div class="container">
+    <h1 class="underline">Search</h1>
     <div class="row">
         <div class="col-xs">
 
-            <h1 class="base_heading inner-page">Search results for {{ searchResults.query }}</h1>
-            
+            <h1 class="base_heading">Search results for {{ searchResults.query }}</h1>
+
             {% component 'searchResults' %}
         </div>
     </div>

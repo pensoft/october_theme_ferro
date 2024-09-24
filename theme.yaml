@@ -1,7 +1,7 @@
 name: "FERRO"
 author: "Pensoft"
 homepage: "https://pensoft.net"
-code: "Pensoft-FERRO"
+code: "Pensoft-Ferro"
 authorCode: "Pensoft"
 description: "Demonstrates the basic concepts of the front-end theming."
 previewImage: "assets/images/preview.png"
@@ -72,7 +72,7 @@ form:
                 default: My first project website
             author:
                 label: Author
-                default: 
+                default:
             site_icon:
                 label: Site icon
                 comment: Add new site icon, your theme recomends a icon size of 32x32
@@ -264,14 +264,9 @@ form:
                 tab: 'Typography'
                 type: dropdown
                 assetVar: 'font-family'
-                default: sofia
+                default: gilroy
                 options:
-                    roboto: Roboto
-                    muli: Muli
-                    helvetica: Helvetica
-                    sofia: Sofia-Pro
-                    oswald: Oswald
-                    poppins: Poppins
+                    gilroy: Gilroy
             background:
                 label: Background color
                 comment: Select a custom color to use as background

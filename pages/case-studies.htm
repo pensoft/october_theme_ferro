@@ -1,0 +1,50 @@
+url = "/case-studies"
+layout = "default"
+title = "Case study areas"
+
+[siteSearchInclude]
+
+[jumbotron]
+jumbotron = "case-study"
+background = "translate"
+templates = "template3"
+description_limit = 0
+==
+<?php
+function onStart(){
+    use Pensoft\Accordions\Models\Item;
+    $this['records'] = Item::where('category_id', 2)->get();
+}
+?>
+==
+{% component 'siteSearchInclude' %}
+{% component 'jumbotron' %}
+<div class="container">
+
+    <div class="row top-xs">
+        <div class="col-md-6 col-xs-12 pilots">
+            {% for key, item in records %}
+            <div class="accordion-border key_{{key}}"><!-- 1 --><!-- css 1 -->
+                <div class="row middle-xs accordion-toggle">
+                    <div class="col-xs-1 green_bullet {{item.title|slug}}">&nbsp;</div>
+
+                    <div class="col-xs start-xs">{{item.title}}</div>
+
+                    <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+                </div>
+
+                <div class="accordion-content" style="display: none;">
+                    {{item.body|raw}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-6 col-xs-12">
+
+            <div class="pilots_svg_map_container">
+                <span class="tooltiptext" id="tooltip">Bulgaria</span>
+                {% partial 'map' %}
+            </div>
+        </div>
+    </div>
+</div>

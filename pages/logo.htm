@@ -1,6 +1,6 @@
-title = "Logo"
 url = "/media-center/logo"
 layout = "default"
+title = "Logo"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
@@ -26,7 +26,7 @@ function onStart(){
 		$file_name = $file->getLocalPath();
 
 $ext= $file->getExtension();
-$recordName = get('file_name') ? get('file_name') : 'REST-COAST_logo.'.$ext;
+$recordName = get('file_name') ? get('file_name') : 'OBSGESSION_logo.'.$ext;
 
 if (file_exists($file_name)) {
 header('Content-Description: File Transfer');
@@ -43,68 +43,89 @@ flush();
 readfile($file_name);
 exit();
 }
-return Redirect::to('/media-center/logo');
+return Redirect::to('/logo');
 }
+}
+
+function onDownloadFile(){
+$file = File::find(post('id'));
+$pathToFile = $file->getLocalPath();
+$fileName = $file->file_name;
+$fileType = $file->content_type;
+$headers = [
+'HTTP/1.1 200 OK',
+'Pragma: public',
+'Content-Type: '.$fileType,
+'Content-Type: application/force-download'
+];
+
+return Response::download($pathToFile, $fileName, $headers);
 }
 ?>
 ==
 <div class="container">
-
-	<a href="/media-center" class="back-to"> &#10094; Back to Media center</a><br><br>
-
-	<h1 class="page_heading">REST-COAST Logo Pack</h1>
-
+    <div class="col-xs-12 go-back">
+        <a href="{{'media-center'|page}}" class="col-xs-12 back-to-news">< Back to Media center</a>
+    </div>
 
 
-	{% set records = mediaLogosList %}
-	{% set displayColumn = mediaLogosList.displayColumn %}
-	{% set noRecordsMessage = mediaLogosList.noRecordsMessage %}
-	{% set detailsPage = mediaLogosList.detailsPage %}
-	{% set detailsKeyColumn = mediaLogosList.detailsKeyColumn %}
-	{% set detailsUrlParameter = mediaLogosList.detailsUrlParameter %}
+    {% set records = mediaLogosList %}
+    {% set displayColumn = mediaLogosList.displayColumn %}
+    {% set noRecordsMessage = mediaLogosList.noRecordsMessage %}
+    {% set detailsPage = mediaLogosList.detailsPage %}
+    {% set detailsKeyColumn = mediaLogosList.detailsKeyColumn %}
+    {% set detailsUrlParameter = mediaLogosList.detailsUrlParameter %}
 
-	{% for record in records %}
-	{# Use spaceless tag to remove spaces inside the A tag. #}
-	{% spaceless %}
-	{% if record.logo_image %}
+    {% if records.count() %}
+        <div class="row">
+            {% for record in records %}
+            {% spaceless %}
+            {% if record.logo_image %}
 
+            <div class="col-md-4 col-xs-12 mb-4">
+                <div class="logo-container {{record.name}}">
+                    <img src="{{record.logo_image.path}}" title="{{record.name}}">
+                </div>
+                <p align="center">{{record.name}}</p>
 
-	<div class="row card-container-row mb-4 start-xs">
-		<div class="col-xs-12">
-			<p><img src="{{record.logo_image.path}}" title="{{record.name}}" style="max-width: 250px;"></p>
-		</div>
-		{% if record.file_jpg %}
-		<div class="col-md-2 col-xs-12">
-			<div class="card-container text-center">
-				<span class="card_image_container" style="background: url({{'pensoft/file-jpg.svg'|media}}) center center no-repeat; " title="Logo"></span>
-				<span class="card_title">JPG, {{record.file_jpg.size}}</span><br>
-				<br><a href="{{ ''| page }}?{{queries}}&download={{record.file_jpg.id}}&file_name={{record.file_jpg.file_name|replace({' ': '_'})}}" title="Logo pack" class="btn btn-primary">Download</a>
-			</div>
-		</div>
-		{% endif %}
-		{% if record.file_png %}
-		<div class="col-md-2 col-xs-12">
-			<div class="card-container text-center">
-				<span class="card_image_container" style="background: url({{'pensoft/file-png.svg'|media}}) center center no-repeat;" title="Logo"></span>
-				<span class="card_title">PNG, {{record.file_png.size}}</span><br>
-				<br><a href="{{ ''| page }}?{{queries}}&download={{record.file_png.id}}&file_name={{record.file_png.file_name|replace({' ': '_'})}}" title="Logo pack" class="btn btn-primary">Download</a>
-			</div>
-		</div>
-		{% endif %}
-		{% if record.file_eps %}
-		<div class="col-md-2 col-xs-12">
-			<div class="card-container text-center">
-				<span class="card_image_container" style="background: url({{'pensoft/file-eps.svg'|media}}) center center no-repeat;" title="Logo"></span>
-				<span class="card_title">SVG, vector, {{record.file_eps.size}}</span><br>
-				<br><a href="{{ ''| page }}?{{queries}}&download={{record.file_eps.id}}&file_name={{record.file_eps.file_name|replace({' ': '_'})}}" title="Logo pack" class="btn btn-primary">Download</a>
-			</div>
-		</div>
-		{% endif %}
-	</div>
-	{% endif %}
+                <div class="links">
+                    {% if record.file_jpg %}
+                    <div class="button_su">
+                    {{form_open({ request: 'onDownloadFile' }) }}
+                    <input type="hidden" value="{{record.file_jpg.id}}" name="id">
+                    <span class="su_button_circle desplode-circle"></span>
+                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>JPG</span></button>
+                    {{ form_close() }}
+                    </div>
+                    {% endif %}
 
-	{% endspaceless %}
-	{% else %}
-	{{ noRecordsMessage }}
-	{% endfor %}
+                    {% if record.file_png %}
+                    <div class="button_su">
+                    {{form_open({ request: 'onDownloadFile' }) }}
+                    <input type="hidden" value="{{record.file_png.id}}" name="id">
+                    <span class="su_button_circle desplode-circle"></span>
+                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>PNG</span></button>
+                    {{ form_close() }}
+                    </div>
+                    {% endif %}
+
+                    {% if record.file_eps %}
+                    <div class="button_su">
+                    {{form_open({ request: 'onDownloadFile' }) }}
+                    <input type="hidden" value="{{record.file_eps.id}}" name="id">
+                    <span class="su_button_circle desplode-circle"></span>
+                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>SVG</span></button>
+                    {{ form_close() }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% endspaceless %}
+            {% else %}
+            {{ noRecordsMessage }}
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>

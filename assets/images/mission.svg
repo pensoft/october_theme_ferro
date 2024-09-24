@@ -1,3 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="36.328" height="36.328" viewBox="0 0 36.328 36.328">
-  <path id="Icon_awesome-bullseye" data-name="Icon awesome-bullseye" d="M18.164.563A18.164,18.164,0,1,0,36.328,18.727,18.164,18.164,0,0,0,18.164.563Zm0,31.641A13.477,13.477,0,1,1,31.641,18.727,13.469,13.469,0,0,1,18.164,32.2Zm0-22.852a9.375,9.375,0,1,0,9.375,9.375A9.375,9.375,0,0,0,18.164,9.352Zm0,14.063a4.688,4.688,0,1,1,4.688-4.687A4.693,4.693,0,0,1,18.164,23.414Z" transform="translate(0 -0.563)" fill="#4d6c9c"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="119" height="51" viewBox="0 0 119 51">
+  <g id="mission" transform="translate(-64 -701)">
+    <rect id="Rectangle_3794" data-name="Rectangle 3794" width="119" height="37" rx="10" transform="translate(64 710)" fill="#bae3e8"/>
+    <text id="Mission-2" data-name="Mission" transform="translate(81 718)" fill="#01bdd6" font-size="16" font-family="RedHatDisplay-Bold, Red Hat Display" font-weight="700"><tspan x="-28.488" y="16">Mission</tspan></text>
+    <circle id="Ellipse_47" data-name="Ellipse 47" cx="7.5" cy="7.5" r="7.5" transform="translate(86 701)" fill="rgba(255,255,255,0.32)"/>
+    <ellipse id="Ellipse_48" data-name="Ellipse 48" cx="3" cy="3.5" rx="3" ry="3.5" transform="translate(163 716)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_49" data-name="Ellipse 49" cx="3.5" cy="3.5" r="3.5" transform="translate(75 735)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_50" data-name="Ellipse 50" cx="5" cy="5" r="5" transform="translate(143 742)" fill="rgba(255,255,255,0.32)"/>
+  </g>
 </svg>

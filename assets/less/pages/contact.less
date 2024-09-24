@@ -1,65 +1,95 @@
-.card-container {
-    .breakpoint-small-down({
-      width: -webkit-fill-available!important;
-    });
-}
-
-.card.profile {
-    width: 370px !important;
-    background-color: @secondary-color;
-    padding: 20px !important;
-    margin-bottom: 1rem;
-    .card-img-top {
-        margin-bottom: 1rem;
+.contact{
+    .width100{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-}
-
-
-.card.profile .card-body {
-    background: none !important;
-    min-height: auto !important;
-    padding: 0 !important;
-    .font-size(0.8);
-}
-
-.card.profile .card-header {
-    font-weight: bold;
-    text-align: left !important;
-    color: #1a3354;
-    margin-bottom: 1rem;
-}
-
-.contact_info h3{
-  font-family: Muli;
-  font-weight: bold;
-}
-
-.coordinator_image img{
-  border-radius: 10px;
-  width: 100%;
-  margin-bottom: 30px;
 }
 
 .profile-item{
-  margin-bottom: 40px;
+    width: 100%;
+    .contact_info {
+        background: @secondary-color;
+        border-radius: 10px;
+        margin-bottom: 40px;
+        padding: 20px;
+        width: 100%;
+        .email_container{
+            background: @link-color;
+            border-radius: 7px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4px 0;
+            .contact_mail{
+                text-align: center;
+                font-size: 18px;
+                a{
+                    display: flex;
+                    align-items: center;
+                    color: @white-color !important;
+                    &:hover{
+                        opacity: 0.5;
+                    }
+                    i{
+                        margin-right: 16px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    i:before{
+                        content: '' !important;
+                        position: absolute;
+                        display: inline-block;
+                        background: url("../../assets/images/email-icon.svg") center center no-repeat;
+                        background-size: 20px;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            }
+        }
+        .coordinator_image{
+            padding: 0;
+            height: 190px;
+
+            img{
+                object-fit: cover;
+                width: 190px;
+                height: 190px;
+            }
+        }
+        .coordinator_info{
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            .card_title, h3{
+                display: flex;
+                justify-content: start;
+                padding: 0;
+                margin: 0;
+                .breakpoint-large-down({
+                    display: flex;
+                    justify-content: center;
+                });
+            }
+            .card_title{
+                color: @link-color;
+                font-size: 18px;
+                font-weight: 500;
+            }
+            h3{
+                font-size: 20px;
+                font-weight: 600;
+                color: @heading-text-color;
+            }
+        }
+
+        .breakpoint-large-down({
+            width: 100%;
+        });
+    }
 }
 
-.coordinator_info{
-  i{
-    float: left;
-    color: @link-color;
-    display: inline-block;
-    line-height: 30px;
-    margin-top: 0px;
-    margin-right: 5px;
-    &.p-location{
-      height: 73px;
-    }
-    &.p-mail{
-      margin-top: -4px;
-    }
-  }
-  a{
-    color: @text-color-default;
-  }
-}

@@ -1,3 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48.635" height="33.16" viewBox="0 0 48.635 33.16">
-  <path id="Icon_material-remove-red-eye" data-name="Icon material-remove-red-eye" d="M25.817,6.75A26.145,26.145,0,0,0,1.5,23.33a26.123,26.123,0,0,0,48.635,0A26.145,26.145,0,0,0,25.817,6.75Zm0,27.633A11.053,11.053,0,1,1,36.871,23.33,11.057,11.057,0,0,1,25.817,34.383Zm0-17.685a6.632,6.632,0,1,0,6.632,6.632A6.623,6.623,0,0,0,25.817,16.7Z" transform="translate(-1.5 -6.75)" fill="#4d6c9c"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="119" height="51" viewBox="0 0 119 51">
+  <g id="vision" transform="translate(-64 -701)">
+    <rect id="Rectangle_3794" data-name="Rectangle 3794" width="119" height="37" rx="10" transform="translate(64 710)" fill="#bae3e8"/>
+    <text id="Vision-2" data-name="Vision" transform="translate(81 718)" fill="#01bdd6" font-size="16" font-family="RedHatDisplay-Bold, Red Hat Display" font-weight="700"><tspan x="-23.36" y="16">Vision</tspan></text>
+    <circle id="Ellipse_47" data-name="Ellipse 47" cx="7.5" cy="7.5" r="7.5" transform="translate(86 701)" fill="rgba(255,255,255,0.32)"/>
+    <ellipse id="Ellipse_48" data-name="Ellipse 48" cx="3" cy="3.5" rx="3" ry="3.5" transform="translate(163 716)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_49" data-name="Ellipse 49" cx="3.5" cy="3.5" r="3.5" transform="translate(75 735)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_50" data-name="Ellipse 50" cx="5" cy="5" r="5" transform="translate(143 742)" fill="rgba(255,255,255,0.32)"/>
+  </g>
 </svg>

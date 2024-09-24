@@ -1,4 +1,4 @@
-url = "/media-center/flyer"
+url = "/media-center/promotional-materials"
 layout = "default"
 title = "Promotional materials"
 is_hidden = 0
@@ -24,7 +24,7 @@ function onStart(){
 	if(get('download')){
 		$file = File::find((int)get('download'));
 		$file_name = $file->getLocalPath();
-$recordName = get('file_name') ? get('file_name') : 'REST-COAST_flyer';
+$recordName = get('file_name') ? get('file_name') : 'OBSGESSION_flyer';
 $ext= $file->getExtension();
 
 if (file_exists($file_name)) {
@@ -42,41 +42,60 @@ flush();
 readfile($file_name);
 exit();
 }
-return Redirect::to('/media-center/flyer');
+return Redirect::to('/flyer');
 }
 
+}
+
+function onDownloadFile(){
+$file = File::find(post('id'));
+$pathToFile = $file->getLocalPath();
+$fileName = $file->file_name;
+$fileType = $file->content_type;
+$headers = [
+'HTTP/1.1 200 OK',
+'Pragma: public',
+'Content-Type: '.$fileType,
+'Content-Type: application/force-download'
+];
+
+return Response::download($pathToFile, $fileName, $headers);
 }
 ?>
 ==
 <div class="container">
-	<a href="/media-center" class="back-to"> &#10094; Back to Media center</a><br><br>
-	<h1 class="page_heading">Promotional materials</h1>
-	<div class="row">
-		{% set records = mediaFlyersList %}
-		{% set displayColumn = mediaFlyersList.displayColumn %}
-		{% set noRecordsMessage = mediaFlyersList.noRecordsMessage %}
-		{% set detailsPage = mediaFlyersList.detailsPage %}
-		{% set detailsKeyColumn = mediaFlyersList.detailsKeyColumn %}
-		{% set detailsUrlParameter = mediaFlyersList.detailsUrlParameter %}
+    <div class="col-xs-12 go-back">
+        <a href="{{'media-center'|page}}" class="col-xs-12 back-to-news">< Back to Media center</a>
+    </div>
+        {% set records = mediaFlyersList %}
+        {% set displayColumn = mediaFlyersList.displayColumn %}
+        {% set noRecordsMessage = mediaFlyersList.noRecordsMessage %}
+        {% set detailsPage = mediaFlyersList.detailsPage %}
+        {% set detailsKeyColumn = mediaFlyersList.detailsKeyColumn %}
+        {% set detailsUrlParameter = mediaFlyersList.detailsUrlParameter %}
 
-		{% for record in records %}
-		{# Use spaceless tag to remove spaces inside the A tag. #}
-		{% spaceless %}
-		{% if record.flyer_image %}
-		<div class="col-lg-3 col-sm-4 col-xs-12">
-			<div class="card-container text-center">
-				<span class="card_image_container" style="background: url({{record.flyer_image.thumb(243,243,{'mode':'crop'})}}) center center no-repeat;" title="{{record.name}}"></span>
-				<span class="card_title">{{record.name}}, {{record.file.size}}</span><br>
-				<br><a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" title="{{record.name}}" class="btn btn-primary">Download</a>
-			</div>
-		</div>
+        {% if records.count() %}
+            <div class="row">
+                {% for record in records %}
+                    <div class="col-md-4 col-xs-12 mb-4">
+                        <div class="flyer-container {{record.name}}">
+                            <img src="{{record.flyer_image.path}}" title="{{record.name}}">
+                        </div>
+                        <p align="center">{{record.name}}</p>
 
-
-		{% endif %}
-
-		{% endspaceless %}
-		{% else %}
-		{{ noRecordsMessage }}
-		{% endfor %}
-	</div>
+                        <div class="links">
+                            {% if record.file %}
+                            <div class="button_su">
+                                {{form_open({ request: 'onDownloadFile' }) }}
+                                <input type="hidden" value="{{record.file.id}}" name="id">
+                                <span class="su_button_circle desplode-circle"></span>
+                                <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>Download</span></button>
+                                {{ form_close() }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 </div>

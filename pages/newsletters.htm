@@ -24,7 +24,7 @@ function onStart(){
 	if(get('download')){
 		$file = File::find((int)get('download'));
 		$file_name = $file->getLocalPath();
-$recordName = get('file_name') ? get('file_name') : 'REST-COAST_newsletter';
+$recordName = get('file_name') ? get('file_name') : 'OBSGESSION_newsletter';
 $ext= $file->getExtension();
 
 if (file_exists($file_name)) {
@@ -42,16 +42,31 @@ flush();
 readfile($file_name);
 exit();
 }
-return Redirect::to('/media-center/newsletters');
+return Redirect::to('/newsletters');
 }
+}
+
+function onDownloadFile(){
+$file = File::find(post('id'));
+$pathToFile = $file->getLocalPath();
+$fileName = $file->file_name;
+$fileType = $file->content_type;
+$headers = [
+'HTTP/1.1 200 OK',
+'Pragma: public',
+'Content-Type: '.$fileType,
+'Content-Type: application/force-download'
+];
+
+return Response::download($pathToFile, $fileName, $headers);
 }
 ?>
 ==
 <div class="container">
-	<a href="/media-center" class="back-to"> &#10094; Back to Media center</a><br><br>
+    <div class="col-xs-12 go-back">
+        <a href="{{'media-center'|page}}" class="col-xs-12 back-to-news">< Back to Media center</a>
+    </div>
 
-	<h1 class="page_heading">Newsletters</h1>
-	<div class="row">
 		{% set records = mediaNewslettersList %}
 		{% set displayColumn = mediaNewslettersList.displayColumn %}
 		{% set noRecordsMessage = mediaNewslettersList.noRecordsMessage %}
@@ -59,25 +74,42 @@ return Redirect::to('/media-center/newsletters');
 		{% set detailsKeyColumn = mediaNewslettersList.detailsKeyColumn %}
 		{% set detailsUrlParameter = mediaNewslettersList.detailsUrlParameter %}
 
-		{% for record in records %}
-		{# Use spaceless tag to remove spaces inside the A tag. #}
-		{% spaceless %}
-		{% if record.newsletter_image %}
-		<div class="col-md-2 col-xs-12">
-			<div class="card-container text-center">
-				<span class="card_image_container" style="background: url({{record.newsletter_image.thumb(220,220,{'mode':'crop'})}}) center center no-repeat;" title="{{record.name}}"></span>
-				<span class="card_title" style="min-height: 100px;">{{record.name}}, {{record.date |date('F Y')}}</span>
-				{# <a class="link btn btn-primary mb-1" href="{{record.url}}" target="_blank">Read the newsletter</a> #}
-				{# <br><br><a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" title="{{record.name}}" class="btn btn-primary">Download</a> #}
-				<br><br><a href="{{ record.url}}" target="_blank" title="{{record.name}}" class="btn btn-primary">Read the newsletter</a>
-			</div>
-		</div>
+        {% if records.count() %}
+        <div class="row">
+            {% for record in records %}
+            {% spaceless %}
 
-		{% endif %}
+            <div class="col-md-4 col-xs-12 mb-4">
+                <div class="flyer-container {{record.name}}">
+                    <img src="{{record.newsletter_image.path}}" title="{{record.name}}">
+                </div>
+                <p align="center">{{record.name}}</p>
 
-		{% endspaceless %}
-		{% else %}
-		{{ noRecordsMessage }}
-		{% endfor %}
-	</div>
+                <div class="links">
+                    {% if record.url %}
+                    <div class="button_su">
+                        <span class="su_button_circle desplode-circle"></span>
+                        <a class="button_su_inner" href="{{record.url}}" target="_blank"><span class="button_text_container">Read the nesletter</span></a>
+                    </div>
+                    {% endif %}
+
+                    &nbsp;
+
+                    {% if record.file %}
+                    <div class="button_su">
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file.id}}" name="id">
+                        <span class="su_button_circle desplode-circle"></span>
+                        <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>Download</span></button>
+                        {{ form_close() }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            {% endspaceless %}
+            {% endfor %}
+        </div>
+        {% endif %}
 </div>

@@ -1,134 +1,163 @@
 url = "/"
 layout = "default"
-title = "REST-COAST"
+title = "FERRO"
 is_hidden = 0
-meta_description = "homepage desc"
-seo_keywords = "keywords"
+meta_description = "The FERRO project"
 robot_index = "index"
 robot_follow = "follow"
 
-[article_highlights]
-maxItems = 3
-title = "Latest news"
-baseUrl = "/news"
-templates = "template4"
-thumb_width = 506
-thumb_height = 311
-
-[Timeline]
-limit = 3
-upcoming = 1
-marked_for_display = 0
+[jumbotron]
+jumbotron = "homepage-intro"
+background = "transperant"
 templates = "template3"
+description_limit = 0
 
 [jumbotron vision]
 jumbotron = "vision"
-title = 1
-background = "#ffffff"
-templates = "template1"
+background = "transperant"
+templates = "template3"
 description_limit = 0
 
 [jumbotron mission]
-jumbotron = "mssion"
-title = 1
-background = "#ffffff"
-templates = "template1"
+jumbotron = "mission"
+background = "transperant"
+templates = "template3"
 description_limit = 0
 
 [jumbotron goals]
-jumbotron = "goal"
-title = 1
-background = "#ffffff"
-templates = "template1"
+jumbotron = "goals"
+background = "transperant"
+templates = "template3"
 description_limit = 0
+
 
 [jumbotron numbers]
-jumbotron = "rest-coast-numbers"
-title = 1
-background = "#ffffff"
-templates = "template1"
+jumbotron = "numbers"
+background = "transperant"
+templates = "template3"
 description_limit = 0
 ==
-<!-- 3 blocks -->
-<div class="container-fluid">
-	<div class="container">
-		<div class="row between-md around-xs">
-			<div class="col-sm-4 col-xs-12 vision">
-				{% component 'vision' %}
-			</div>
-			<div class="col-sm-4 col-xs-12 mission">
-				{% component 'mission' %}
-			</div>
-			<div class="col-sm-4 col-xs-12 goals">
-				{% component 'goals' %}
-			</div>
-		</div>
-	</div>
+<?php
+use Pensoft\Articles\Models\Article;
+use Carbon\Carbon;
+use Pensoft\Partners\Models\Partners as Partner;
+
+
+function onStart(){
+
+    $this['highlights'] = Article::news()->where('published', 'true')->orderBy('published_at', 'desc')->take(10)->get()->map(function($item){
+        $item->content = str_limit(strip_tags($item->content), 90);
+        $item->href = $item->slug;
+        return $item;
+    });
+
+    $this['consortium_partners'] = Partner::where('type', 1)->get();
+}
+?>
+==
+{% component 'jumbotron' %}
+<div class="container">
+    <div class="row mission-row">
+        <div class="col-md-4 col-xs-12 mb-4">
+            <div class="mission-card">
+                <div class="col-xs-12">
+                    <h1>Vision</h1>
+                </div>
+                <div class="col-xs-12 mission-text">
+
+                    {% component 'vision' %}
+
+                </div></div></div>
+        <div class="col-md-4 col-xs-12 mb-4">
+            <div class="mission-card">
+                <div class="col-xs-12">
+                    <h1>Mission</h1>
+                </div>
+                <div class="col-xs-12 mission-text">
+
+{% component 'mission' %}
+
+                </div></div></div>
+        <div class="col-md-4 col-xs-12 mb-4">
+            <div class="mission-card">
+                <div class="col-xs-12">
+                    <h1>Goals</h1>
+                </div>
+                <div class="col-xs-12 mission-text">
+
+                {% component 'goals' %}
+
+                    <p><a class="read-more dorsal">Read more</a></p>
+                </div></div></div></div>
+
 </div>
 
-<!-- numbers -->
-<div class="numbers_container">
-	{% component 'numbers' %}
+<!-- Numbers -->
+<div class="container-fluid project-numbers-container">
+    {% component "numbers" %}
 </div>
 
-
+<!-- News -->
+{% if highlights.count %}
 <!-- latest from news -->
-<div class="container-fluid bg-secondary">
-	{% component 'article_highlights' %}
+<div class="container-fluid highlights-news">
+    <div class="container">
+        <h1 class="display-1">Latest news</h1>
+    </div>
+
+    <div class="trigger_prev"></div>
+    <div class="trigger_next"></div>
+
+    <div class="news-carousel">
+        {% for highlight in highlights %}
+        <div class="home-news-highlights">
+            <div class="row news-item">
+                <div class="col-md-12 col-xs-12 home-news-cover">
+                    <a href="/news/{{highlight.slug}}">
+                        <img src="{{ highlight.cover.path}}" alt="{{ highlight.title }}">
+                    </a>
+                </div>
+                <div class="col-md-12 col-xs-12 news-content">
+                    <a href="/news/{{highlight.slug}}"><div class="news-title">{{ highlight.title|length > 100 ? highlight.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlight.title|replace({"&nbsp;": " ", ".": ". "})  }}</div></a>
+                    <p class="news-date">{{ highlight.published_at|date('d M Y') }}</p>
+                    <div class="row read-more-row">
+                        <a href="/news/{{highlight.slug}}" class="read-more">{{'Read more' |_}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container center-xs">
+        <div class="button_su">
+            <span class="su_button_circle"></span>
+            <a href="{{'news'|page}}" class="button_su_inner">
+              <span class="button_text_container">
+                View all
+              </span>
+            </a>
+        </div>
+    </div>
 </div>
+
+{% endif %}
+
+
+
+
 <div class="container-fluid">
-	<div class="container">
-		<h1 class="base_heading">EVENTS</h1>
-		{% component 'Timeline' %}
-		
-	</div>
-</div>
-<div class="container-fluid bg-secondary">
-	<div class="container">
-	<div class="row d-flex justify-content-evenly">
-		<div class="col-sm-5 col-xs-12">
-			<h1 class="base_heading">Latest updates</h1>
-			{% if this.theme.facebook %}
-			<div class="fb-page" 
-				data-href="{{this.theme.facebook_url}}" 
-				data-tabs="timeline" 
-				data-width="500" 
-				data-height="300" 
-				data-small-header="false" 
-				data-adapt-container-width="true"
-				data-hide-cover="false" 
-				data-show-facepile="false">
-				<blockquote cite="{{this.theme.facebook_url}}" class="fb-xfbml-parse-ignore">
-					<a href="{{this.theme.facebook_url}}">{{this.theme.name}}</a>
-				</blockquote>
-			</div>
-			{% endif %}
-		</div>
-		<div class="col-sm-3 col-xs-12 social-media-container">
-			<h1 class="base_heading">Follow Rest-Coast</h1>
-			<div class="subscribe-container">
-				<div class="subscribe-items">
-					{% if this.theme.twitter %}
-					<a href="{{this.theme.twitter_url}}" target="_blank" class="btn p-primary pr p-twitter large"></a>
-					{% endif %}
-					{% if this.theme.facebook %}
-					<a href="{{this.theme.facebook_url}}" target="_blank" class="btn pr p-primary p-facebook large"></a>
-					{% endif %}
-					{% if this.theme.linkedin %}
-					<a href="{{this.theme.linkedin_url}}" target="_blank" class="btn pr p-primary p-linkedin large"></a>
-					{% endif %}
-					{% if this.theme.youtube %}
-					<a href="{{this.theme.youtube_url}}" target="_blank" class="btn pr p-primary p-youtube large"></a>
-					{% endif %}
-					{% if this.theme.instagram %}
-					<a href="{{this.theme.instagram_url}}" target="_blank" class="btn pr p-primary p-instagram large"></a>
-					{% endif %}
-					{% if this.theme.researchgate %}
-					<a href="{{this.theme.researchgate_url}}" target="_blank" class="btn pr p-primary p-researchgate large" style="width: 64px;"></a>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
+    <div class="row middle-xs between-xs">
+        <div class="col-xs-12 center-xs mb-1 mt-2"><h1 class="display-1">Consortium</h1></div>
+        <div class="col-xs-12 center-xs consortium_partners">
+            <div id="slick">
+                {% for c in consortium_partners %}
+                <div class="slide">
+                    <div class="partner_logo"><a href="{{c.instituion_url}}" target="_blank">
+                        <img alt="{{ c.instituion }}" src="{{c.cover.thumb(auto,80,{'mode':'crop'})}}"></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>

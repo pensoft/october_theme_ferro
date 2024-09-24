@@ -22,7 +22,9 @@ function onStart(){
 }
 ?>
 ==
-<{% component 'session' %}div class="container">
+{% component 'session' %}
+<h1 class="underline">Users</h1>
+<div class="container">
 	{% for user in users %}
 	<div class="row middle-xs userBox">
 		<div class="col-xs-3 col-md-1 userPic">

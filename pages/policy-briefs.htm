@@ -12,7 +12,7 @@ function onStart(){
 	if(post('download')){
 		$file = File::find((int)post('download'));
 		$file_name = $file->getLocalPath();
-$recordName = post('file_name') ? post('file_name') : 'REST-COAST_policy_brief';
+$recordName = post('file_name') ? post('file_name') : 'FERRO_policy_brief';
 $ext= $file->getExtension();
 
 if (file_exists($file_name)) {
@@ -38,7 +38,6 @@ return Redirect::to('/media-center/policy-briefs');
 
 <div class="container presentation">
     <a href="/media-center" class="back-to"> &#10094; Back to Media center</a><br><br>
-    <h1 class="page_heading">Policy briefs</h1>
     <div class="row">
         {% set records = recordsList %}
         {% set displayColumn = recordsList.displayColumn %}

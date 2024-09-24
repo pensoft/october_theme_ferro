@@ -9,69 +9,88 @@ robot_follow = "follow"
 
 [siteSearchInclude]
 
-[jumbotron background]
-jumbotron = "backgound"
+[jumbotron about]
+jumbotron = "about"
 title = 1
-background = "#ffffff"
-templates = "template1"
-description_limit = 0
-
-[jumbotron goals]
-jumbotron = "objectives"
-title = 1
-background = "unset"
-templates = "template1"
-description_limit = 0
-
-[accordion]
-maxItems = 10
-accordion = 1
-elementId = "structure"
-active = 0
-collapsible = "true"
-heightStyle = "content"
-iconsHeader = "ui-icon-blank"
-iconsHeaderActive = "ui-icon-blank"
+background = "transperant"
 templates = "template3"
-
-[jumbotron]
-jumbotron = "about-page-image"
-background = "#ffffff"
-templates = "template1"
 description_limit = 0
 
-[jumbotron jumbotron2]
-jumbotron = "rest-coast-will-address"
-background = "#ffffff"
-templates = "template1"
+[jumbotron project]
+jumbotron = "project"
+title = 1
+background = "transperant"
+templates = "template3"
 description_limit = 0
 ==
+<?php
+function onStart(){
+    use Pensoft\Accordions\Models\Item;
+    use Pensoft\Accordions\Models\Category;
+
+    $this['mission_title'] = Category::where('id', 1)->first();
+    $this['mission_records'] = Item::where('category_id', 1)->get();
+    $this['work_packages_title'] = Category::where('id', 2)->first();
+    $this['work_packages_records'] = Item::where('category_id', 2)->get();
+}
+?>
+==
 {% component 'siteSearchInclude' %}
+
+
 <div class="container">
-    <h1 class="page_heading ml-1">About</h1>
-    <div class="row middle-xs">
-        <div class="col-md-6 col-xs-12">
-             <div class="we_will">
-                {% component 'jumbotron2' %}
-             </div>
-             <div class="background">
-                {% component 'background' %}
-             </div>
-        </div>
-        <div class="col-md-6 col-xs-12">
-            {% component 'jumbotron' %}
-        </div>
+    <div class="row">
+        <div class="col-md-6 col-xs-12 start-md center-xs"><img src="{{'image-about-1.png'|media}}"> </div>
+        <div class="col-md-6 col-xs-12">{% component "about" %}</div>
     </div>
-    <div class="row top-xs">
-        <div class="col-md-6 col-xs-12 about_goals_page">
-            {% component 'goals' %}
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <div class="container-fluid work_packages " style="background-color:unset;">
-    	        <div class="container">
-                    {% component 'accordion' %}
-                </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-xs-12">{% component "project" %}</div>
+        <div class="col-md-6 col-xs-12 end-md center-xs"><img src="{{'image-about-2.png'|media}}"> </div>
+    </div>
+</div>
+
+<div class="container" id="mission">
+
+    <h2 class="underline">{{mission_title.name}}</h2>
+    <div class="row top-xs mission">
+        {% for key1, item1 in mission_records %}
+        <div class="accordion-border key_{{key1}}"><!-- 1 --><!-- css 1 -->
+            <div class="row middle-xs accordion-toggle">
+                <div class="col-xs start-xs">{{item1.title}}</div>
+
+                <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+            </div>
+
+            <div class="accordion-content" style="display: none;">
+                {{item1.body|raw}}
             </div>
         </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container" id="work-packages">
+
+    <h2 class="underline">{{work_packages_title.name}}</h2>
+
+    <div class="row top-xs work_packages">
+        {% for key, item in work_packages_records %}
+        <div class="accordion-border key_{{key}}"><!-- 1 --><!-- css 1 -->
+            <div class="row middle-xs accordion-toggle">
+                <div class="col-xs-2 green_bullet">{{item.prefix}}</div>
+
+                <div class="col-xs start-xs">{{item.title}}</div>
+
+                <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+            </div>
+
+            <div class="accordion-content" style="display: none;">
+                {{item.body|raw}}
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>

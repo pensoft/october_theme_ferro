@@ -1,6 +1,6 @@
 url = "/media-center/press-releases"
 layout = "default"
-title = "Media center"
+title = "Press releases"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
@@ -14,49 +14,67 @@ noRecordsMessage = "No records found"
 detailsPage = "-"
 detailsUrlParameter = "id"
 pageNumber = "{{ :page }}"
+
+
+[siteSearchInclude]
+
+
+[jumbotron]
+jumbotron = "under-construction"
+title = 1
+background = "transperant"
+templates = "template1"
+description_limit = 0
 ==
 <?php
 use Pensoft\Media\Models\Pressreleases;
 
 function onStart(){
-	$this['mediaPressreleasesList'] =  Pressreleases::get();
+	$this['mediaPressreleasesList'] =  Pressreleases::orderBy('date', 'desc')->get();
 }
 ?>
 ==
+{% component 'siteSearchInclude' %}
+{% set records = mediaPressreleasesList %}
+
+{% if records.count %}
+
 <div class="container">
+    <div class="col-xs-12 go-back">
+        <a href="{{'media-center'|page}}" class="col-xs-12 back-to-news">< Back to Media center</a>
+    </div>
 
-	<a href="/media-center" class="back-to"> &#10094; Back to Media center</a><br><br>
-
-	<h1 class="page_heading">Presss releases</h1>
-
-	<div class="row">
-		{% set records = mediaPressreleasesList %}
-		{% set displayColumn = mediaPressreleasesList.displayColumn %}
-		{% set noRecordsMessage = mediaPressreleasesList.noRecordsMessage %}
-		{% set detailsPage = mediaPressreleasesList.detailsPage %}
-		{% set detailsKeyColumn = mediaPressreleasesList.detailsKeyColumn %}
-		{% set detailsUrlParameter = mediaPressreleasesList.detailsUrlParameter %}
-
-		{% for record in records %}
-		{# Use spaceless tag to remove spaces inside the A tag. #}
-		{% spaceless %}
-		<div class="col-xs">
-			<div class="card-container library-item">
-				<span class="card_title">{{record.name}}</span><br><br>
-				<span class=""> {{record.date |date('F Y')}}</span> <br><br>
-				<div class="body">{{record.description | raw}}</div>
-				<div class="row link mt-3">
-					{% for link in record.link %}
-					<a href="{{link.url}}" target="_blank" class="btn btn-primary">{{link.text}}</a>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
+    <div class="row press-relieses-container">
 
 
-		{% endspaceless %}
-		{% else %}
-		{{ noRecordsMessage }}
-		{% endfor %}
-	</div>
+        {% for record in records %}
+        {# Use spaceless tag to remove spaces inside the A tag. #}
+        {% spaceless %}
+        <div class="col-md-6 col-xs-12">
+            <div class="press-relies-item">
+                <div class="date"> {{record.date |date('d F Y')}}</div>
+                <span class="card_title">{{record.name}}</span><br><br>
+
+                <div class="body">{{record.description | raw}}</div>
+                <div class="row link">
+                    {% for link in record.link %}
+                    <div class="button_su">
+                        <span class="su_button_circle desplode-circle"></span>
+                        <a class="button_su_inner" href="{{link.url}}" target="_blank"><span class="button_text_container">{{link.text}}</span></a>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        {% endspaceless %}
+        {% endfor %}
+    </div>
 </div>
+{% else %}
+<div class="container-fluid bg-secondary coming_soon">
+    {% component 'jumbotron' %}
+</div>
+{% endif %}

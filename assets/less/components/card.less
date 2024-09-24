@@ -1,6 +1,5 @@
 
 .card_title{
-  font-family: Oswald;
   font-size: 22px;
   font-weight: 600;
   color: @dark-color;
@@ -14,90 +13,63 @@
 }
 
 .card-container {
-  margin-bottom: 20px;
-  //padding: 0 50px;
   min-width: fit-content;
+  display: block;
+  justify-content: center;
+  //height: 212px;
+  //width: 150px;
+  margin: 25px auto 100px auto;
+  text-align: center;
+    a{
+        display: block;
+    }
+
+  //&:hover{
+  //    //opacity: 0.7;
+  //    opacity: 1;
+  //    background: #EFF5F5;
+  //}
   .breakpoint-laptop-down({
     padding: 0px;
   });
 }
 
-
-.card_image_container{
-  display: flex;
-  background-size: 80px!important;
-  height: 180px;
-  width: 180px;
-  background-color: @white-color!important;
-  border-radius: 50%;
-  margin: 25px auto;
-  border: 2px solid @link-color;
-  &:hover{
-    background-color: @link-color!important;
-  }
-  .breakpoint-small-down({
-    width: 150px!important;
-    height: 150px!important;
-    background-size: 60px!important;
-  })
-}
+//.card_image_container{
+//  display: flex;
+//  background-size: contain!important;
+//  height: 183px;
+//  width: 144px;
+//  margin: 0px auto;
+//
+//  //.breakpoint-small-down({
+//  //  width: 150px!important;
+//  //  height: 150px!important;
+//  //  background-size: 60px!important;
+//  //})
+//}
 
 
-.newsletters,
-.logo,
-.presentation,
-.flyer{
-  .card_image_container{
-    display: flex;
-    background-size: unset!important;
-    height: 220px;
-    width: 220px;
-    background-color: @white-color!important;
-    border-radius: 10px;
-    margin: 27px auto;
-    border: none;
-    &:hover{
-      opacity: 0.7;
-    }
-    .breakpoint-small-down({
-      width: 220px!important;
-      height: 220px!important;
-      background-size: unset!important;
-    });
-  }
-}
-
-.logo .card_image_container{
-  border-radius: 0;
-  background-size: 50%!important;
-}
-
-a:hover > .card_image_container{
-    background: @link-color;
-}
-
-.card-carousel {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-
-  .card-body {
-    background: @white-color;
-    min-height: 135px!important;
-    margin-top: 20px;
-    .rounded(10px);
-  }
-}
-
-.card-new-item {
-  margin-top: 1rem;
-  transition: all .3s ease-in-out;
-}
-
-.card-new-item:hover{
-  margin-top: 0;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
+//.newsletters,
+//.logo,
+//.presentation,
+//.flyer{
+//  .card_image_container{
+//    display: flex;
+//    background-size: unset!important;
+//    height: 220px;
+//    width: 220px;
+//    background-color: @white-color!important;
+//    border-radius: 5px;
+//    margin: 27px auto;
+//    border: none;
+//
+//    .breakpoint-small-down({
+//      width: 220px!important;
+//      height: 220px!important;
+//      background-size: unset!important;
+//    });
+//  }
+//}
 
 .card-columns {
   flex-flow: column wrap !important;

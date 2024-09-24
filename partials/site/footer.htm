@@ -1,21 +1,5 @@
-[menu about_menu]
-start = "id-9"
-activeNode = 0
-listItemClasses = "footer-menu-item"
-primaryClasses = "footer-menu"
-secondaryClasses = "dropdown-menu"
-numberOfLevels = 1
-
-[menu latest_menu]
-start = "id-13"
-activeNode = 0
-listItemClasses = "footer-menu-item"
-primaryClasses = "footer-menu"
-secondaryClasses = "dropdown-menu"
-numberOfLevels = 1
-
-[menu resources_menu]
-start = "id-20"
+[menu footer_menu]
+start = "id-3"
 activeNode = 0
 listItemClasses = "footer-menu-item"
 primaryClasses = "footer-menu"
@@ -28,81 +12,106 @@ dismiss = "Got it!"
 learnMore = "More info"
 link = "/privacy-policy"
 theme = "dark-bottom"
+
+[jumbotron footer_funds]
+jumbotron = "footer-funds-text"
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
-<div class="container-fluid border-box dark-background">{% component 'cookieConsent' %}
-	<div class="container">
-		<div class="row top-xs between-xs footer-menu-container">
-			<div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
-				<div class="head">ABOUT</div>
-				{% component 'about_menu' %}
-			</div>
-			<div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
-				<div class="head">LATEST</div>
-				{% component 'latest_menu' %}
-			</div>
-			<div class="col-xs-12 col-md-2 start-md center-xs col-sm-6 start-sm">
-				<div class="head">RESOURCES</div>
-				{% component 'resources_menu' %}
-			</div>
-			<div class="col-xs-12 col-md-3 start-md center-xs col-sm-6 start-sm">
-				{% if (enable_social_media) %}
-				<div class="head">FOLLOW {{ this.theme.site_name }}</div>
-				<div class="social-networks">
-					<div class="icons mt-1">
-						{% if enable_facebook and facebook_url %}
-						<a href="{{facebook_url}}" target="_blank" class="pr p-secondary p-facebook big" target="_blank"></a>
-						{% endif %}
-						{% if enable_twitter and twitter_url %}
-						<a href="{{twitter_url}}" target="_blank" class="pr p-secondary p-twitter big d-flex align-items-center" target="_blank"></a>
-						{% endif %}
-						{% if enable_linkedin and linkedin_url %}
-						<a  href="{{linkedin_url}}" target="_blank" class="pr p-secondary p-linkedin big" target="_blank"></a>
-						{% endif %}
-						{% if enable_youtube and youtube_url %}
-						<a  href="{{youtube_url}}" target="_blank" class="pr p-secondary p-youtube big" target="_blank"></a>
-						{% endif %}
-						{% if enable_instagram and instagram_url %}
-						<a  href="{{instagram_url}}" target="_blank" class="pr p-secondary p-instagram big" target="_blank"></a>
-						{% endif %}
-					</div>
-				</div>
-				{% endif %}
-			</div>
-			<div class="col-xs-12 col-md start-md center-xs col-sm-6 start-sm">
-				<div class="head">Contact us</div>
-				<div class="social-networks contacts col-md-2 col-xs-12 start-md center-xs">
-					<div class="icons mt-1">
-						<a href="{{'contact'|page}}" class="pr p-secondary p-mail big"></a>
-					</div>
-				</div>
-			</div>
+{% component 'cookieConsent' %}
+<div class="container-fluid border-box dark-background">
+    <div class="container">
+        <div class="row top-xs between-xs footer-menu-container">
 
-			{%if this.theme.subscribe%}
-			<div class="col-xs-12 col-md start-md center-xs col-sm-6 start-sm">
-				<div class="head" style="white-space:nowrap; overflow: hidden;">Stay up to date</div>
-				<div class="icons mt-1">
-					<a href="{{this.theme.subscribe}}" target="_blank" class="pr p-secondary p-subscribe big"></a>
-				</div>
-			</div>
-			{%endif%}
+            <div class="col-md-6 col-xs-12">
+                <img src="{{'FERRO-Logo.png'|media}}" class="footer_logo">
+            </div>
 
-		</div>
-	</div>
+            <div class="col-md-6 col-xs-12 end-md center-xs">
 
+                <div class="button_su zenodo">
+                    <span class="su_button_circle"></span>
+                    <a href="{{this.theme.subscribe}}" class="button_su_inner">
+                      <span class="button_text_container">
+                        Zenodo
+                      </span>
+                    </a>
+                </div>
+
+
+                <div class="button_su subscribe">
+                    <span class="su_button_circle"></span>
+                    <a href="{{this.theme.subscribe}}" class="button_su_inner">
+                      <span class="button_text_container">
+                        Subscribe to newsletter
+                      </span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row top-xs between-xs footer-menu-container">
+
+            <div class="col-md-6 col-xs-12 footer-disclaimer-container footer-right-border">
+                {% if (footer_funds_flag != null or footer_funds_text != '') %}
+                <div class="funding flex-column my-1 my-lg-0 flex-lg-row px-1 align-items-center col-sm col-xs-12">
+                    {% if footer_funds_flag %}
+                    <img class="text mr-0 mr-lg-1" style="height:40px;" src="{{ footer_funds_flag }}"/>
+                    {% endif %}
+                </div>
+                <div class="funding-text">
+                    {% component 'footer_funds' %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6 col-xs-12 menu_and_powered">
+                <div class="row between-xs footer_menu">
+                    <div class="col-xs-12 col-md-8 start-md center-xs">
+                        LINKS
+                        {% component 'footer_menu' %}
+                    </div>
+                    <div class="col-xs-12 col-md-4 end-md center-xs">
+                        FOLLOW FERRO
+                        <div class="social-networks">
+                            <div class="icons">
+                                {% if enable_facebook and facebook_url %}
+                                <a href="{{facebook_url}}" target="_blank" class="pr p-secondary p-facebook normal" target="_blank"></a>
+                                {% endif %}
+                                {% if enable_twitter and twitter_url %}
+                                <a href="{{twitter_url}}" target="_blank" class="pr p-secondary p-twitter normal" target="_blank"></a>
+                                {% endif %}
+                                {% if enable_linkedin and linkedin_url %}
+                                <a  href="{{linkedin_url}}" target="_blank" class="pr p-secondary p-linkedin normal" target="_blank"></a>
+                                {% endif %}
+                                {% if enable_youtube and youtube_url %}
+                                <a  href="{{youtube_url}}" target="_blank" class="pr p-secondary p-youtube normal" target="_blank"></a>
+                                {% endif %}
+                                {% if enable_instagram and instagram_url %}
+                                <a  href="{{instagram_url}}" target="_blank" class="pr p-secondary p-instagram normal" target="_blank"></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
-<div class="container-fluid border-box black-background">
-	<div class="row nowrap text-light d-flex justify-content-between align-items-center flex-column flex-lg-row dark-background">
-		{% if (footer_funds_flag != null or footer_funds_text != '') %}
-		<div class="funding flex-column my-1 my-lg-0 flex-lg-row px-1 align-items-center col-sm col-xs-12">
-			{% if footer_funds_flag %}
-			<img class="text mr-0 mr-lg-1" style="height:50px;" src="{{ footer_funds_flag }}"/>
-			{% endif %}
-			{% if footer_funds_text %}
-			<span class="align-items-center mt-sm-0 mt-1">{{footer_funds_text}}</span>
-			{%endif %}
-		</div>
-		{% endif %}
-		<div class="col-sm-2 col-xs-12 center-xs"><a style="flex:0 0 auto;" href="/privacy-policy">Privacy Policy</a></div>
-		<div class="col-sm-3 col-xs-12 end-sm center-xs"><div class="powered-by my-1 my-lg-0 px-1 align-items-center end-sm center-xs"><span class="mr-1">Designed and powered by <a href="https://pensoft.net/" target="_blank">Pensoft</a></span></div></div>
-	</div>
+
+<div class="container-fluid border-box light-background">
+    <div class="container">
+        <div class="row top-xs between-xs footer-menu-container">
+            <div class="col-xs-12 powered-by center-xs">
+                <span>Designed and powered by <a href="https://pensoft.net/" target="_blank">
+                    <img class="pensoft_logo" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" /></a>
+                </span>
+            </div>
+        </div>
+    </div>
 </div>

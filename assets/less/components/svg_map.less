@@ -2,41 +2,50 @@
 	SVG map
 */
 
-.fill_default:hover
+g#location-icon,
+g#location-icon-2,
+g#location-icon-3,
+g#location-icon-4,
+g#location-icon-5,
+g#location-icon-6,
+g#location-icon-7
 {
-  opacity:0.5;
-  cursor:pointer;
+    &:hover{
+        cursor: pointer;
+    }
 }
+
+//.pilots_svg_map_container{
+//    position: relative;
+//}
 
 .tooltiptext {
   display: none;
-  width: 120px;
+  width: fit-content;
   background-color: #FFF;
   color: #000000;
   text-align: center;
-  border-radius: 50px;
-  position: fixed;
+  border-radius: 10px;
+  position: absolute;
   z-index: 1;
-  padding: 10px 15px;
-  -webkit-box-shadow: 0px -1px 11px 0px #c1c1c1;
-  -moz-box-shadow: 0px -1px 11px 0px #c1c1c1;
-  box-shadow: 0px -1px 11px 0px #c1c1c1;
-  font-weight: bold;
+  padding: 5px 15px;
+  font-size: 14px;
+  -webkit-box-shadow: 0px 0px 20px #1B869426;
+  -moz-box-shadow: 0px 0px 20px #1B869426;
+    box-shadow: 0px 0px 20px #1B869426;
+  font-weight: normal;
 }
 
 .tooltiptext.active {
-  display: initial;
+    display: initial;
 }
 
 .active_path{
-  //fill:#102441!important;
-  //stroke:#c1c1c1!important;
-  //stroke-width:10px!important;
-  animation: blinker 1s linear infinite;
+    animation: blinker 1s linear infinite;
 }
 
 @keyframes blinker {
-  50% {
-    opacity: 0;
-  }
+    50% {
+        opacity: 0;
+    }
 }
