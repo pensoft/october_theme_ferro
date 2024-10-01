@@ -38,20 +38,22 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding: 75px 35px 35px 35px;
+            padding: 75px 30px 35px 30px;
             color: @heading-text-color;
             border-radius: 7px;
             position: relative;
+            .breakpoint-huge-down({
+                padding: 75px 25px 35px 25px;
+            });
             h1{
                 font-size: 26px;
             }
             .container{
                 padding: 0;
             }
-
-
-
-
+            p{
+                line-height: 1.5em;
+            }
         }
 
         &:nth-of-type(1) .mission-card{
@@ -93,7 +95,7 @@
             }
 
             p:first-of-type{
-                height: 99px;
+                height: 80px;
                 overflow: hidden;
                 //transition: all 0.5s ease-in-out;
                 &.expand{
@@ -103,7 +105,7 @@
             }
 
             p:has(.read-more){
-                margin-bottom: 0;
+                margin-bottom: 0!important;
             }
         }
     }
@@ -128,6 +130,7 @@
         p{
             margin-bottom: 0;
             line-height: 1.3em;
+            margin-top: 20px;
         }
 
 
@@ -154,8 +157,8 @@
         //border-right: 1px solid #7c7b9e!important;
     }
     img{
-        height: 50px;
-        max-height: fit-content;
+        height: 120px;
+        max-height: 100%;
         width: auto;
         max-width: 100%;
         object-fit: contain;

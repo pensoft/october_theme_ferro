@@ -14,23 +14,10 @@
 .videos,
 .newsletters,
 .logo{
-    .go-back{
-        display: flex;
-        justify-content: start;
-        width: fit-content;
-        margin-bottom: 20px;
-        .back-to-news{
-            width: fit-content;
-            font-size: 17px;
-            color: #707070;
-            &:hover{
-                opacity: 0.8;
-            }
-        }
-    }
+
 
     p{
-        font-size: 24px;
+        font-size: 19px;
         font-weight: bold;
         color: @dark-color;
     }
@@ -44,22 +31,7 @@
         }
     }
 }
-.press-releases{
-    .go-back{
-        display: flex;
-        justify-content: start;
-        width: fit-content;
-        margin-bottom: 20px;
-        .back-to-news{
-            width: fit-content;
-            font-size: 17px;
-            color: #707070;
-            &:hover{
-                opacity: 0.8;
-            }
-        }
-    }
-}
+
 
 .card-container{
     position: relative;
@@ -294,6 +266,8 @@
         position: relative;
         display: flex;
         align-items: center;
+        padding-left: 15px;
+        transition: all 0.3s ease-in-out;
         &::before{
             display: flex;
             align-items: center;
@@ -307,7 +281,9 @@
             transform: rotate(90deg);
         }
         &:hover{
-            opacity: 0.8;
+            &::before{
+                left: -2px;
+            }
         }
     }
 }

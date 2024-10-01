@@ -270,7 +270,7 @@ button:not(:disabled) {
     }
 
     &.website{
-        margin-bottom: 0px;
+        margin-bottom: 18px;
         .button_text_container{
             padding-left: 20px;
             transition: all 0.5s ease-in-out;
@@ -349,6 +349,10 @@ button:not(:disabled) {
 
     &.mail{
         margin-bottom: 0!important;
+        .breakpoint-large-down({
+            margin: 20px auto;
+            display: block;
+        });
         .button_text_container{
             padding-left: 20px;
             transition: all 0.5s ease-in-out;
@@ -373,6 +377,10 @@ button:not(:disabled) {
             display: flex;
             align-items: center;
             justify-content: center;
+            .breakpoint-large-down({
+                width: fit-content;
+                margin: 0 auto;
+            });
             &:hover{
                 padding: 11px 29px 11px 11px;
             }

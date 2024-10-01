@@ -27,7 +27,7 @@ nav:not(.navbar){
         align-items: center;
         justify-content: center;
         padding: 3px 15px 3px 40px;
-        background: #25BDD2A6 url("../../assets/images/calendar.svg") center no-repeat;
+        background: #25BDD2 url("../../assets/images/calendar.svg") center no-repeat;
         background-size: 18px;
         background-position: 15px center;
         backdrop-filter: blur(28px);
@@ -112,7 +112,7 @@ nav:not(.navbar){
             margin-bottom: 20px;
             margin-top: 20px;
             text-align: left;
-            font-weight: 600;
+            font-weight: 500;
             min-height: 47px;
         }
 
@@ -184,6 +184,63 @@ nav:not(.navbar){
     }
 }
 
+
+.prev-nex-container{
+    position: relative;
+    padding: 0;
+    margin: 0;
+
+    .trigger_prev_arrow,
+    .trigger_next_arrow{
+        position: absolute;
+        width: 250px;
+        height: 311px;
+        z-index: 999;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    .trigger_prev_arrow{
+        right: 70px;
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -73px;
+        z-index: 1;
+        background: url("../../assets/images/arrows-news.svg") center no-repeat;
+        background-size: 42px;
+        &:hover{
+            background: url("../../assets/images/arrows-news-hover.svg") center no-repeat;
+            background-size: 42px;
+            opacity: 1;
+        }
+    }
+
+    .trigger_next_arrow{
+        right: 22px;
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -73px;
+        z-index: 1;
+        background: url("../../assets/images/arrows-news.svg") center no-repeat;
+        background-size: 42px;
+        transform: rotate(180deg);
+        &:hover{
+            background: url("../../assets/images/arrows-news-hover.svg") center no-repeat;
+            background-size: 42px;
+            opacity: 1;
+        }
+    }
+
+}
 
 /*
         HOME NEWS HIGHLIGHT SECTION
@@ -353,6 +410,7 @@ nav:not(.navbar){
     .slick-arrow {
         border: none;
         color: transparent;
+        display: none!important;
 
         &.slick-prev {
             position: absolute;
