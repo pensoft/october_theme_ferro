@@ -126,12 +126,16 @@
     .button_su_inner {
         z-index: 0 !important;
         padding: 7px 13px !important;
+        width: 160px;
+        height: 47px;
     }
 
     .button_text_container {
 
         z-index: 0 !important;
     }
+
+
 
     .col-md-3.col-xs-12 {
         .breakpoint-large-down({
@@ -152,6 +156,14 @@
 
 .library .container {
     padding: 0;
+
+    .button_su{
+        &:has(form){
+            margin-top: 60px;
+            margin-right: 20px;
+            margin-bottom: 0;
+        }
+    }
 
     .row.center-xs.mb-1 {
         position: relative;
@@ -228,7 +240,7 @@
     }
 
     .field {
-        margin-right: 20px;
+        margin-right: 10px;
 
         .breakpoint-laptop-down({
             margin-bottom: 20px;
@@ -267,6 +279,7 @@
             padding: 0.7rem 1rem;
             line-height: 1.3em;
         }
+
     }
 
     .no-records {
@@ -299,8 +312,6 @@
     select::-ms-expand {
         display: none;
     }
-
-    margin-right: 22px;
 
     .breakpoint-large-down({
         margin-right: unset;
@@ -336,6 +347,8 @@
         .rounded-bl(25px);
         height: 45px !important;
         padding: 0 10px;
+
+
     }
 
     .breakpoint-large-down({
@@ -344,6 +357,7 @@
         display: unset;
     })
 }
+
 
 /// @dev
 .btn.searchLibrary {

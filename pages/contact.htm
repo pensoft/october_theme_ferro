@@ -39,10 +39,14 @@ function onStart(){
                         </div>
                         <div>
                         {% if profile.email %}
-                            <div class="email_container">
-                                <div class="contact_mail">
-                                    <a href="mailto:{{profile.email}}"><i class="pr p-mail"></i> {{profile.email}}</a>
-                                </div>
+                            <div class="button_su mail">
+                                <span class="su_button_circle">
+                                </span>
+                                <a href="mailto:{{profile.email}}" class="button_su_inner">
+                                  <span class="button_text_container">
+                                    {{profile.email}}
+                                  </span>
+                                </a>
                             </div>
                         {% endif %}
                         </div>

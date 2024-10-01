@@ -65,7 +65,7 @@ return Response::download($pathToFile, $fileName, $headers);
 ==
 <div class="container">
     <div class="col-xs-12 go-back">
-        <a href="{{'media-center'|page}}" class="col-xs-12 back-to-news">< Back to Media center</a>
+        <a href="{{'media-center'|page}}" class="col-xs-12">Back to Media</a>
     </div>
 
 
@@ -90,31 +90,31 @@ return Response::download($pathToFile, $fileName, $headers);
 
                 <div class="links">
                     {% if record.file_jpg %}
-                    <div class="button_su">
+                    <div class="button_su download">
                     {{form_open({ request: 'onDownloadFile' }) }}
                     <input type="hidden" value="{{record.file_jpg.id}}" name="id">
                     <span class="su_button_circle desplode-circle"></span>
-                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>JPG</span></button>
+                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container">JPG</span></button>
                     {{ form_close() }}
                     </div>
                     {% endif %}
 
                     {% if record.file_png %}
-                    <div class="button_su">
+                    <div class="button_su download">
                     {{form_open({ request: 'onDownloadFile' }) }}
                     <input type="hidden" value="{{record.file_png.id}}" name="id">
                     <span class="su_button_circle desplode-circle"></span>
-                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>PNG</span></button>
+                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container">PNG</span></button>
                     {{ form_close() }}
                     </div>
                     {% endif %}
 
                     {% if record.file_eps %}
-                    <div class="button_su">
+                    <div class="button_su download">
                     {{form_open({ request: 'onDownloadFile' }) }}
                     <input type="hidden" value="{{record.file_eps.id}}" name="id">
                     <span class="su_button_circle desplode-circle"></span>
-                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>SVG</span></button>
+                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container">SVG</span></button>
                     {{ form_close() }}
                     </div>
                     {% endif %}

@@ -53,7 +53,7 @@ numberOfLevels = 2
         <ul class="navbar-nav">
             <li class="nav-item social">
 
-                <a class="pr p-search big search-btn" onclick="showSearchForm();"></a>
+                <a class="search-btn" onclick="showSearchForm();"></a>
             </li>
         </ul>
     </div>
@@ -62,7 +62,7 @@ numberOfLevels = 2
             <div class="close-search" onclick="hideSearchForm();">&#10006;</div>
             <form class="input-group align-items-start" action="{{ url('search')}}" method="get">
                 <input class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search">
-                <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit"></button>
+                <button class="btn pr p-search big header-text-grey-search-btn" type="submit"></button>
             </form>
         </div>
     </div>
@@ -81,10 +81,11 @@ numberOfLevels = 2
     <div class="jumbotron">
         <div class="container">
             <div class="intro">
-                <h1 data-text="{{tag_line|raw}}"></h1>
+                <h1 id="screen"></h1>
+                <h1 id="text" style="display:none">{{tag_line|raw}}</h1>
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="button_su">
+                        <div class="button_su intro_btn">
                             <span class="su_button_circle">
                             </span>
                             <a href="{{'about'|page}}" class="button_su_inner">
@@ -94,7 +95,6 @@ numberOfLevels = 2
                             </a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

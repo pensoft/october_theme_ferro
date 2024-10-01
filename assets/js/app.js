@@ -1,16 +1,16 @@
 $(window).scroll(animateNumbers);
 
-$(window).scroll(function () {
-    var scrolled = $(window).scrollTop();
-    // if(scrolled > 100 ){
-        // $('.home .header-image video').addClass('scale');
-        $('.home .hero').css('top',-(scrolled*0.0315)+'rem');
-        $('.home .hero h1').css('top',-(scrolled*-0.005)+'rem');
-        $('.home .hero h1').css('opacity',1-(scrolled*.00175));
-    // }else{
-    //     $('.home .header-image video').removeClass('scale');
-    // }
-});
+// $(window).scroll(function () {
+//     var scrolled = $(window).scrollTop();
+//     // if(scrolled > 100 ){
+//         // $('.home .header-image video').addClass('scale');
+//         $('.home .hero').css('top',-(scrolled*0.0315)+'rem');
+//         $('.home .hero h1').css('top',-(scrolled*-0.005)+'rem');
+//         $('.home .hero h1').css('opacity',1-(scrolled*.00175));
+//     // }else{
+//     //     $('.home .header-image video').removeClass('scale');
+//     // }
+// });
 
 
 var viewed = false;
@@ -21,15 +21,15 @@ var documentHasScroll = function() {
     return window.innerHeight <= document.body.offsetHeight;
 };
 
-window.addEventListener('scroll', function (e) {
-    var headernavbar = document.getElementById("headernavbar");
-    if (window.scrollY > headernavbar.offsetHeight){
-        var headerNavbarNav = document.querySelector('#headerNavbarNav')
-        headernavbar.classList.add('scrolled');
-    }else{
-        headernavbar.classList.remove('scrolled');
-    }
-});
+// window.addEventListener('scroll', function (e) {
+//     var headernavbar = document.getElementById("headernavbar");
+//     if (window.scrollY > headernavbar.offsetHeight){
+//         var headerNavbarNav = document.querySelector('#headerNavbarNav')
+//         headernavbar.classList.add('scrolled');
+//     }else{
+//         headernavbar.classList.remove('scrolled');
+//     }
+// });
 
 
 
@@ -88,10 +88,13 @@ $(document).ready(function() {
             $(this).next(".accordion-content").slideUp(300);
             $(this).children().find(".plusminus").text('+');
             $(this).children(".plusminus").html('<span class="plus"></span>');
+            $(this).children(".green_bullet").removeClass('toggled');
+
         } else {
             $(this).next(".accordion-content").slideDown(300);
             $(this).children().find(".plusminus").text('-');
             $(this).children(".plusminus").html('<span class="minus"></span>');
+            $(this).children(".green_bullet").addClass('toggled');
         }
     });
 
@@ -314,9 +317,6 @@ $(document).ready(function() {
         $(this).prev(".su_button_circle").addClass("desplode-circle");
     });
 
-
-
-
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
         '<a class="folder-background" style="display:flex; background: url(/storage/app/media/Reporting-forms-ferro.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/dissemination-report-forms" title="Dissemination report forms"></a>\n' +
         '<h3 class="card-header"><a href="/internal-repository/dissemination-report-forms" title="Reporting forms">Reporting forms</a></h3>\n' +
@@ -332,25 +332,64 @@ $(document).ready(function() {
     $('<div class="mark"></div>').insertAfter($('.group-holder input'));
 
 
-    // var QueryString = (new URL(location.href)).searchParams.get('type');
-    // if(QueryString == 1 || QueryString == 3){
-    //     $('#partialLibraries').html('<p class="mt-2" align="center">Currently there is no content available. Keep posted for updates very soon.</p>');
-    // }
+    type(0, 20, "text", "screen");
 
-    var textEl = document.querySelector('.home .intro h1');
+    // var text = "Ayaka is a person. She is female. And a girl. And also 31 years old. And from Japan. And her last name is Sawamura.";
+    //
+    // writeChars("para1", text, 100);
 
-
-    if(textEl){
-        const textArray = textEl.dataset.text.split('');
-        // there's probably a more performant way to do this, but....
-        textArray.forEach((char, i) => {
-            setTimeout(function() {
-                textEl.append(char);
-            }, i * 15);
-        });
-    }
 
 });
+
+function type(i, t, ie, oe) {
+    input = document.getElementById(ie).innerHTML;
+    document.getElementById(oe).innerHTML += input.charAt(i);
+    setTimeout(function(){
+        ((i < input.length - 1) ? type(i+1, t, ie, oe) : false);
+    }, t);
+}
+
+
+//
+// //CONTROL VALUES
+// var charWidth = 2.5;
+// var spaceWidth = 8;
+// var fadeSec = 0.5;
+// var lineSpace = 25;
+//
+//
+//
+//
+// function writeChars(p, t, lim) {
+//     var zone = document.getElementById(p);
+//     var width = 0;
+//     var top = 0;
+//     var chars = t.split("");
+//     for (var i = 0; i < chars.length; i++) {
+//         var s = "<span id ='" + p + "char" + i +
+//             "' class='writer' style='top:" + top + "px; left:" + width +
+//             "px;animation:charAnim 0.5s linear " + i/20 + "s forwards;'>" + chars[i] + "</span>";
+//         var node = document.createElement("div");
+//         node.innerHTML = s;
+//         zone.appendChild(node);
+//         var blah = document.getElementById(p + "char" + i);
+//         if (blah.offsetWidth == 0) {
+//             width += spaceWidth;
+//         }
+//         else {
+//             width += blah.offsetWidth+charWidth;
+//         }
+//         if (width >= lim && blah.offsetWidth == 0) {
+//             width = 0;
+//             top += lineSpace;
+//         }
+//     }
+// }
+
+
+// setTimeout(function() {
+//     writeChars("para2",moreText, 400);
+// }, 6000);
 
 
 
@@ -675,7 +714,7 @@ function initButtonStyle(){
     $('.btn.btn-primary').addClass('button_su_inner').removeClass('btn-primary');
     $('.col-xs-12.col-md-3.end-xs.end-md').wrapInner('<div class="button_su download">');
     $('.library form:has(.button_su_inner)').wrap('<div class="button_su download">');
-    $('.library .button_text_container').text('Download');
+    $('.library a .button_text_container').text('Download');
 }
 
 function animateNumbers() {

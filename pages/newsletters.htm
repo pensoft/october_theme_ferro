@@ -64,7 +64,7 @@ return Response::download($pathToFile, $fileName, $headers);
 ==
 <div class="container">
     <div class="col-xs-12 go-back">
-        <a href="{{'media-center'|page}}" class="col-xs-12 back-to-news">< Back to Media center</a>
+        <a href="{{'media-center'|page}}" class="col-xs-12">Back to Media</a>
     </div>
 
 		{% set records = mediaNewslettersList %}
@@ -96,11 +96,11 @@ return Response::download($pathToFile, $fileName, $headers);
                     &nbsp;
 
                     {% if record.file %}
-                    <div class="button_su">
+                    <div class="button_su download">
                         {{form_open({ request: 'onDownloadFile' }) }}
                         <input type="hidden" value="{{record.file.id}}" name="id">
                         <span class="su_button_circle desplode-circle"></span>
-                        <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container"><i class="pr normal p-download"></i>Download</span></button>
+                        <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container">Download</span></button>
                         {{ form_close() }}
                     </div>
                     {% endif %}

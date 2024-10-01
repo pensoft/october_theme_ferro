@@ -1,6 +1,14 @@
-<svg id="arrows-news" xmlns="http://www.w3.org/2000/svg" width="44.764" height="44.763" viewBox="0 0 44.764 44.763">
-  <g id="Group_15950" data-name="Group 15950" transform="translate(44.764 44.763) rotate(180)">
-    <path id="Path_47451" data-name="Path 47451" d="M22.382,44.763A22.382,22.382,0,1,0,0,22.382,22.448,22.448,0,0,0,22.382,44.763Zm0-43.042a20.66,20.66,0,1,1-20.66,20.66A20.721,20.721,0,0,1,22.382,1.722Z" fill="#01bdd6"/>
-    <path id="Path_47452" data-name="Path 47452" d="M7.575,13.6l1.205,1.205,7.4-7.4L8.781,0,7.575,1.205l5.337,5.337H0V8.264H12.913Z" transform="translate(14.893 14.979)" fill="#01bdd6"/>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="arrows-news" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="-98 98.2 44.8 44.8" style="enable-background:new -98 98.2 44.8 44.8;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#25BDD2;}
+</style>
+<g id="Group_15950" transform="translate(44.764 44.763) rotate(180)">
+	<path id="Path_47451" class="st0" d="M120.4-53.5c12.4,0,22.4-10,22.4-22.4s-10-22.4-22.4-22.4S98-88.2,98-75.9c0,0,0,0,0,0
+		C98-63.5,108-53.5,120.4-53.5z M120.4-96.5c11.4,0,20.7,9.2,20.7,20.7s-9.2,20.7-20.7,20.7s-20.7-9.2-20.7-20.7c0,0,0,0,0,0
+		C99.8-87.3,109-96.5,120.4-96.5L120.4-96.5z"/>
+	<path id="Path_47452" class="st0" d="M120.5-69.7l1.2,1.2l7.4-7.4l-7.4-7.4l-1.2,1.2l5.3,5.3h-12.9v1.7h12.9L120.5-69.7z"/>
+</g>
 </svg>

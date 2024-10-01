@@ -114,6 +114,9 @@
     background: url("../../assets/images/background numbers.png") center no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
 
     .numbers{
         color: white;
@@ -126,6 +129,14 @@
             margin-bottom: 0;
             line-height: 1.3em;
         }
+
+
+    }
+
+    .num_container{
+        .breakpoint-large-down({
+            margin-bottom: 100px;
+        });
     }
 }
 
@@ -143,10 +154,10 @@
         //border-right: 1px solid #7c7b9e!important;
     }
     img{
-        height: 80px;
+        height: 50px;
         max-height: fit-content;
         width: auto;
-        max-width: 177px;
+        max-width: 100%;
         object-fit: contain;
         transition: all 0.5s ease-in-out;
         &:hover{

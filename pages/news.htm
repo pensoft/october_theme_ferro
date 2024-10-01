@@ -189,5 +189,9 @@ $this['related'] = $related;
     {% endfor %}
     </div>
 
+    <div class="row container">
+        {{ records.render|raw }}
+    </div>
+
 	{% endif %}
 </div>
