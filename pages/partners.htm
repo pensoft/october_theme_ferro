@@ -11,6 +11,7 @@ use Pensoft\Partners\Models\Partners;
 
 function onStart(){
 	$this['partners'] =  Partners::where('type', 1)->get();
+	$this['supporting_partners'] =  Partners::where('type', 4)->get();
 }
 ?>
 ==
@@ -47,4 +48,34 @@ function onStart(){
         </div>
     </div>
     {% endfor %}
+</div>
+
+<div class="container" id="mission">
+
+    <h2 class="underline">Our Ecosystem</h2>
+    <div class="row supporting_partners">
+        {% for part in partners %}
+            <div class="col-md-3 col-xs-12">
+                <div class="supp_partner_item">
+                    <div class="supp_partner_image">
+                        <a href="{{part.instituion_url}}">
+                            <img src="{{part.cover.path}}">
+                        </a>
+                    </div>
+
+                    <div class="button_su website">
+                            <span class="su_button_circle">
+                            </span>
+                        <a href="{{part.instituion_url}}" class="button_su_inner">
+                                <span class="button_text_container">
+                                Visit website
+                                </span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 </div>
