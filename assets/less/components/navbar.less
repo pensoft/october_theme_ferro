@@ -29,6 +29,7 @@
 
     .breakpoint-large-down({
         padding: 0;
+        justify-content: start;
     });
 
     a {
@@ -49,7 +50,8 @@
         height: 57px;
         .breakpoint-large-down({
             flex-basis: 155px;
-            margin-right: 75px;
+            // margin-right: 75px;
+            margin-left: -50px;
         });
     }
 
@@ -222,6 +224,10 @@
                     background: @link-color;
                 }
             }
+
+            .breakpoint-large-down({
+                display: none;
+            });
         }
 
         .navbar-nav{
@@ -290,6 +296,7 @@
                 .nav-item {
                     text-align: left;
                     &.dropdown {
+                        
                         &:hover > .dropdown-menu {
                             display: block;
                         }
@@ -324,6 +331,9 @@
                             line-height: 1.6em;
                             // top: 64px;
                             padding: 20px 32px 15px 20px !important;
+                            .nav-item {
+                                margin: 8px 0;
+                            }
                             a{
                                 padding: 0 !important;
                                 text-align: left;
@@ -332,6 +342,7 @@
                                 letter-spacing: 0px;
                                 margin-bottom: 5px;
                                 color: @navbar-color !important;
+                                
                                 &:hover{
                                     opacity: 0.6;
                                 }
@@ -568,8 +579,18 @@
         })
     }
 
-    #menu li.sign-in a{
-        color: @yellow-color!important;
+    #menu .sign-in a{
+            font-size: 17px!important;
+            font-weight: 100;
+            padding: 10px 20px;
+            border: 1px solid @link-color;
+            border-radius: 7px;
+            &:hover{
+                border: 1px solid @link-color;
+                background: @link-color;
+            }
+
+        
     }
 
     #menu li a{

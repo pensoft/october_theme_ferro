@@ -327,8 +327,8 @@ $(document).ready(function() {
     });
 
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
-        '<a class="folder-background" style="display:flex; background: url(/storage/app/media/Reporting-forms-ferro.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/dissemination-report-forms" title="Dissemination report forms"></a>\n' +
-        '<h3 class="card-header"><a href="/internal-repository/dissemination-report-forms" title="Reporting forms">Reporting forms</a></h3>\n' +
+        '<a class="folder-background" style="display:flex; background: url(/storage/app/media/Reporting-forms-ferro.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/forms" title="Dissemination report forms"></a>\n' +
+        '<h3 class="card-header"><a href="/internal-repository/forms" title="Reporting forms">Reporting forms</a></h3>\n' +
         '</div>').insertAfter($('.card.internal').last());
 
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
@@ -341,11 +341,7 @@ $(document).ready(function() {
     $('<div class="mark"></div>').insertAfter($('.group-holder input'));
 
 
-    type(0, 20, "text", "screen");
-
-    // var text = "Ayaka is a person. She is female. And a girl. And also 31 years old. And from Japan. And her last name is Sawamura.";
-    //
-    // writeChars("para1", text, 100);
+    // type(0, 20, "text", "screen");
 
 
 });
@@ -357,48 +353,6 @@ function type(i, t, ie, oe) {
         ((i < input.length - 1) ? type(i+1, t, ie, oe) : false);
     }, t);
 }
-
-
-//
-// //CONTROL VALUES
-// var charWidth = 2.5;
-// var spaceWidth = 8;
-// var fadeSec = 0.5;
-// var lineSpace = 25;
-//
-//
-//
-//
-// function writeChars(p, t, lim) {
-//     var zone = document.getElementById(p);
-//     var width = 0;
-//     var top = 0;
-//     var chars = t.split("");
-//     for (var i = 0; i < chars.length; i++) {
-//         var s = "<span id ='" + p + "char" + i +
-//             "' class='writer' style='top:" + top + "px; left:" + width +
-//             "px;animation:charAnim 0.5s linear " + i/20 + "s forwards;'>" + chars[i] + "</span>";
-//         var node = document.createElement("div");
-//         node.innerHTML = s;
-//         zone.appendChild(node);
-//         var blah = document.getElementById(p + "char" + i);
-//         if (blah.offsetWidth == 0) {
-//             width += spaceWidth;
-//         }
-//         else {
-//             width += blah.offsetWidth+charWidth;
-//         }
-//         if (width >= lim && blah.offsetWidth == 0) {
-//             width = 0;
-//             top += lineSpace;
-//         }
-//     }
-// }
-
-
-// setTimeout(function() {
-//     writeChars("para2",moreText, 400);
-// }, 6000);
 
 
 
