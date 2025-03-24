@@ -1,0 +1,125 @@
+url = "/synergies"
+layout = "default"
+title = "Synergies"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[jumbotron synergies_intro]
+jumbotron = "synergies"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+<?php
+use Pensoft\Partners\Models\Partners;
+use Pensoft\Cardprofiles\Models\Profiles;
+
+function onStart(){
+$this['supporting_partners'] =  Partners::where('type', 4)->get();
+$this['collaboration_partners'] =  Partners::where('type', 3)->get();
+$this['profiles'] =  Profiles::where('category_id', 1)->get();
+}
+?>
+==
+<h1 class="underline">Synergies</h1>
+
+
+{% component 'synergies_intro' %}
+
+<div class="container">
+
+    <h2 class="underline">Our Sister Projects</h2>
+    <div class="row supporting_partners">
+        {% for part in supporting_partners %}
+        <div class="col-md-3 col-xs-12">
+            <div class="supp_partner_item">
+                <div class="supp_partner_image">
+                    <a href="{{part.instituion_url}}">
+                        <img src="{{part.cover.path}}">
+                    </a>
+                </div>
+
+                <div class="button_su website">
+                            <span class="su_button_circle">
+                            </span>
+                    <a href="{{part.instituion_url}}" class="button_su_inner">
+                                <span class="button_text_container">
+                                Visit website
+                                </span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <h2 class="underline">Projects we collaborate with</h2>
+    <div class="row supporting_partners">
+        {% for part in collaboration_partners %}
+        <div class="col-md-3 col-xs-12">
+            <div class="supp_partner_item">
+                <div class="supp_partner_image">
+                    <a href="{{part.instituion_url}}">
+                        <img src="{{part.cover.path}}">
+                    </a>
+                </div>
+
+                <div class="button_su website">
+                            <span class="su_button_circle">
+                            </span>
+                    <a href="{{part.instituion_url}}" class="button_su_inner">
+                                <span class="button_text_container">
+                                Visit website
+                                </span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+<div class="container">
+    <h2 class="underline">Contact our Project Coordinator</h2>
+    <div class="row width100 center-xs">
+        {% for profile in profiles %}
+        <div class="col-xs-12 col-md-6 profile-item">
+            <div class="row contact_info">
+                <div class="col-md-5 col-xs-12 start-md center-xs coordinator_image">
+                    <img src="{{profile.avatar.thumb(190, 190, {'mode' : 'crop' })}}" class="fr-fic fr-dii">
+                </div>
+                <div class="col-md-7 col-xs-12 coordinator_info">
+                    <div>
+                        <h3>{{profile.names}}</h3>
+                        {% if profile.position %}<div class="card_title">{{profile.position}}</div>{% endif %}
+                    </div>
+                    <div>
+                        {% if profile.email %}
+                        <div class="button_su mail">
+                                <span class="su_button_circle">
+                                </span>
+                            <a href="mailto:{{profile.email}}" class="button_su_inner">
+                                  <span class="button_text_container">
+                                    {{profile.email}}
+                                  </span>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
