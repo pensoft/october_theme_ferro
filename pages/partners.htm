@@ -4,7 +4,6 @@ title = "Partners"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
-
 ==
 <?php
 use Pensoft\Partners\Models\Partners;
@@ -52,9 +51,9 @@ function onStart(){
 
 <div class="container" id="mission">
 
-    <h2 class="underline">Our Ecosystem</h2>
+    <h2 class="underline">Our Sister Projects</h2>
     <div class="row supporting_partners">
-        {% for part in partners %}
+        {% for part in supporting_partners %}
             <div class="col-md-3 col-xs-12">
                 <div class="supp_partner_item">
                     <div class="supp_partner_image">
