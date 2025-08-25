@@ -332,3 +332,40 @@
     }
 }
 
+.challenges{
+    h1{
+        text-align: center;
+        width: 100%;
+    }
+
+    ol {
+        list-style: none;
+        counter-reset: my-awesome-counter;
+        width: 83%;
+        margin: 0 auto;
+        li {
+            counter-increment: my-awesome-counter;
+            background: @secondary-color;
+            border-radius: 7px;
+            padding: 0 20px;
+            height: 71px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 7px 0 0 0;
+            font-size: 18px;
+            color: #010D1C;
+            font-weight: 500;
+
+            &:before {
+                content: counter(my-awesome-counter);
+                font-weight: 600;
+                font-size: 70px;
+                font-family: Gilroy;
+                color: #25BDD21F;
+                width: 70px;
+            }
+        }
+    }
+}
+
