@@ -132,27 +132,23 @@
     });
     .plus, .minus{
         width: 23px;
-        height: 11px;
-        text-align: right;
+        height: 23px;
+        text-align: center;
         vertical-align: middle;
-        color: @default-color;
+        color: #25BDD2;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: url("../../assets/images/arrow-down.svg") center no-repeat;
-        background-size: contain!important;
+        background: none;
+        font-size: 24px;
+        font-weight: 600;
         .breakpoint-large-down({
             position: absolute;
             right: 5px;
         });
     }
-    .plus{
-        background: url("../../assets/images/arrow-down.svg") center no-repeat;
-    }
-    .minus{
-        background: url("../../assets/images/arrow-down.svg") center no-repeat;
-        transform: rotate(180deg);
-    }
+    .plus:before{ content: '+'; }
+    .minus:before{ content: '−'; }
 }
 
 

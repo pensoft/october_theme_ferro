@@ -24,6 +24,14 @@ title = 1
 background = "transperant"
 templates = "template3"
 description_limit = 0
+
+[jumbotron submission-info]
+jumbotron = "submission-info"
+title = 0
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
 ==
 <?php
 function onStart(){
@@ -54,27 +62,37 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
 </div>
 
 
-<div class="container challenges" id="challenges">
-    {% component 'challenges' %}
-</div>
-
-
-<div class="container" id="goal">
-
-    <h2 class="underline">{{work_packages_title.name}}</h2>
-    <div class="row top-xs mission">
-        {% for key1, item1 in work_packages_records %}
-        <div class="accordion-border key_{{key1}}"><!-- 1 --><!-- css 1 -->
-            <div class="row middle-xs accordion-toggle">
-                <div class="col-xs start-xs">{{item1.title}}</div>
-
-                <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
-            </div>
-
-            <div class="accordion-content" style="display: none;">
-                {{item1.body|raw}}
-            </div>
+<div class="container-fluid submission-section-container">
+    <h2 class="underline mb-0 pb-0">Submission information</h2>
+    <div class="submission-section">
+        <div class="container">
+            {% component "submission-info" %}
         </div>
-        {% endfor %}
     </div>
+    
+    <div class="container goal-section" id="goal">
+        <h2 class="underline">{{work_packages_title.name}}</h2>
+        <div class="row top-xs mission">
+            {% for key1, item1 in work_packages_records %}
+            <div class="accordion-border key_{{key1}}"><!-- 1 --><!-- css 1 -->
+                <div class="row middle-xs accordion-toggle">
+                    <div class="col-xs start-xs">{{item1.title}}</div>
+    
+                    <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+                </div>
+    
+                <div class="accordion-content" style="display: none;">
+                    {{item1.body|raw}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
 </div>
+
+<!-- <div class="container challenges" id="challenges">
+    {% component 'challenges' %}
+</div> -->
+
+
