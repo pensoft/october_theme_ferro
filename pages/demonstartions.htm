@@ -1,0 +1,25 @@
+url = "/demonstration-sites"
+layout = "default"
+title = "Demonstration sites"
+
+[siteSearchInclude]
+
+[jumbotron demo-intro]
+jumbotron = "demo-intro"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+==
+==
+
+<div class="demonstrations-intro">
+    {% component 'demo-intro' %}
+</div>
+
+<div class="demonstration-map">
+    <div class="container">
+        {% partial 'components/demo-map' %}
+    </div>
+</div>

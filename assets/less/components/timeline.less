@@ -54,7 +54,7 @@
 
     .timeline-body {
         min-width: 220px;
-        max-height: 180px;
+        max-height: none;
         .timeline-card{
             display: flex;
             justify-content: space-around;
@@ -66,7 +66,7 @@
     @media (max-width: 1400px) {
         .timeline-body {
             min-width: 180px;
-            max-height: 140px;
+            max-height: none;
         }
     }
 
@@ -75,7 +75,7 @@
         &.vertical {
             display: flex;
             flex-direction: row;
-            height: 324px;
+            height: 400px;
             justify-content: space-between;
             align-items: baseline;
             margin-top: 0;
@@ -209,9 +209,9 @@
                     top: 50%;
                     bottom: unset;
                     transform: translateY(0%);
-                    .breakpoint-large-down({
+                    @media (max-width: 1024px) {
                         display: none;
-                    });
+                    }
                 }
             }
 
@@ -292,9 +292,9 @@
                     top: 50%;
                     bottom: unset;
                     transform: translateY(-100%);
-                    .breakpoint-large-down({
+                    @media (max-width: 1024px) {
                         display: none;
-                    });
+                    }
                 }
             }
 
@@ -345,7 +345,7 @@
                 .timeline-card-surface();
                 padding: 24px;
                 width: 257px;
-                height: 84px;
+                min-height: 120px;
                 left: 0;
             }
         }
@@ -370,7 +370,7 @@
 
 
 
-    .breakpoint-large-down({
+    @media (max-width: 1024px) {
         /* Ensure mobile layout never exceeds container width */
         .timeline-body {
             min-width: 0;
@@ -451,7 +451,7 @@
                     padding: 12px;
                     width: auto;
                     max-width: 100%;
-                    height: 84px;
+                    min-height: 110px;
                     left: 0;
                     margin-right: 16px;
                 }
@@ -472,7 +472,7 @@
                 }
             }
         }
-    });
+    }
 }
 
 /* Open Call timeline specific refinements */
@@ -487,11 +487,11 @@
                 .timeline-card-surface();
                 padding: 20px;
                 width: 267px;
-                height: 64px;
+                min-height: 96px;
                 left: 0;
 
                 .breakpoint-large-down({
-                    height: 90px;
+                    min-height: 110px;
                     width: auto;
                 });
 
@@ -517,7 +517,7 @@
 }
 
 /* Tablet/iPad refinements: use vertical (two-column) layout with adjusted card size */
-@media (max-width: 1200px) and (min-width: 768px) {
+@media (max-width: 1024px) and (min-width: 768px) {
     .timeline.vertical {
         display: block; /* return to standard vertical layout */
         overflow: visible;
@@ -558,7 +558,7 @@
     .timeline.timeline--oc .timeline-item .timeline-body .timeline-card {
         width: 240px;
         max-width: 90%;
-        height: 104px;
+        min-height: 120px;
         padding: 14px; /* reduce padding on tablets */
     }
 }
