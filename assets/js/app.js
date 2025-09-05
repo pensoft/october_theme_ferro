@@ -308,7 +308,7 @@ $(document).ready(function() {
     /* buttons */
 
 
-    $( ".button_su_inner" ).mouseenter(function(e) {
+    $(document).on('mouseenter', '.button_su_inner', function(e) {
         var parentOffset = $(this).offset();
         var relX = e.pageX - parentOffset.left;
         var relY = e.pageY - parentOffset.top;
@@ -317,7 +317,7 @@ $(document).ready(function() {
         $(this).prev(".su_button_circle").addClass("explode-circle");
     });
 
-    $( ".button_su_inner" ).mouseleave(function(e) {
+    $(document).on('mouseleave', '.button_su_inner', function(e) {
         var parentOffset = $(this).offset();
         var relX = e.pageX - parentOffset.left;
         var relY = e.pageY - parentOffset.top;

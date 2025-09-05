@@ -168,6 +168,23 @@ button:not(:disabled) {
     color: @link-color;
 }
 
+.questions-btn {
+    position: relative;
+    padding-left: 40px;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 15px;
+        background: url("../../assets/images/contact-icon-btn.svg") no-repeat;
+        background-size: contain;
+    }
+}
+
 .button_su{
     overflow: hidden;
     position: relative;
@@ -443,6 +460,16 @@ button:not(:disabled) {
     .button_text_container{
         position:relative;
     }
+}
+
+/* Ensure icon has room on question button variant when used with button_su */
+.button_su .button_su_inner.questions-btn {
+    padding-left: 40px;
+}
+
+/* Register button fixed width */
+.button_su .button_su_inner.register-btn {
+    width: 150px;
 }
 
 
