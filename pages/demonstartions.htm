@@ -6,12 +6,21 @@ title = "Demonstration sites"
 
 [jumbotron demo-intro]
 jumbotron = "demo-intro"
-title = 1
+title = 0
 background = "transperant"
 templates = "template3"
 description_limit = 0
 
 ==
+<?php
+use Pensoft\FerroDemonstrations\Models\Demonstration;
+
+function onStart()
+{
+    $demos = Demonstration::with('cover')->get();
+    $this['demoMapData'] = $demos;
+}
+?>
 ==
 
 <div class="demonstrations-intro">
@@ -23,3 +32,10 @@ description_limit = 0
         {% partial 'components/demo-map' %}
     </div>
 </div>
+
+
+<script>
+    window.demoMapData = {{ demoMapData|json_encode|raw }};
+</script>
+
+<script src="{{ 'assets/js/demo-map-tooltip.js'|theme }}"></script>

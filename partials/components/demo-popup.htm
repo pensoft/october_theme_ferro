@@ -1,0 +1,28 @@
+{% if demoMapData is defined and demoMapData|length %}
+<div class="demo-popup-overlay" aria-hidden="true">
+	<div class="demo-popup-layer">
+		{% for demo in demoMapData %}
+		<div class="demo-popup" data-slug="{{ demo.slug }}" aria-hidden="true">
+			<button type="button" class="demo-popup-close" aria-label="Close">×</button>
+			<div class="demo-popup-inner">
+				<div class="popup-left">
+					{% if demo.cover %}
+					<div class="popup-image" style="background-image: url('{{ demo.cover.path }}')">
+						<div class="popup-title{% if demo.country %} flag-{{ demo.country.code|lower }}{% endif %}">{{ demo.name }}</div>
+					</div>
+					{% else %}
+					<div class="popup-image no-image">
+						<div class="popup-title{% if demo.country %} flag-{{ demo.country.code|lower }}{% endif %}">{{ demo.name }}</div>
+					</div>
+					{% endif %}
+				</div>
+				<div class="popup-right">
+					<div class="popup-content">{{ demo.content|raw }}</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}
+

@@ -346,6 +346,8 @@ $(document).ready(function() {
 
 });
 
+// Map tooltip moved to: assets/js/demo-map-tooltip.js
+
 function type(i, t, ie, oe) {
     input = document.getElementById(ie).innerHTML;
     document.getElementById(oe).innerHTML += input.charAt(i);

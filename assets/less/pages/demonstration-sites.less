@@ -1,14 +1,344 @@
 .demonstration-map{
+
     .container{
         width: 100%;
         display: flex;
         justify-content: center;
-        
+        position: relative;
+        padding-left: 0;
+        padding-right: 0;
     }
+
     .map-trigger{
         cursor: pointer;
         &:hover{
             opacity: 0.8;
         }
     }
+
+    .map-image-tooltip{
+        position: absolute;
+        z-index: 1000;
+        display: none;
+        padding: 0;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+        border-radius: 10px;
+        overflow: hidden;
+        width: 143px;
+        height: 95px;
+        pointer-events: none;
+        background-size: cover;
+        background-position: center;
+
+        &.active{
+            display: block;
+        }
+
+        // Hide tooltip on mobile/tablet screens completely
+        .breakpoint-large-down({
+            display: none !important;
+        });
+
+        // Title overlay
+        .map-tooltip-title{
+            position: absolute;
+            left: 10px;
+            bottom: 8px;
+            top: auto;
+            right: auto;
+            color: #fff;
+            font-size: 14px;
+            line-height: 1.2;
+            font-weight: 600;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.45);
+            display: block;
+        }
+    }
+
+    // Popup overlay and layout
+    .demo-popup-overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2000;
+        display: none;
+        background: rgba(0,0,0,0.45);
+        align-items: center;
+        justify-content: center;
+
+        &.active{ display: flex; }
+
+        .demo-popup-layer{
+            position: relative;
+            width: 80%;
+            max-width: 1200px;
+            max-height: 90vh;
+            padding: 12px;
+            overflow: visible; // no scrolling here; keep a single scroller inside content
+        }
+
+        // Small desktop/tablet widths - give popup more horizontal room
+        @media (max-width: 1400px){
+            .demo-popup-layer{ width: 70%; }
+        }
+        @media (max-width: 1200px){
+            .demo-popup-layer{ width: 80%; }
+        }
+        @media (max-width: 1024px){
+            .demo-popup-layer{ width: 90%; }
+        }
+
+        // Mobile responsive width
+        .breakpoint-large-down({
+            .demo-popup-layer{
+                width: 95%;
+                max-width: 95%;
+                max-height: 95vh;
+                padding: 8px;
+            }
+        });
+
+        .demo-popup{
+            position: relative;
+            display: none;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden; // prevent extra scrollbars; scrolling handled in right column
+            // box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+            max-height: 50vh;
+            height: 50vh; // make popup dynamically half of the viewport height
+
+            &.active{ display: block; }
+
+            .demo-popup-close{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                border: 0;
+                width: 36px;
+                height: 36px;
+                background: transparent; // desktop/tablet: transparent
+                border-radius: 50%;
+                font-size: 22px;
+                line-height: 36px;
+                text-align: center;
+                cursor: pointer;
+                color: #25BDD2;
+                box-shadow: none; // no shadow on larger screens
+                z-index: 5;
+                pointer-events: auto;
+            }
+
+            .demo-popup-inner{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+                height: 100%;
+                max-height: 100%; // match popup height so columns fill it
+                margin: 0;
+            }
+
+            // Mobile responsive grid - stack columns on small screens
+            .breakpoint-large-down({
+                // Make the popup taller on mobile for better readability
+                height: 70vh;
+                max-height: 70vh;
+
+                .demo-popup-inner{
+                    height: 100%;
+                    max-height: 100%;
+                    grid-template-columns: 1fr;
+                    min-height: auto;
+                }
+
+                // Ensure close button is large, visible and always tappable on mobile
+                .demo-popup-close{
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 24px;
+                    top: 8px;
+                    right: 8px;
+                    background: rgba(255,255,255,0.98);
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+                }
+            });
+
+            .popup-left{
+                position: relative;
+                background: #e9eef2;
+                height: 100%;
+                overflow: hidden;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .popup-image{
+                position: relative;
+                width: 100%;
+                height: 100%;
+                min-height: 300px;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                flex-shrink: 0;
+                flex-grow: 1;
+                object-fit: cover;
+                border-radius: 10px;
+
+                &::after{
+                    height: 100%;
+                    width: 100%;
+                    content: ' ';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background: linear-gradient(180deg, rgba(45, 114, 82, 0) 0%, rgba(16, 150, 168, 0.69) 100%);
+                    border-radius: 10px;
+                    z-index: 1; // keep gradient under the title
+                }
+            }
+
+            // Short viewport heights - prevent title cut and reduce image min-height
+            @media (max-height: 800px){
+                .demo-popup-inner{ max-height: 75vh; }
+                .popup-image{ min-height: 220px; }
+                .popup-title{ bottom: 8px; font-size: 16px; }
+            }
+            // Ensure title remains visible at the bottom for very short heights
+            @media (max-height: 680px){
+                .demo-popup-inner{ max-height: 72vh; }
+                .popup-image{ min-height: 200px; }
+                .popup-title{ bottom: 8px; top: auto; }
+                .popup-image::after{
+                    background: linear-gradient(180deg, rgba(45, 114, 82, 0) 0%, rgba(16, 150, 168, 0.85) 100%);
+                }
+            }
+
+            @media (max-height: 620px){
+                .demo-popup-inner{ max-height: 70vh; }
+                .popup-image{ min-height: 180px; }
+                .popup-title{ bottom: 6px; font-size: 15px; }
+            }
+
+            // Mobile responsive image height
+            .breakpoint-large-down({
+                .popup-image{
+                    min-height: 200px;
+                    max-height: 35vh;
+                    height: auto;
+                    flex-shrink: 0;
+                }
+            });
+
+            .popup-image.no-image{
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-start;
+                background: #dfe6e9;
+            }
+
+            .popup-title{
+                position: absolute;
+                left: 16px;
+                bottom: 12px;
+                font-weight: 600;
+                font-size: 18px;
+                color: #fff;
+                z-index: 2; // above gradient overlay
+                padding-left: 46px; // space for flag (35px width + gap)
+
+                &::before{
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    bottom: 8px;
+                    width: 35px;
+                    height: 23px;
+                    border-radius: 3px;
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+                }
+
+                // Flags by country code
+                &.flag-cz::before{ background-image: url('../images/flag_cz.png'); }
+                &.flag-dk::before,
+                &.flag-denmark::before{ background-image: url('../images/flag_denmark.png'); }
+                &.flag-ee::before,
+                &.flag-estonia::before{ background-image: url('../images/flag_estonia.png'); }
+                &.flag-de::before,
+                &.flag-germany::before{ background-image: url('../images/flag_germany.png'); }
+            }
+
+            .popup-right{
+                padding: 18px 22px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                height: 100%;
+                max-height: 100%; // single scrollbar lives here
+                box-sizing: border-box; // include padding in height to avoid clipping
+                -webkit-overflow-scrolling: touch;
+            }
+
+            // Mobile responsive adjustments
+            .breakpoint-large-down({
+                .popup-left{
+                    height: auto;
+                    min-height: 200px;
+                    max-height: 35vh;
+                    order: 1;
+                }
+                
+                .popup-right{
+                    height: auto;
+                    max-height: 60vh;
+                    order: 2;
+                    overflow-y: auto;
+                }
+            });
+
+            .popup-content{
+                font-size: 14px;
+                line-height: 1.6;
+                color: #2c3e50;
+
+                h2, h3, h4 { 
+                    font-family: 'Gilroy', sans-serif !important;
+                    font-weight: 600 !important;
+                    font-size: 18px !important;
+                    margin: 14px 0 !important;
+                    line-height: 1.2;
+                    color: #40454A !important;
+                }
+
+                p { 
+                    color: #40454A !important;
+                    font-weight: 300 !important;
+                    font-size: 15px !important;
+                }
+
+                ul { 
+                    padding-left: 18px;
+                }
+
+                // Mobile responsive text sizing
+                .breakpoint-large-down({
+                    font-size: 13px;
+                    
+                    h2, h3, h4 {
+                        font-size: 16px !important;
+                        margin: 12px 0 !important;
+                    }
+                });
+            }
+        }
+    }
 }
+
+// Prevent background scroll when popup is open
+body.no-scroll{ overflow: hidden; }
