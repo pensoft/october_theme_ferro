@@ -50,7 +50,7 @@ function onStart(){
                     </div>
                     <div class="partner_description">
                         {{partner.content|raw}}
-
+                        {% if insider_members.getIM(partner.id).count > 0 %}
                         <div class="read_more_container">
                             <a data-toggle="modal"
                                href="#partner{{k}}"
@@ -58,6 +58,7 @@ function onStart(){
                                aria-label="View members of {{partner.instituion}}"
                                role="button">View members</a>
                         </div>
+                        {% endif %}
 
                     </div>
                     <p><a class="read-more dorsal">Read more</a></p>
