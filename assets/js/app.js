@@ -195,6 +195,8 @@ $(document).ready(function() {
 
     $('.dorsal').click(function () {
         var link = $(this);
+        var visit_website = $('.button_su_inner');
+        var vew_members = $('.view-members');
         var parag = link.parent().parent().find('p').first();
         var partner_desc = link.parent().parent().find('.partner_description').first();
         parag.toggleClass('expand', function() {
@@ -207,7 +209,7 @@ $(document).ready(function() {
             }
 
         });
-        if(partner_desc){
+        if(partner_desc && vew_members){
             partner_desc.toggleClass('expand', function() {
                 if (parag.hasClass('expand')) {
                     link.text('Read less');
