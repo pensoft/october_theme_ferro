@@ -212,15 +212,15 @@ $(document).ready(function() {
                 if (parag.hasClass('expand')) {
                     link.text('Read less');
                     parag.slideDown(300);
-                    // $('p:has(.dorsal)').slideUp(300);
-                    //
-                    // $('.partner_info *:not(a)').click(function() {
-                    //
-                    //     $('p:has(.dorsal)').slideDown(300);
-                    //     // $('.dorsal').trigger('click');
-                    //     // alert('clicked an item!');
-                    //     // return false;
-                    // });
+                    $('p:has(.dorsal)').slideUp(300);
+
+                    $('.partner_info *:not(a)').click(function() {
+
+                        $('p:has(.dorsal)').slideDown(300);
+                        // $('.dorsal').trigger('click');
+                        // alert('clicked an item!');
+                        // return false;
+                    });
 
                 } else {
                     link.text('Read more');
