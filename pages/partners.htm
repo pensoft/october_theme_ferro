@@ -40,7 +40,7 @@ function onStart(){
                             <div class="button_su website">
                             <span class="su_button_circle">
                             </span>
-                                <a href="{{partner.instituion_url}}" class="button_su_inner" aria-label="Visit {{partner.instituion}} website (opens in new window)">
+                                <a href="{{partner.instituion_url}}" target="_blank" class="button_su_inner" aria-label="Visit {{partner.instituion}} website (opens in new window)">
                                 <span class="button_text_container">
                                 Visit website
                                 </span>
@@ -54,7 +54,6 @@ function onStart(){
                         <div class="read_more_container">
                             <a data-toggle="modal"
                                href="#partner{{k}}"
-                               class="read-more"
                                aria-label="View members of {{partner.instituion}}"
                                role="button">View members</a>
                         </div>
@@ -157,7 +156,7 @@ function onStart(){
                     <div class="button_su website">
                             <span class="su_button_circle">
                             </span>
-                        <a href="{{part.instituion_url}}" class="button_su_inner">
+                        <a href="{{part.instituion_url}}" target="_blank" class="button_su_inner" aria-label="Visit {{part.instituion}} website (opens in new window)">
                                 <span class="button_text_container">
                                 Visit website
                                 </span>
