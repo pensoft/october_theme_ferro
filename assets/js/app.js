@@ -195,8 +195,9 @@ $(document).ready(function() {
 
     $('.dorsal').click(function () {
         var link = $(this);
-        var visit_website = $('.button_su_inner');
-        var vew_members = $('.view-members');
+        var visit_website = $(this).parent().parent().find('.button_su_inner');
+        var vew_members = $(this).parent().parent().find('.view-members');
+
         var parag = link.parent().parent().find('p').first();
         var partner_desc = link.parent().parent().find('.partner_description').first();
         parag.toggleClass('expand', function() {
@@ -215,10 +216,10 @@ $(document).ready(function() {
                     link.text('Read less');
                     parag.slideDown(300);
 
-                    if(vew_members){
-                        $('p:has(.dorsal)').slideUp(300);
+                    if(vew_members.length){
+                        link.parent().slideUp(300);
 
-                        $('.partner_info *:not(a)').click(function() {
+                        link.parent().parent().find('*:not(a)').click(function() {
 
                             $('p:has(.dorsal)').slideDown(300);
                             // $('.dorsal').trigger('click');
