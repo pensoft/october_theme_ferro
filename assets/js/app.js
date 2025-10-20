@@ -347,8 +347,8 @@ $(document).ready(function() {
     });
 
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
-        '<a class="folder-background" style="display:flex; background: url(/storage/app/media/Reporting-forms-ferro.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/forms" title="Dissemination report forms"></a>\n' +
-        '<h3 class="card-header"><a href="/internal-repository/forms" title="Reporting forms">Reporting forms</a></h3>\n' +
+        '<a class="folder-background" style="display:flex; background: url(/storage/app/media/Reporting-forms-ferro.svg) center center no-repeat; background-size: 100px; height: 200px" target="_blank" href="https://docs.google.com/spreadsheets/d/15jw1-69heECv7v9tV4gaMdN2t9_f6iXVDH3Ca0b82UE/edit?gid=2043286514#gid=2043286514" title="Dissemination activities"></a>\n' +
+        '<h3 class="card-header"><a  target="_blank" href="https://docs.google.com/spreadsheets/d/15jw1-69heECv7v9tV4gaMdN2t9_f6iXVDH3Ca0b82UE/edit?gid=2043286514#gid=2043286514" title="Dissemination activities">Dissemination activities</a></h3>\n' +
         '</div>').insertAfter($('.card.internal').last());
 
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
