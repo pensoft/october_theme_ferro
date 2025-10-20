@@ -216,17 +216,17 @@ $(document).ready(function() {
                     link.text('Read less');
                     parag.slideDown(300);
 
-                    if(vew_members.length){
-                        link.parent().slideUp(300);
-
-                        link.parent().parent().find('*:not(a)').click(function() {
-
-                            $('p:has(.dorsal)').slideDown(300);
-                            // $('.dorsal').trigger('click');
-                            // alert('clicked an item!');
-                            // return false;
-                        });
-                    }
+                    // if(vew_members.length){
+                    //     link.parent().slideUp(300);
+                    //
+                    //     link.parent().parent().find('*:not(a)').click(function() {
+                    //
+                    //         $('p:has(.dorsal)').slideDown(300);
+                    //         // $('.dorsal').trigger('click');
+                    //         // alert('clicked an item!');
+                    //         // return false;
+                    //     });
+                    // }
 
 
                 } else {

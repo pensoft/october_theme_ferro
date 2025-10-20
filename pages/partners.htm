@@ -35,31 +35,29 @@ function onStart(){
             <div class="col-md-9 col-xs-12">
                 <div class="partner_info">
                     <div class="instituion-title row">
-                        <div class="col-md-9 col-xs-12 start-md center-xs">{{partner.instituion}}</div>
+                        <div class="col-md-9 col-xs-12 start-md center-xs">
+                            <a href="{{partner.instituion_url}}" target="_blank" title="Visit {{partner.instituion}} website" aria-label="Visit {{partner.instituion}} website (opens in new window)">{{partner.instituion}}</a></div>
                         <div class="col-md-3 col-xs-12 end-md center-xs">
-                            <div class="button_su website">
+                            <div class="button_su">
                             <span class="su_button_circle">
                             </span>
-                                <a href="{{partner.instituion_url}}" target="_blank" class="button_su_inner" aria-label="Visit {{partner.instituion}} website (opens in new window)">
-                                <span class="button_text_container">
-                                Visit website
-                                </span>
-                                </a>
+
+                                {% if insider_members.getIM(partner.id).count > 0 %}
+                                <div class="read_more_container">
+                                    <a data-toggle="modal"
+                                       href="#partner{{k}}"
+                                       class="button_su_inner"
+                                       aria-label="View members of {{partner.instituion}}"
+                                       role="button">
+                                        <span class="button_text_container">View members</span>
+                                    </a>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                     <div class="partner_description">
                         {{partner.content|raw}}
-                        {% if insider_members.getIM(partner.id).count > 0 %}
-                        <div class="read_more_container">
-                            <a data-toggle="modal"
-                               href="#partner{{k}}"
-                               class="read-more view-members"
-                               aria-label="View members of {{partner.instituion}}"
-                               role="button">View members</a>
-                        </div>
-                        {% endif %}
-
                     </div>
                     <p><a class="read-more dorsal">Read more</a></p>
 
