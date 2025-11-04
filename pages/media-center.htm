@@ -24,76 +24,91 @@ function onStart(){
 ?>
 ==
 <h1 class="underline">Media center</h1>
-<div class="container">
-    <div class="row around-md around-xs">
-        {% if logos.count() %}
-        <div class="col-sm-2 col-xs-12 media_item">
-            <div class="card-container text-center">
-                <a href="{{url('media-center')}}/brand-kit" title="Brand kit">
-                    <div class="card_image_container" title="Brand kit">
-                        <div class="card_bg">
-                            <span class="card_icon"></span>
-                        </div>
+<section aria-labelledby="media-center-heading">
+    <div class="container">
+        <h1 id="media-center-heading" class="sr-only">Media Center</h1>
+        <nav aria-label="Media center categories">
+            <div class="row around-md around-xs">
+                {% if logos.count() %}
+                <div class="col-sm-2 col-xs-12 media_item">
+                    <div class="card-container text-center">
+                        <a href="{{url('media-center')}}/brand-kit"
+                           aria-label="Browse brand kit materials including logos and guidelines">
+                            <div class="card_image_container">
+                                <div class="card_bg">
+                                    <span class="card_icon" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <span class="media_label">Brand kit</span>
+                        </a>
                     </div>
-                    <span class="media_label">Brand kit</span>
-                </a>
-            </div>
-        </div>
-        {% endif %}
-        {% if flyers.count() %}
-        <div class="col-sm-2 col-xs-12 media_item">
-            <div class="card-container text-center">
-                <a href="{{url('media-center')}}/promotional-materials" title="Promotional materials">
-                    <div class="card_image_container" title="Promotional materials"><div class="card_bg"><span class="card_icon"></span></div></div>
-                    <span class="media_label">Promotional materials</span>
-                </a>
-            </div>
-        </div>
-        {% endif %}
+                </div>
+                {% endif %}
 
-        {% if pressreleases.count() %}
-        <div class="col-sm-2 col-xs-12 media_item">
-            <div class="card-container text-center">
-                <a href="{{url('media-center')}}/press-releases" title="Press releases">
-                    <div class="card_image_container" title="Press releases">
-                        <div class="card_bg">
-                            <span class="card_icon"></span>
-                        </div>
+                {% if flyers.count() %}
+                <div class="col-sm-2 col-xs-12 media_item">
+                    <div class="card-container text-center">
+                        <a href="{{url('media-center')}}/promotional-materials"
+                           aria-label="View promotional materials and flyers">
+                            <div class="card_image_container">
+                                <div class="card_bg">
+                                    <span class="card_icon" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <span class="media_label">Promotional materials</span>
+                        </a>
                     </div>
-                    <span class="media_label">Press releases</span>
-                </a>
-            </div>
-        </div>
-        {% endif %}
+                </div>
+                {% endif %}
 
-        {% if newsletters.count() %}
-        <div class="col-sm-2 col-xs-12 media_item">
-            <div class="card-container text-center">
-                <a href="{{url('media-center')}}/newsletters" title="Newsletters">
-                    <div class="card_image_container" title="Newsletters">
-                        <div class="card_bg"><span class="card_icon"></span>
-                        </div>
+                {% if pressreleases.count() %}
+                <div class="col-sm-2 col-xs-12 media_item">
+                    <div class="card-container text-center">
+                        <a href="{{url('media-center')}}/press-releases"
+                           aria-label="Read all press releases and announcements">
+                            <div class="card_image_container">
+                                <div class="card_bg">
+                                    <span class="card_icon" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <span class="media_label">Press releases</span>
+                        </a>
                     </div>
-                    <span class="media_label">Newsletters</span>
-                </a>
-            </div>
-        </div>
-        {% endif %}
+                </div>
+                {% endif %}
 
-        {% if videos.count() %}
-        <div class="col-sm-2 col-xs-12 media_item">
-            <div class="card-container text-center">
-                <a href="{{url('media-center')}}/videos" title="Videos">
-                    <div class="card_image_container" title="Videos">
-                        <div class="card_bg"><span class="card_icon"></span>
-                        </div>
+                {% if newsletters.count() %}
+                <div class="col-sm-2 col-xs-12 media_item">
+                    <div class="card-container text-center">
+                        <a href="{{url('media-center')}}/newsletters"
+                           aria-label="Access archived newsletters and subscribe">
+                            <div class="card_image_container">
+                                <div class="card_bg">
+                                    <span class="card_icon" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <span class="media_label">Newsletters</span>
+                        </a>
                     </div>
-                    <span class="media_label">Videos</span>
-                </a>
-            </div>
-        </div>
-        {% endif %}
+                </div>
+                {% endif %}
 
+                {% if videos.count() %}
+                <div class="col-sm-2 col-xs-12 media_item">
+                    <div class="card-container text-center">
+                        <a href="{{url('media-center')}}/videos"
+                           aria-label="Watch project videos and multimedia content">
+                            <div class="card_image_container">
+                                <div class="card_bg">
+                                    <span class="card_icon" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <span class="media_label">Videos</span>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
     </div>
-    <p>&nbsp;</p>
-</div>
+</section>

@@ -27,99 +27,107 @@ $this['profiles'] =  Profiles::where('category_id', 1)->get();
 
 {% component 'synergies_intro' %}
 
-<div class="container">
-
-    <h2 class="underline">Our Sister Projects</h2>
-    <div class="row supporting_partners">
-        {% for part in supporting_partners %}
-        <div class="col-md-3 col-xs-12">
-            <div class="supp_partner_item">
-                <div class="supp_partner_image">
-                    <a href="{{part.instituion_url}}">
-                        <img src="{{part.cover.path}}">
-                    </a>
-                </div>
-
-                <div class="button_su website">
-                            <span class="su_button_circle">
-                            </span>
-                    <a href="{{part.instituion_url}}" class="button_su_inner" target="_blank">
-                                <span class="button_text_container">
-                                Visit website
-                                </span>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
-</div>
-
-
-<div class="container">
-
-    <h2 class="underline">Projects we collaborate with</h2>
-    <div class="row supporting_partners">
-        {% for part in collaboration_partners %}
-        <div class="col-md-3 col-xs-12">
-            <div class="supp_partner_item">
-                <div class="supp_partner_image">
-                    <a href="{{part.instituion_url}}">
-                        <img src="{{part.cover.path}}">
-                    </a>
-                </div>
-
-                <div class="button_su website">
-                            <span class="su_button_circle">
-                            </span>
-                    <a href="{{part.instituion_url}}" class="button_su_inner" target="_blank">
-                                <span class="button_text_container">
-                                Visit website
-                                </span>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
-</div>
-
-
-<div class="container">
-    <h2 class="underline">Contact our Project Coordinator</h2>
-    <div class="row width100 center-xs">
-        {% for profile in profiles %}
-        <div class="col-xs-12 col-md-6 profile-item">
-            <div class="row contact_info">
-                <div class="col-md-5 col-xs-12 start-md center-xs coordinator_image">
-                    <img src="{{profile.avatar.thumb(190, 190, {'mode' : 'crop' })}}" class="fr-fic fr-dii">
-                </div>
-                <div class="col-md-7 col-xs-12 coordinator_info">
-                    <div>
-                        <h3>{{profile.names}}</h3>
-                        {% if profile.position %}<div class="card_title">{{profile.position}}</div>{% endif %}
+<section aria-labelledby="sister-projects-heading">
+    <div class="container">
+        <h2 id="sister-projects-heading" class="underline">Our Sister Projects</h2>
+        <div class="row supporting_partners">
+            {% for part in supporting_partners %}
+            <article class="col-md-3 col-xs-12">
+                <div class="supp_partner_item">
+                    <div class="supp_partner_image">
+                        <a href="{{part.instituion_url}}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="{{part.instituion}}">
+                            <img src="{{part.cover.path}}" alt="{{part.instituion}} logo">
+                        </a>
                     </div>
-                    <div>
-                        {% if profile.email %}
-                        <div class="button_su mail">
-                                <span class="su_button_circle">
-                                </span>
-                            <a href="mailto:{{profile.email}}" class="button_su_inner" target="_blank">
-                                  <span class="button_text_container">
-                                    {{profile.email}}
-                                  </span>
-                            </a>
+
+                    <div class="button_su website">
+                        <span class="su_button_circle" aria-hidden="true"></span>
+                        <a href="{{part.instituion_url}}"
+                           class="button_su_inner"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Visit {{part.instituion}} website (opens in new window)">
+                            <span class="button_text_container">Visit website</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section aria-labelledby="collaboration-heading">
+    <div class="container">
+        <h2 id="collaboration-heading" class="underline">Projects we collaborate with</h2>
+        <div class="row supporting_partners">
+            {% for part in collaboration_partners %}
+            <article class="col-md-3 col-xs-12">
+                <div class="supp_partner_item">
+                    <div class="supp_partner_image">
+                        <a href="{{part.instituion_url}}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="{{part.instituion}}">
+                            <img src="{{part.cover.path}}" alt="{{part.instituion}} logo">
+                        </a>
+                    </div>
+
+                    <div class="button_su website">
+                        <span class="su_button_circle" aria-hidden="true"></span>
+                        <a href="{{part.instituion_url}}"
+                           class="button_su_inner"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Visit {{part.instituion}} website (opens in new window)">
+                            <span class="button_text_container">Visit website</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section aria-labelledby="coordinator-heading">
+    <div class="container">
+        <h2 id="coordinator-heading" class="underline">Contact our Project Coordinator</h2>
+        <div class="row width100 center-xs">
+            {% for profile in profiles %}
+            <article class="col-xs-12 col-md-6 profile-item">
+                <div class="row contact_info">
+                    <div class="col-md-5 col-xs-12 start-md center-xs coordinator_image">
+                        <img src="{{profile.avatar.thumb(190, 190, {'mode' : 'crop' })}}"
+                             alt="{{profile.names}}"
+                             class="fr-fic fr-dii">
+                    </div>
+                    <div class="col-md-7 col-xs-12 coordinator_info">
+                        <div>
+                            <h3>{{profile.names}}</h3>
+                            {% if profile.position %}
+                            <p class="card_title">{{profile.position}}</p>
+                            {% endif %}
                         </div>
-                        {% endif %}
+                        <div>
+                            {% if profile.email %}
+                            <div class="button_su mail">
+                                <span class="su_button_circle" aria-hidden="true"></span>
+                                <a href="mailto:{{profile.email}}"
+                                   class="button_su_inner"
+                                   aria-label="Email {{profile.names}}">
+                                    <span class="button_text_container">{{profile.email}}</span>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </article>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-
-</div>
+</section>

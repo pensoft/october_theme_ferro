@@ -57,142 +57,172 @@ function onStart(){
 ?>
 ==
 {% component 'jumbotron' %}
-<div class="container">
-    <div class="row mission-row">
-        <div class="col-md-4 col-xs-12 mb-4">
-            <div class="mission-card">
-                <div class="col-xs-12">
-                    <h1>Vision</h1>
+
+<section aria-labelledby="mission-heading">
+    <div class="container">
+        <h1 id="mission-heading" class="sr-only">Our Mission, Vision, and Goals</h1>
+        <div class="row mission-row">
+            <article class="col-md-4 col-xs-12 mb-4">
+                <div class="mission-card">
+                    <div class="col-xs-12">
+                        <h2>Vision</h2>
+                    </div>
+                    <div class="col-xs-12 mission-text">
+                        {% component 'vision' %}
+                    </div>
                 </div>
-                <div class="col-xs-12 mission-text">
+            </article>
 
-                    {% component 'vision' %}
-
-                </div></div></div>
-        <div class="col-md-4 col-xs-12 mb-4">
-            <div class="mission-card">
-                <div class="col-xs-12">
-                    <h1>Mission</h1>
+            <article class="col-md-4 col-xs-12 mb-4">
+                <div class="mission-card">
+                    <div class="col-xs-12">
+                        <h2>Mission</h2>
+                    </div>
+                    <div class="col-xs-12 mission-text">
+                        {% component 'mission' %}
+                    </div>
                 </div>
-                <div class="col-xs-12 mission-text">
+            </article>
 
-{% component 'mission' %}
-
-                </div></div></div>
-        <div class="col-md-4 col-xs-12 mb-4">
-            <div class="mission-card">
-                <div class="col-xs-12">
-                    <h1>Goals</h1>
+            <article class="col-md-4 col-xs-12 mb-4">
+                <div class="mission-card">
+                    <div class="col-xs-12">
+                        <h2>Goals</h2>
+                    </div>
+                    <div class="col-xs-12 mission-text">
+                        {% component 'goals' %}
+                        <p style="margin-bottom: 0!important;">
+                            <a class="read-more dorsal" aria-expanded="false" aria-label="Read more about goals">Read more</a>
+                        </p>
+                    </div>
                 </div>
-                <div class="col-xs-12 mission-text">
-
-                {% component 'goals' %}
-
-                    <p style="margin-bottom: 0!important;"><a class="read-more dorsal">Read more</a></p>
-                </div></div></div></div>
-
-</div>
+            </article>
+        </div>
+    </div>
+</section>
 
 <!-- Numbers -->
-<div class="container-fluid project-numbers-container">
-    {% component "numbers" %}
-</div>
+<section aria-labelledby="numbers-heading">
+    <div class="container-fluid project-numbers-container">
+        <h2 id="numbers-heading" class="sr-only">Project Statistics</h2>
+        {% component "numbers" %}
+    </div>
+</section>
 
 <!-- News -->
 {% if highlights.count %}
-<!-- latest from news -->
-<div class="container-fluid highlights-news">
-    <div class="container">
-        <h1 class="display-1">Latest news</h1>
-    </div>
-
-    <div class="container prev-nex-container">
-        <div class="trigger_prev_arrow"></div>
-        <div class="trigger_next_arrow"></div>
-    </div>
-
-    <div class="trigger_prev"></div>
-    <div class="trigger_next"></div>
-
-    <div class="news-carousel">
-        {% for highlight in highlights %}
-        <div class="home-news-highlights">
-            <div class="row news-item">
-                <div class="col-md-12 col-xs-12 home-news-cover">
-                    <a href="/news/{{highlight.slug}}">
-                        <img src="{{ highlight.cover.path}}" alt="{{ highlight.title }}">
-                    </a>
-                </div>
-                <div class="col-md-12 col-xs-12 news-content">
-                    <a href="/news/{{highlight.slug}}"><div class="news-title">{{ highlight.title|length > 100 ? highlight.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlight.title|replace({"&nbsp;": " ", ".": ". "})  }}</div></a>
-                    <p class="news-date">{{ highlight.published_at|date('d M Y') }}</p>
-                    <div class="row read-more-row">
-                        <a href="/news/{{highlight.slug}}" class="read-more">{{'Read more' |_}}</a>
-                    </div>
-                </div>
-            </div>
+<section aria-labelledby="latest-news-heading">
+    <div class="container-fluid highlights-news">
+        <div class="container">
+            <h2 id="latest-news-heading">Latest news</h2>
         </div>
-        {% endfor %}
-    </div>
-    <div class="container center-xs">
-        <div class="button_su all_news">
-            <span class="su_button_circle"></span>
-            <a href="{{'news'|page}}" class="button_su_inner">
-              <span class="button_text_container">
-                View all
-              </span>
+
+        <div class="container prev-nex-container">
+            <a class="trigger_prev_arrow" aria-label="Previous news" aria-controls="news-carousel">
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="trigger_next_arrow" aria-label="Next news" aria-controls="news-carousel">
+                <span class="sr-only">Next</span>
             </a>
         </div>
-    </div>
-</div>
 
-{% endif %}
-
-
-
-
-<div class="container-fluid">
-    <div class="row middle-xs between-xs">
-        <div class="col-xs-12 center-xs mb-1 mt-2"><h1 class="display-1">Consortium</h1></div>
-        <div class="col-xs-12 center-xs consortium_partners">
-            <div id="slick">
-                {% for c in consortium_partners %}
-                <div class="slide">
-                    <div class="partner_logo"><a href="{{c.instituion_url}}" target="_blank">
-                        <img alt="{{ c.instituion }}" src="{{c.cover.thumb(auto,80,{'mode':'crop'})}}"></a>
+        <div
+            id="news-carousel"
+            class="news-carousel"
+            role="region"
+            aria-label="Latest news carousel"
+            aria-live="polite">
+            {% for highlight in highlights %}
+            <article class="home-news-highlights">
+                <div class="row news-item">
+                    <div class="col-md-12 col-xs-12 home-news-cover">
+                        <a href="/news/{{highlight.slug}}" aria-label="Read article: {{highlight.title|striptags}}">
+                            <img src="{{ highlight.cover.path}}" alt="{{highlight.title|striptags}}">
+                        </a>
+                    </div>
+                    <div class="col-md-12 col-xs-12 news-content">
+                        <h3 class="news-title">
+                            <a href="/news/{{highlight.slug}}">
+                                {{ highlight.title|length > 100 ? highlight.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlight.title|replace({"&nbsp;": " ", ".": ". "}) }}
+                            </a>
+                        </h3>
+                        <time class="news-date" datetime="{{highlight.published_at|date('Y-m-d')}}">{{ highlight.published_at|date('d M Y') }}</time>
+                        <div class="row read-more-row">
+                            <a href="/news/{{highlight.slug}}" class="read-more" aria-label="Read more about {{highlight.title|striptags}}">{{'Read more' |_}}</a>
+                        </div>
                     </div>
                 </div>
-                {% endfor %}
+            </article>
+            {% endfor %}
+        </div>
+
+        <div class="container center-xs">
+            <div class="button_su all_news">
+                <span class="su_button_circle" aria-hidden="true"></span>
+                <a href="{{'news'|page}}" class="button_su_inner">
+                    <span class="button_text_container">View all</span>
+                </a>
             </div>
         </div>
     </div>
-</div>
+</section>
+{% endif %}
 
+<section aria-labelledby="consortium-heading">
+    <div class="container-fluid">
+        <div class="row middle-xs between-xs">
+            <div class="col-xs-12 center-xs mb-1 mt-2">
+                <h2 id="consortium-heading">Consortium</h2>
+            </div>
+            <div class="col-xs-12 center-xs consortium_partners">
+                <div id="slick" role="region" aria-label="Consortium partner institutions carousel">
+                    {% for c in consortium_partners %}
+                    <div class="slide">
+                        <div class="partner_logo">
+                            <a href="{{c.instituion_url}}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Visit {{c.instituion}} website (opens in new window)">
+                                <img alt="{{c.instituion}} logo" src="{{c.cover.thumb(auto,80,{'mode':'crop'})}}">
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="container" id="mission">
-
-    <h2 class="underline">Our Sister Projects</h2>
-    <div class="row supporting_partners">
-        {% for part in supporting_partners %}
-            <div class="col-md-3 col-xs-12">
+<section aria-labelledby="sister-projects-heading">
+    <div class="container" id="mission">
+        <h2 id="sister-projects-heading" class="underline">Our Sister Projects</h2>
+        <div class="row supporting_partners">
+            {% for part in supporting_partners %}
+            <article class="col-md-3 col-xs-12">
                 <div class="supp_partner_item">
                     <div class="supp_partner_image">
-                        <a href="{{part.instituion_url}}">
-                            <img src="{{part.cover.path}}">
+                        <a href="{{part.instituion_url}}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="{{part.instituion}}">
+                            <img src="{{part.cover.path}}" alt="{{part.instituion}} logo">
                         </a>
                     </div>
 
                     <div class="button_su website">
-                            <span class="su_button_circle">
-                            </span>
-                        <a href="{{part.instituion_url}}" class="button_su_inner">
-                                <span class="button_text_container">
-                                Visit website
-                                </span>
+                        <span class="su_button_circle" aria-hidden="true"></span>
+                        <a href="{{part.instituion_url}}"
+                           class="button_su_inner"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Visit {{part.instituion}} website (opens in new window)">
+                            <span class="button_text_container">Visit website</span>
                         </a>
                     </div>
-
                 </div>
-            </div>
-        {% endfor %}
+            </article>
+            {% endfor %}
+        </div>
     </div>
+</section>

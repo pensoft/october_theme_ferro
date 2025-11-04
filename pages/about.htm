@@ -38,59 +38,87 @@ function onStart(){
 {% component 'siteSearchInclude' %}
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-xs-12 start-md center-xs"><img src="{{'image-about-1.png'|media}}"> </div>
-        <div class="col-md-6 col-xs-12">{% component "about" %}</div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-xs-12">{% component "project" %}</div>
-        <div class="col-md-6 col-xs-12 end-md center-xs"><img src="{{'image-about-2.png'|media}}"> </div>
-    </div>
-</div>
-
-<div class="container" id="mission">
-
-    <h2 class="underline">{{mission_title.name}}</h2>
-    <div class="row top-xs mission">
-        {% for key1, item1 in mission_records %}
-        <div class="accordion-border key_{{key1}}"><!-- 1 --><!-- css 1 -->
-            <div class="row middle-xs accordion-toggle">
-                <div class="col-xs start-xs">{{item1.title}}</div>
-
-                <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+<section aria-labelledby="about-heading">
+    <div class="container">
+        <h1 id="about-heading" class="sr-only">About</h1>
+        <div class="row">
+            <div class="col-md-6 col-xs-12 start-md center-xs">
+                <img src="{{'image-about-1.png'|media}}" alt="About FERRO project illustration">
             </div>
-
-            <div class="accordion-content" style="display: none;">
-                {{item1.body|raw}}
+            <div class="col-md-6 col-xs-12">
+                {% component "about" %}
             </div>
         </div>
-        {% endfor %}
     </div>
-</div>
+</section>
 
-<div class="container" id="work-packages">
-
-    <h2 class="underline">{{work_packages_title.name}}</h2>
-
-    <div class="row top-xs work_packages">
-        {% for key, item in work_packages_records %}
-        <div class="accordion-border key_{{key}}"><!-- 1 --><!-- css 1 -->
-            <div class="row middle-xs accordion-toggle">
-                <div class="col-xs-2 green_bullet">{{item.prefix}}</div>
-
-                <div class="col-xs start-xs">{{item.title}}</div>
-
-                <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+<section aria-labelledby="project-heading">
+    <div class="container">
+        <h2 id="project-heading" class="sr-only">Project Overview</h2>
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                {% component "project" %}
             </div>
-
-            <div class="accordion-content" style="display: none;">
-                {{item.body|raw}}
+            <div class="col-md-6 col-xs-12 end-md center-xs">
+                <img src="{{'image-about-2.png'|media}}" alt="Project methodology illustration">
             </div>
         </div>
-        {% endfor %}
     </div>
-</div>
+</section>
+
+<section aria-labelledby="mission-heading">
+    <div class="container" id="mission">
+        <h2 id="mission-heading" class="underline">{{mission_title.name}}</h2>
+        <div class="row top-xs mission">
+            {% for key1, item1 in mission_records %}
+            <div class="accordion-border key_{{key1}}">
+                <h3>
+                    <a
+                        class="row middle-xs accordion-toggle"
+                        aria-expanded="false"
+                        aria-controls="mission-content-{{key1}}"
+                        id="mission-button-{{key1}}">
+                        <span class="col-xs start-xs">{{item1.title}}</span>
+                        <span class="col-xs-2 end-xs plusminus" aria-hidden="true">
+                            <span class="plus"></span>
+                        </span>
+                    </a>
+                </h3>
+
+                <div
+                    class="accordion-content"
+                    id="mission-content-{{key1}}"
+                    role="region"
+                    aria-labelledby="mission-button-{{key1}}"
+                    hidden>
+                    {{item1.body|raw}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section aria-labelledby="work-packages-heading">
+    <div class="container" id="work-packages">
+        <h2 id="work-packages-heading" class="underline">{{work_packages_title.name}}</h2>
+
+        <div class="row top-xs work_packages">
+            {% for key, item in work_packages_records %}
+            <div class="accordion-border key_{{key}}"><!-- 1 --><!-- css 1 -->
+                <div class="row middle-xs accordion-toggle">
+                    <div class="col-xs-2 green_bullet">{{item.prefix}}</div>
+
+                    <div class="col-xs start-xs">{{item.title}}</div>
+
+                    <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+                </div>
+
+                <div class="accordion-content" style="display: none;">
+                    {{item.body|raw}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -83,7 +83,23 @@ $(document).ready(function() {
     }
 
 
-    $('body').on('click', '.work_packages .accordion-toggle, .mission .accordion-toggle', function () {
+    $('body').on('click', '.work_packages .accordion-toggle', function () {
+        if ($(this).parent().next(".accordion-content").is(':visible')) {
+            $(this).parent().next(".accordion-content").slideUp(300);
+            $(this).children().find(".plusminus").text('+');
+            $(this).children(".plusminus").html('<span class="plus"></span>');
+            $(this).children(".green_bullet").removeClass('toggled');
+
+        } else {
+            $(this).parent().next(".accordion-content").slideDown(300);
+            $(this).children().find(".plusminus").text('-');
+            $(this).children(".plusminus").html('<span class="minus"></span>');
+            $(this).children(".green_bullet").addClass('toggled');
+        }
+    });
+
+    $('body').on('click', '.messages .accordion-toggle, .mission .accordion-toggle', function () {
+        console.log($(this).next(".accordion-content"));
         if ($(this).next(".accordion-content").is(':visible')) {
             $(this).next(".accordion-content").slideUp(300);
             $(this).children().find(".plusminus").text('+');
@@ -98,14 +114,10 @@ $(document).ready(function() {
         }
     });
 
-    $('.work_packages .accordion-content, .messages .accordion-toggle').each(function( index, value ) {
-        $(value).find('a').attr( "onclick", "window.open(this.href, '_blank');" )
-    });
-
-    if(width >= 1024){
-        $('.work_packages .key_0, .work_packages .key_2, .work_packages .key_4, .work_packages .key_6, .work_packages .key_8, .work_packages .key_10, .work_packages .key_12').wrapAll('<div class="col-md-6 col-xs-12" />');
-        $('.work_packages .key_1, .work_packages .key_3, .work_packages .key_5, .work_packages .key_7, .work_packages .key_9, .work_packages .key_11').wrapAll('<div class="col-md-6 col-xs-12" />');
-    }
+    // if(width >= 1024){
+    //     $('.work_packages .key_0, .work_packages .key_2, .work_packages .key_4, .work_packages .key_6, .work_packages .key_8, .work_packages .key_10, .work_packages .key_12').wrapAll('<div class="col-md-6 col-xs-12" />');
+    //     $('.work_packages .key_1, .work_packages .key_3, .work_packages .key_5, .work_packages .key_7, .work_packages .key_9, .work_packages .key_11').wrapAll('<div class="col-md-6 col-xs-12" />');
+    // }
 
     $('.nav-item').children("a").each(function(){
         if($(this).attr('data-toggle') == 'dropdown'){

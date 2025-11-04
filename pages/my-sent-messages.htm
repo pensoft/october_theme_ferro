@@ -21,16 +21,17 @@ function onStart(){
 {% component 'session' %}
 <h1 class="underline">Sent messages</h1>
 <div class="container">
-        <div class="row sent-messages-container">
+        <div class="row sent-messages-container messages">
             {% for record in messages %}
-            <div class="col-xs-12 messages">
-                <div class="row middle-xs between-xs accordion-toggle">
-                    <div class="col-xs-10 start-xs title_container">
-                        {{record.subject}} &nbsp; <span class="date">{{record.created_at |date('d F Y')}}</span>
-                    </div>
+            <div class="accordion-border key_{{key}}"><!-- 1 --><!-- css 1 -->
+                <div class="row middle-xs accordion-toggle">
+
+                    <div class="col-xs start-xs">{{record.subject}} - {{record.created_at |date('d F Y')}}</div>
+
                     <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
                 </div>
-                <div class="row accordion-content" style="display: none;">
+
+                <div class="accordion-content" style="display: none;">
                     {% if record.user.count %}
                     <div class="col-xs-12 col-md-6">
                         <h2>To user(s):</h2>
@@ -62,6 +63,8 @@ function onStart(){
                     <div class="col-xs-12"><h2>Message:</h2><p>{{record.body | raw}}</p></div>
                 </div>
             </div>
+
+<!--            -->
             {% endfor %}
         </div>
 </div>

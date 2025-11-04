@@ -90,11 +90,15 @@ nav:not(.navbar){
 
 
 .news{
+    article{
+        margin: 0 auto;
+    }
     .news-list{
         display: inline-flex;
         flex-wrap: wrap;
         width: 100%;
     }
+
     .news-item{
         background: @secondary-color;
         border-radius: 7px;
@@ -102,9 +106,9 @@ nav:not(.navbar){
         display: flex;
         flex-direction: column;
         padding: 15px;
-        width: min-content;
         margin-bottom: 20px;
         width: auto;
+
 
         .news-title{
             font-size: 18px;
@@ -115,6 +119,9 @@ nav:not(.navbar){
             text-align: left;
             font-weight: 500;
             min-height: 47px;
+            a {
+                color: #010D1C!important;
+            }
         }
 
         .news-date{

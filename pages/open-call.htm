@@ -55,51 +55,76 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
 {% component 'siteSearchInclude' %}
 
 <div class="open-call">
-    <div class="container">
-        <div class="row middle-xs">
-            <div class="col-md-6 col-xs-12 start-md center-xs"><img src="{{'image-about-1.png'|media}}"> </div>
-            <div class="col-md-6 col-xs-12">{% component "about" %}</div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-xs-12">{% component "project" %}</div>
-            <div class="col-md-6 col-xs-12 end-md center-xs"><img src="{{'image-about-2.png'|media}}"> </div>
-        </div>
-    </div>
-
-    <div class="container open-call-timeline">
-        <h3>FERRO Open Call & Project Timeline</h3>
-        {% partial 'components/timeline' %}
-    </div>
-
-    <div class="call-webinar">
-        {% component 'call-webinar' %}
-    </div>
-
-
-    <div class="container goal-section d-flex justify-content-center" id="goal">
-        <div class="container-small">
-            <h2 class="underline">{{work_packages_title.name}}</h2>
-            <div class="row top-xs mission">
-                {% for key1, item1 in work_packages_records %}
-                <div class="accordion-border key_{{key1}}">
-                    <div class="row middle-xs accordion-toggle">
-                        <div class="col-xs start-xs">{{item1.title}}</div>
-                        <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
-                    </div>
-                    <div class="accordion-content" style="display: none;">
-                        {{item1.body|raw}}
-                    </div>
+    <section aria-labelledby="about-section-heading">
+        <div class="container">
+            <h1 id="about-section-heading" class="sr-only">About FERRO Open Call</h1>
+            <div class="row middle-xs">
+                <div class="col-md-6 col-xs-12 start-md center-xs">
+                    <img src="{{'image-about-1.png'|media}}" alt="FERRO Open Call illustration">
                 </div>
-                {% endfor %}            
+                <div class="col-md-6 col-xs-12">
+                    {% component "about" %}
+                </div>
             </div>
         </div>
-    </div>
-    
-    <div class="container-fluid questions-img">
-        {% component 'open-call-questions' %}
-    </div>  
+    </section>
+
+    <section aria-labelledby="project-section-heading">
+        <div class="container">
+            <h2 id="project-section-heading" class="sr-only">Project Information</h2>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    {% component "project" %}
+                </div>
+                <div class="col-md-6 col-xs-12 end-md center-xs">
+                    <img src="{{'image-about-2.png'|media}}" alt="Project methodology illustration">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section aria-labelledby="timeline-heading">
+        <div class="container open-call-timeline">
+            <h3 id="timeline-heading">FERRO Open Call & Project Timeline</h3>
+            {% partial 'components/timeline' %}
+        </div>
+    </section>
+
+    <section aria-labelledby="webinar-heading">
+        <div class="call-webinar">
+            <h2 id="webinar-heading" class="sr-only">Call Webinar</h2>
+            {% component 'call-webinar' %}
+        </div>
+    </section>
+
+    <section aria-labelledby="work-packages-heading">
+        <div class="container goal-section d-flex justify-content-center" id="goal">
+            <div class="container-small">
+                <h2 id="work-packages-heading" class="underline">{{work_packages_title.name}}</h2>
+                <div class="row top-xs mission">
+                    {% for key1, item1 in work_packages_records %}
+                    <div class="accordion-border key_{{key}}"><!-- 1 --><!-- css 1 -->
+                        <div class="row middle-xs accordion-toggle">
+                            <div class="col-xs start-xs">{{item1.title}}</div>
+
+                            <div class="col-xs-2 end-xs plusminus"><span class="plus"></span></div>
+                        </div>
+
+                        <div class="accordion-content" style="display: none;">
+                            {{item1.body|raw}}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section aria-labelledby="questions-heading">
+        <div class="container-fluid questions-img">
+            <h2 id="questions-heading" class="sr-only">Open Call Questions</h2>
+            {% component 'open-call-questions' %}
+        </div>
+    </section>
 
 </div>

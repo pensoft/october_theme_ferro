@@ -63,69 +63,93 @@ return Response::download($pathToFile, $fileName, $headers);
 }
 ?>
 ==
-<div class="container">
-    <div class="col-xs-12 go-back">
-        <a href="{{'media-center'|page}}" class="col-xs-12">Back to Media</a>
-    </div>
+<section aria-labelledby="brand-kit-heading">
+    <div class="container">
+        <nav aria-label="Breadcrumb">
+            <div class="col-xs-12 go-back">
+                <a href="{{'media-center'|page}}" class="col-xs-12" aria-label="Go back to Media Center">
+                    Back to Media
+                </a>
+            </div>
+        </nav>
 
+        <h1 id="brand-kit-heading" class="sr-only">Brand Kit</h1>
 
-    {% set records = mediaLogosList %}
-    {% set displayColumn = mediaLogosList.displayColumn %}
-    {% set noRecordsMessage = mediaLogosList.noRecordsMessage %}
-    {% set detailsPage = mediaLogosList.detailsPage %}
-    {% set detailsKeyColumn = mediaLogosList.detailsKeyColumn %}
-    {% set detailsUrlParameter = mediaLogosList.detailsUrlParameter %}
+        {% set records = mediaLogosList %}
+        {% set displayColumn = mediaLogosList.displayColumn %}
+        {% set noRecordsMessage = mediaLogosList.noRecordsMessage %}
+        {% set detailsPage = mediaLogosList.detailsPage %}
+        {% set detailsKeyColumn = mediaLogosList.detailsKeyColumn %}
+        {% set detailsUrlParameter = mediaLogosList.detailsUrlParameter %}
 
-    {% if records.count() %}
+        {% if records.count() %}
         <div class="row">
             {% for record in records %}
             {% spaceless %}
             {% if record.logo_image %}
 
-            <div class="col-md-4 col-xs-12 mb-4">
+            <article class="col-md-4 col-xs-12 mb-4">
                 <div class="logo-container {{record.name}}">
-                    <img src="{{record.logo_image.path}}" title="{{record.name}}">
+                    <img src="{{record.logo_image.path}}" alt="{{record.name}} logo preview">
                 </div>
-                <p align="center">{{record.name}}</p>
+                <h2 class="text-center">{{record.name}}</h2>
 
                 <div class="links">
                     {% if record.file_jpg %}
                     <div class="button_su download">
-                    {{form_open({ request: 'onDownloadFile' }) }}
-                    <input type="hidden" value="{{record.file_jpg.id}}" name="id">
-                    <span class="su_button_circle desplode-circle"></span>
-                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container">JPG</span></button>
-                    {{ form_close() }}
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file_jpg.id}}" name="id">
+                        <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
+                        <button type="submit"
+                                data-attach-loading
+                                class="btn button_su_inner"
+                                aria-label="Download {{record.name}} as JPG">
+                            <span class="button_text_container">JPG</span>
+                        </button>
+                        {{ form_close() }}
                     </div>
                     {% endif %}
 
                     {% if record.file_png %}
                     <div class="button_su download">
-                    {{form_open({ request: 'onDownloadFile' }) }}
-                    <input type="hidden" value="{{record.file_png.id}}" name="id">
-                    <span class="su_button_circle desplode-circle"></span>
-                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container">PNG</span></button>
-                    {{ form_close() }}
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file_png.id}}" name="id">
+                        <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
+                        <button type="submit"
+                                data-attach-loading
+                                class="btn button_su_inner"
+                                aria-label="Download {{record.name}} as PNG">
+                            <span class="button_text_container">PNG</span>
+                        </button>
+                        {{ form_close() }}
                     </div>
                     {% endif %}
 
                     {% if record.file_eps %}
                     <div class="button_su download">
-                    {{form_open({ request: 'onDownloadFile' }) }}
-                    <input type="hidden" value="{{record.file_eps.id}}" name="id">
-                    <span class="su_button_circle desplode-circle"></span>
-                    <button type="submit" data-attach-loading class="btn button_su_inner"><span class="button_text_container">SVG</span></button>
-                    {{ form_close() }}
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file_eps.id}}" name="id">
+                        <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
+                        <button type="submit"
+                                data-attach-loading
+                                class="btn button_su_inner"
+                                aria-label="Download {{record.name}} as SVG">
+                            <span class="button_text_container">SVG</span>
+                        </button>
+                        {{ form_close() }}
                     </div>
                     {% endif %}
                 </div>
-            </div>
+            </article>
             {% endif %}
 
             {% endspaceless %}
             {% else %}
-            {{ noRecordsMessage }}
+            <div class="col-xs-12">
+                <p>{{ noRecordsMessage ?: 'No brand kit items available at this time.' }}</p>
+            </div>
             {% endfor %}
         </div>
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
+</section>
