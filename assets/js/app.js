@@ -83,7 +83,7 @@ $(document).ready(function() {
     }
 
 
-    $('body').on('click', '.work_packages .accordion-toggle', function () {
+    $('body').on('click', '.work_packages .accordion-toggle, .mission .accordion-toggle', function () {
         if ($(this).parent().next(".accordion-content").is(':visible')) {
             $(this).parent().next(".accordion-content").slideUp(300);
             $(this).children().find(".plusminus").text('+');
@@ -98,7 +98,7 @@ $(document).ready(function() {
         }
     });
 
-    $('body').on('click', '.messages .accordion-toggle, .mission .accordion-toggle', function () {
+    $('body').on('click', '.messages .accordion-toggle, .work_packages .accordion-toggle, .mission .accordion-toggle', function () {
         console.log($(this).next(".accordion-content"));
         if ($(this).next(".accordion-content").is(':visible')) {
             $(this).next(".accordion-content").slideUp(300);
