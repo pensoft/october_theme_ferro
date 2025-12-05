@@ -253,39 +253,7 @@ $(document).ready(function() {
     });
 
 
-    $('.press_dorsal').click(function () {
-        var link = $(this);
 
-        var parag = link.parent().find('p').first();
-        var partner_desc = link.parent();
-
-        parag.toggleClass('expand', function() {
-            if (parag.hasClass('expand')) {
-                link.text('Read less');
-                parag.slideDown(300);
-            } else {
-                link.text('Read more');
-                // parag.slideUp(300);
-            }
-
-        });
-        if(partner_desc){
-            partner_desc.toggleClass('expand', function() {
-                if (parag.hasClass('expand')) {
-                    link.text('Read less');
-                    parag.slideDown(300);
-
-
-                } else {
-                    link.text('Read more');
-                    // parag.slideUp(300);
-                }
-
-            });
-        }
-
-
-    });
 
     $('.library .form-wrapper, .library-items').wrapAll('<div class="container-fluid bg-secondary"><div class="container"></div></div>');
     $('.library .tabs').wrapAll('<div class="container"></div>');
