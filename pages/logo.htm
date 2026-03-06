@@ -139,6 +139,19 @@ return Response::download($pathToFile, $fileName, $headers);
                         {{ form_close() }}
                     </div>
                     {% endif %}
+
+                    {% if record.file_pdf %}
+                    <div class="button_su download">
+                    <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
+                        <a 
+                        href="{{record.file_pdf.path}}" target="_blank"
+                        data-attach-loading
+                                class="btn button_su_inner"
+                                aria-label="Download {{record.name}} as PDF">
+                            <span class="button_text_container">PDF</span>
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
             </article>
             {% endif %}
