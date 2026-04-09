@@ -12,6 +12,7 @@ use Pensoft\Media\Models\Newsletters;
 use Pensoft\Media\Models\Presentations;
 use Pensoft\Media\Models\Pressreleases;
 use Pensoft\Media\Models\Videos;
+use Pensoft\Media\Models\Documents;
 
 function onStart(){
 	$this['logos'] =  MediaLogos::get();
@@ -20,6 +21,7 @@ function onStart(){
 	$this['presentations'] =  Presentations::get();
 	$this['pressreleases'] =  Pressreleases::get();
 	$this['videos'] =  Videos::get();
+	$this['documents'] =  Documents::get();
 }
 ?>
 ==
@@ -30,7 +32,7 @@ function onStart(){
         <nav aria-label="Media center categories">
             <div class="row around-md around-xs">
                 {% if logos.count() %}
-                <div class="col-sm-2 col-xs-12 media_item">
+                <div class="col-sm-4 col-xs-12 media_item">
                     <div class="card-container text-center">
                         <a href="{{url('media-center')}}/brand-kit"
                            aria-label="Browse brand kit materials including logos and guidelines">
@@ -46,7 +48,7 @@ function onStart(){
                 {% endif %}
 
                 {% if flyers.count() %}
-                <div class="col-sm-2 col-xs-12 media_item">
+                <div class="col-sm-4 col-xs-12 media_item">
                     <div class="card-container text-center">
                         <a href="{{url('media-center')}}/promotional-materials"
                            aria-label="View promotional materials and flyers">
@@ -61,8 +63,24 @@ function onStart(){
                 </div>
                 {% endif %}
 
+                {% if documents.count() %}
+                <div class="col-sm-4 col-xs-12 media_item">
+                    <div class="card-container text-center">
+                        <a href="{{url('media-center')}}/policy-briefs"
+                           aria-label="View policy briefs">
+                            <div class="card_image_container">
+                                <div class="card_bg">
+                                    <span class="card_icon" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <span class="media_label">Policy briefs</span>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+
                 {% if pressreleases.count() %}
-                <div class="col-sm-2 col-xs-12 media_item">
+                <div class="col-sm-4 col-xs-12 media_item">
                     <div class="card-container text-center">
                         <a href="{{url('media-center')}}/press-releases"
                            aria-label="Read all press releases and announcements">
@@ -78,7 +96,7 @@ function onStart(){
                 {% endif %}
 
                 {% if newsletters.count() %}
-                <div class="col-sm-2 col-xs-12 media_item">
+                <div class="col-sm-4 col-xs-12 media_item">
                     <div class="card-container text-center">
                         <a href="{{url('media-center')}}/newsletters"
                            aria-label="Access archived newsletters and subscribe">
@@ -94,7 +112,7 @@ function onStart(){
                 {% endif %}
 
                 {% if videos.count() %}
-                <div class="col-sm-2 col-xs-12 media_item">
+                <div class="col-sm-4 col-xs-12 media_item">
                     <div class="card-container text-center">
                         <a href="{{url('media-center')}}/videos"
                            aria-label="Watch project videos and multimedia content">

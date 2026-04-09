@@ -4,11 +4,11 @@ url = "/media-center/policy-briefs"
 
 ==
 <?php
-use Pensoft\Media\Models\Graphic;
+use Pensoft\Media\Models\Documents;
 use System\Models\File;
 
 function onStart(){
-	$this['recordsList'] =  Graphic::get();
+	$this['recordsList'] =  Documents::get();
 	if(post('download')){
 		$file = File::find((int)post('download'));
 		$file_name = $file->getLocalPath();
@@ -36,33 +36,47 @@ return Redirect::to('/media-center/policy-briefs');
 ?>
 ==
 
-<div class="container presentation">
-    <a href="/media-center" class="back-to"> &#10094; Back to Media center</a><br><br>
-    <div class="row">
+<section aria-labelledby="policy-briefs-heading">
+    <div class="container">
+        <nav aria-label="Breadcrumb">
+            <div class="col-xs-12 go-back">
+                <a href="{{'media-center'|page}}" class="col-xs-12" aria-label="Go back to Media Center">
+                    Back to Media
+                </a>
+            </div>
+        </nav>
+
+        <h1 id="policy-briefs-heading" class="sr-only">Policy Briefs</h1>
+
         {% set records = recordsList %}
-        {% set displayColumn = recordsList.displayColumn %}
-        {% set noRecordsMessage = recordsList.noRecordsMessage %}
-        {% set detailsPage = recordsList.detailsPage %}
-        {% set detailsKeyColumn = recordsList.detailsKeyColumn %}
-        {% set detailsUrlParameter = recordsList.detailsUrlParameter %}
 
-        {% for record in records %}
-        {# Use spaceless tag to remove spaces inside the A tag. #}
-        {% spaceless %}
-        <div class="col-md-2 col-xs-12 mt-4">
-            <div class="card-container text-center">
-                <span class="card_title">{{record.name}}</span><br>
-                <span class="card_image_container" style="background: url({{record.image.thumb(220, 220,{'mode':'crop'})}}) center center no-repeat;" title="{{record.name}}"></span>
+        {% if records.count() %}
+        <div class="row">
+            {% for record in records %}
+            <article class="col-md-4 col-xs-12 mb-4">
+                <div class="flyer-container">
+                    <img src="{{record.image.thumb(357, 253, {'mode':'crop'})}}" alt="{{record.title}} preview">
+                </div>
+                <h2 class="text-center">{{record.title}}</h2>
 
-                <br><a href="{{ record.file.path }}#{{record.file.file_name}}" target="_blank" title="{{record.name}}" class="btn btn-primary">Download</a>
+                <div class="links">
+                    {% if record.file %}
+                    <div class="button_su download">
+                        <a href="{{ record.file.path }}" target="_blank" class="btn button_su_inner" aria-label="Download {{record.title}}">
+                            <span class="button_text_container">Download</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-xs-12">
+                <p>No policy briefs available at this time.</p>
             </div>
         </div>
-
-
-
-        {% endspaceless %}
-        {% else %}
-        {{ noRecordsMessage }}
-        {% endfor %}
+        {% endif %}
     </div>
-</div>
+</section>
