@@ -866,6 +866,112 @@ ul.pagination{
   }
 }
 
+.home{
+    .modal{
+        background: #44444478;
+
+        .modal-dialog{
+            width: 380px;
+            max-width: 90vw;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) !important;
+        }
+
+        .modal-content{
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 0;
+            position: relative;
+
+            .row{
+                margin: 0;
+            }
+
+            .zenodo_backround{
+                padding: 0;
+                position: relative;
+                height: 180px;
+                background: url("../../assets/images/background_library.png") center center no-repeat;
+                background-size: cover;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img{
+                    width: 161px;
+                    height: 52px;
+                    max-width: 161px;
+                    max-height: 52px;
+                    object-fit: contain;
+                    margin: 0;
+                    display: block;
+                }
+            }
+
+            .funding_content{
+                padding: 25px 25px 28px;
+                text-align: center;
+
+                .funding-title{
+                    color: @dark-color;
+                    font-size: 21px;
+                    font-weight: 600;
+                    line-height: 1.4em;
+                    margin-bottom: 22px;
+                }
+
+                .button_su{
+                    width: 100%;
+                    margin-bottom: 0px;
+                }
+
+                .button_su_inner{
+                    height: 28px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.4s ease-in-out;
+
+                    &:hover{
+                        background: rgba(1, 15, 33 ,1) url("../../assets/images/arrow-hover.svg") no-repeat;
+                        background-position: right 21px center;
+                        animation: animatedBackgroundBtn 400ms linear;
+                        background-size: 12px;
+                        padding: 11px 29px 11px 11px;
+                        z-index: 10000;
+                    }
+
+                    .button_text_container{
+                        position:relative;
+                    }
+                }
+            }
+
+            .close{
+                position: absolute;
+                color: @white-color;
+                font-weight: 300;
+                font-size: 28px;
+                top: 10px;
+                right: 15px;
+                opacity: 1;
+                z-index: 10;
+                text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+
+                &:hover,
+                &:focus{
+                    color: @white-color;
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
+
 
 .subscribe-items {
     margin-top: 53px;

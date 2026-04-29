@@ -259,6 +259,18 @@ $(document).ready(function() {
     $('.library .tabs').wrapAll('<div class="container"></div>');
     $('.library_content .row.center-xs.mb-1').wrapAll('<div class="container_relative"></div>');
 
+    if ($('.library .tabs').length && !$('.library-zenodo-banner').length) {
+        $('<div class="library-zenodo-banner">' +
+            '<span class="banner-text">Explore FERRO Research Outputs on Zenodo</span>' +
+            '<div class="button_su intro_btn">' +
+                '<span class="su_button_circle desplode-circle" aria-hidden="true"></span>' +
+                '<a class="button_su_inner" href="https://zenodo.org/communities/ferro/records?q=&l=list&p=1&s=10&sort=newest" target="_blank" aria-label="Read more about the Explore FERRO Research Outputs on Zenodo">' +
+                    '<span class="button_text_container">Explore</span>' +
+                '</a>' +
+            '</div>' +
+        '</div>').insertAfter($('.library .tabs').parent());
+    }
+
     if(width > 1024){
         $('.partners_list .key_0, .partners_list .key_2, .partners_list .key_4, .partners_list .key_6, .partners_list .key_8, .partners_list .key_10, .partners_list .key_12, .partners_list .key_14, .partners_list .key_16, .partners_list .key_18').wrapAll('<div class="col-md-6 col-xs-12"></div>');
         $('.partners_list .key_1, .partners_list .key_3, .partners_list .key_5, .partners_list .key_7, .partners_list .key_9, .partners_list .key_11, .partners_list .key_13, .partners_list .key_15, .partners_list .key_17, .partners_list .key_19').wrapAll('<div class="col-md-6 col-xs-12"></div>');
@@ -393,6 +405,12 @@ function type(i, t, ie, oe) {
 
 
 
+
+function openZenodoModalBtn(){
+    setTimeout(function() {
+        $(".openZenodoModalBtn").trigger("click");
+    },10);
+}
 function expandBiography(el){
     $el = $(el) // read-more link
     $body  = $el.parent().parent().find('.body');

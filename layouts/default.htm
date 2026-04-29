@@ -73,7 +73,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Matomo Code -->
 </head>
 
-<body>
+<body {% if this.page.id == 'home' %} onload="openZenodoModalBtn();" {% endif %}>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWW5NKQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -93,6 +93,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Content -->
     <section id="layout-content" class="{{this.page.id}}">
+
+        {% if this.page.id == 'home' %}
+        <!-- popup markup -->
+        <a data-toggle="modal" href="#content-confirmation" class="openZenodoModalBtn" style="display: none;">Engage FERRO Research Outputs on Zenodo</a>
+
+        <div class="control-popup modal fade" id="content-confirmation" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content center-xs">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 zenodo_backround"><img src="{{'zenodo.png'|media}}" alt="Featured image for Explore FERRO Research Outputs on Zenodo popup" title="Explore FERRO Research Outputs on Zenodo popup image"></div>
+                        <div class="col-md-12 col-xs-12 funding_content">
+                            <div class="funding-title">Explore FERRO Research Outputs on Zenodo</div>
+                            <div class="button_su intro_btn">
+                                <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
+                                <a class="button_su_inner" href="https://zenodo.org/communities/ferro/records?q=&l=list&p=1&s=10&sort=newest" target="_blank" aria-label="Read more about the Explore FERRO Research Outputs on Zenodo">
+                                    <span class="button_text_container">Explore</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
         {% page %}
     </section>
 </div>
