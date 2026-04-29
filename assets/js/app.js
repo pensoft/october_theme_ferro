@@ -261,7 +261,7 @@ $(document).ready(function() {
 
     if ($('.library .tabs').length && !$('.library-zenodo-banner').length) {
         $('<div class="library-zenodo-banner">' +
-            '<span class="banner-text">Explore FERRO Research Outputs on Zenodo</span>' +
+            '<span class="banner-text">Explore FERRO\'s Research Outputs</span>' +
             '<div class="button_su intro_btn">' +
                 '<a class="button_su_inner" href="https://zenodo.org/communities/ferro/records?q=&l=list&p=1&s=10&sort=newest" target="_blank" aria-label="Read more about the Explore FERRO Research Outputs on Zenodo">' +
                     '<span class="button_text_container">Explore</span>' +

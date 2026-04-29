@@ -543,8 +543,9 @@
         align-items: center;
         justify-content: center;
         transition: all 0.4s ease-in-out;
-        background: @link-color;
-        color: @white-color;
+        background: url("../../assets/images/zenodo-logo.svg") center center no-repeat @link-color;
+        background-size: 70%;
+        color: transparent;
         padding: 11px 32px;
         border-radius: 8px;
         font-size: 18px;
@@ -553,18 +554,17 @@
         text-decoration: none;
 
         &:hover {
-            //background: rgba(1, 15, 33, 1) url("../../assets/images/arrow-hover.svg") no-repeat;
-            background: rgba(1, 15, 33, 1);
-            background-position: right 21px center;
-            animation: animatedBackgroundBtn 400ms linear;
-            background-size: 12px;
-            //padding: 11px 40px 11px 24px;
+            background: url("../../assets/images/zenodo-logo.svg") center center no-repeat rgba(1, 15, 33, 1);
+            background-size: 70%;
+            animation: none;
             z-index: 10000;
-            color: @white-color;
+            color: transparent;
+            padding: 11px 32px;
         }
 
         .button_text_container {
             position: relative;
+            color: transparent;
         }
     }
 
