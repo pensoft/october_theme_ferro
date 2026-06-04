@@ -405,10 +405,31 @@ function type(i, t, ie, oe) {
 
 
 
+function getCookie(name){
+    var match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
+function setCookie(name, value, days){
+    var expires = '';
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = '; expires=' + date.toUTCString();
+    }
+    document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+}
+
 function openZenodoModalBtn(){
+    if (getCookie('zenodoModalDismissed')) {
+        return;
+    }
     setTimeout(function() {
         $(".openZenodoModalBtn").trigger("click");
     },10);
+    $('#content-confirmation').on('hidden.bs.modal', function () {
+        setCookie('zenodoModalDismissed', '1', 30);
+    });
 }
 function expandBiography(el){
     $el = $(el) // read-more link
