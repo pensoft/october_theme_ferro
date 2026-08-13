@@ -1,0 +1,118 @@
+url = "/media-center/factsheets"
+layout = "default"
+title = "Factsheets"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+use Pensoft\Media\Models\Presentations;
+use System\Models\File;
+
+function onStart(){
+	$this['factsheetsList'] =  Presentations::orderBy('sort_order')->get();
+	if(get('download')){
+		$file = File::find((int)get('download'));
+		$file_name = $file->getLocalPath();
+$recordName = get('file_name') ? get('file_name') : 'FERRO_factsheet';
+$ext= $file->getExtension();
+
+if (file_exists($file_name)) {
+header('Content-Description: File Transfer');
+header('Content-Type: application/octet-stream');
+header("Content-Type: application/force-download");
+header('Content-Disposition: attachment; filename='.$recordName .'.'. $ext);
+header('Content-Transfer-Encoding: binary');
+header('Expires: 0');
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Pragma: public');
+header('Content-Length: ' . filesize($file_name));
+ob_clean();
+flush();
+readfile($file_name);
+exit();
+}
+return Redirect::to('/media-center/factsheets');
+}
+
+}
+
+function onDownloadFile(){
+$file = File::find(post('id'));
+$pathToFile = $file->getLocalPath();
+$fileName = $file->file_name;
+$fileType = $file->content_type;
+$headers = [
+'HTTP/1.1 200 OK',
+'Pragma: public',
+'Content-Type: '.$fileType,
+'Content-Type: application/force-download'
+];
+
+return Response::download($pathToFile, $fileName, $headers);
+}
+?>
+==
+<section aria-labelledby="factsheets-heading">
+    <div class="container">
+        <nav aria-label="Breadcrumb">
+            <div class="col-xs-12 go-back">
+                <a href="{{'media-center'|page}}" class="col-xs-12" aria-label="Go back to Media Center">
+                    Back to Media
+                </a>
+            </div>
+        </nav>
+
+        <h1 id="factsheets-heading" class="sr-only">Factsheets</h1>
+
+        {% set records = factsheetsList %}
+
+        {% if records.count() %}
+        <div class="row">
+            {% for record in records %}
+            <article class="col-md-4 col-xs-12 mb-4">
+                {% if record.presentation_image %}
+                <div class="flyer-container {{record.name}}">
+                    <img src="{{record.presentation_image.path}}" alt="{{record.name}} preview">
+                </div>
+                {% endif %}
+                <h2 class="text-center">{{record.name}}</h2>
+
+                <div class="links">
+                    {% if record.file %}
+                    <div class="button_su download">
+                        <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
+                        <a href="{{record.file.path}}"
+                           download="{{record.file.file_name}}"
+                           class="btn button_su_inner piwik_download matomo_download"
+                           aria-label="Download {{record.name}}">
+                            <span class="button_text_container">Download</span>
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    {% if record.url %}
+                    <div class="button_su">
+                        <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
+                        <a href="{{record.url}}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="btn button_su_inner"
+                           aria-label="View {{record.name}}">
+                            <span class="button_text_container">View</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-xs-12">
+                <p>No factsheets available at this time.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>

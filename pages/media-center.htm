@@ -126,6 +126,23 @@ function onStart(){
                     </div>
                 </div>
                 {% endif %}
+
+                {% if presentations.count() %}
+                <div class="col-sm-4 col-xs-12 media_item">
+                    <div class="card-container text-center">
+                        <a href="{{url('media-center')}}/factsheets"
+                           aria-label="View factsheets">
+                            <div class="card_image_container">
+                                <div class="card_bg">
+                                    <span class="card_icon" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <span class="media_label">Factsheets</span>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+
             </div>
         </nav>
     </div>
