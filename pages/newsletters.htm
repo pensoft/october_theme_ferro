@@ -107,16 +107,13 @@ return Response::download($pathToFile, $fileName, $headers);
 
                     {% if record.file %}
                     <div class="button_su download">
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file.id}}" name="id">
                         <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
-                        <button type="submit"
-                                data-attach-loading
-                                class="btn button_su_inner"
-                                aria-label="Download {{record.name}} newsletter">
+                        <a href="{{record.file.path}}"
+                           download="{{record.file.file_name}}"
+                           class="btn button_su_inner piwik_download matomo_download"
+                           aria-label="Download {{record.name}} newsletter">
                             <span class="button_text_container">Download</span>
-                        </button>
-                        {{ form_close() }}
+                        </a>
                     </div>
                     {% endif %}
                 </div>

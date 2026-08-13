@@ -121,7 +121,7 @@ return Response::download($pathToFile, $fileName, $headers);
                 <div class="links">
                     <div class="button_su">
                         <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
-                        <a class="button_su_inner"
+                        <a class="button_su_inner piwik_download matomo_download"
                            href="{{ ''| page }}?{{queries}}&download={{record.file.id}}&file_name={{record.name|replace({' ': '_'})}}"
                            aria-label="Download {{record.name|striptags}} video"
                            download>
