@@ -62,7 +62,7 @@ return Redirect::to('/media-center/policy-briefs');
                 <div class="links">
                     {% if record.file %}
                     <div class="button_su download">
-                        <a href="{{ record.file.path }}" target="_blank" class="btn button_su_inner piwik_download matomo_download" aria-label="Download {{record.title}}">
+                        <a href="{{ 'download'|page({ id: record.file.id, filename: record.file.file_name|url_encode }) }}" download="{{record.file.file_name}}" class="btn button_su_inner piwik_download matomo_download" aria-label="Download {{record.title}}">
                             <span class="button_text_container">Download</span>
                         </a>
                     </div>

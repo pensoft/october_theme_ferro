@@ -1,0 +1,63 @@
+url = "/download/:id|^[0-9]+$/:filename"
+title = "Download"
+is_hidden = 0
+robot_index = "noindex"
+robot_follow = "nofollow"
+==
+<?php
+use System\Models\File;
+
+/**
+ * Serves a public attachment under a URL that ends with its original file name, eg.
+ *
+ *     /download/57/FERRO_factsheet_soil-health.pdf
+ *
+ * Attachments are stored on disk under a hashed name, so linking straight to
+ * `file.path` made Matomo report the hash instead of the document. The numeric id
+ * keeps the lookup exact, the trailing segment is what ends up in the reports.
+ *
+ * Only files attached to the public media/library records are served here, so this
+ * page cannot be used to walk the whole system_files table.
+ */
+
+function onStart()
+{
+	$allowedOwners = [
+		'Pensoft\Media\Models\Books',
+		'Pensoft\Media\Models\Documents',
+		'Pensoft\Media\Models\Flyers',
+		'Pensoft\Media\Models\Galleries',
+		'Pensoft\Media\Models\Graphic',
+		'Pensoft\Media\Models\MediaLogos',
+		'Pensoft\Media\Models\Newsletters',
+		'Pensoft\Media\Models\Podcasts',
+		'Pensoft\Media\Models\Presentations',
+		'Pensoft\Media\Models\Pressreleases',
+		'Pensoft\Media\Models\Videos',
+		'Pensoft\Media\Models\Webinars',
+		'Pensoft\Library\Models\Library',
+	];
+
+	$file = File::find((int)$this->param('id'));
+
+	if (!$file || !$file->isPublic() || !in_array($file->attachment_type, $allowedOwners)) {
+		return Response::make('File not found.', 404);
+	}
+
+	$pathToFile = $file->getLocalPath();
+
+	if (!file_exists($pathToFile)) {
+		return Response::make('File not found.', 404);
+	}
+
+	$headers = [];
+
+	// Older attachments were stored without a content type, let Symfony guess those.
+	if ($file->content_type) {
+		$headers['Content-Type'] = $file->content_type;
+	}
+
+	return Response::download($pathToFile, $file->file_name, $headers);
+}
+?>
+==

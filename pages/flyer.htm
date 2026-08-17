@@ -95,7 +95,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     {% if record.file %}
                     <div class="button_su download">
                         <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
-                        <a href="{{record.file.path}}"
+                        <a href="{{ 'download'|page({ id: record.file.id, filename: record.file.file_name|url_encode }) }}"
                            download="{{record.file.file_name}}"
                            class="btn button_su_inner piwik_download matomo_download"
                            aria-label="Download {{record.name}}">
