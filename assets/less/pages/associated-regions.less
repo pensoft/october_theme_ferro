@@ -1,0 +1,247 @@
+// Open call - Associated regions section and slide-in region panel
+
+@region-panel-width: 640px;
+@region-panel-duration: 0.45s;
+@region-panel-easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+@region-panel-zindex: 100010; // above the fixed header (@zindex-fixed) and theme buttons (100000)
+
+.associated-regions-heading{
+    padding-bottom: 44px;
+
+    h2{
+        margin: 0;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 29.9px;
+        letter-spacing: -0.7px;
+        text-align: center;
+        color: @black-color;
+    }
+}
+
+.associated-regions{
+    .associated-regions-grid{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        .breakpoint-large-down({
+            grid-template-columns: 1fr;
+        });
+    }
+
+    .associated-region{
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 566px;
+        padding: 0;
+        border: 0;
+        overflow: hidden;
+        background: #245f68;
+        color: #fff;
+        font-family: inherit;
+        text-align: center;
+        cursor: pointer;
+
+        .breakpoint-large-down({
+            height: 380px;
+        });
+
+        // Teal gradient overlay
+        &::after{
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(180deg,
+                rgba(18, 79, 96, 0.675) 0%,
+                rgba(20, 92, 108, 0.577) 25%,
+                rgba(23, 110, 126, 0.48) 50%,
+                rgba(11, 76, 90, 0.545) 75%,
+                rgba(1, 50, 62, 0.61) 100%);
+            transition: opacity 0.3s ease;
+        }
+
+        .associated-region-image{
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .associated-region-name,
+        .associated-region-country{
+            position: absolute;
+            left: 50%;
+            z-index: 1;
+            transform: translateX(-50%);
+            line-height: 29.9px;
+            letter-spacing: -0.7px;
+            white-space: nowrap;
+        }
+
+        .associated-region-name{
+            top: 51px;
+            font-size: 23px;
+            font-weight: 700;
+        }
+
+        .associated-region-country{
+            bottom: 43px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 16px;
+            font-weight: 400;
+
+            img{
+                width: 35px;
+                height: 23px;
+                border-radius: 5px;
+                object-fit: cover;
+            }
+        }
+
+        &:hover,
+        &:focus-visible{
+            .associated-region-image{ transform: scale(1.05); }
+            &::after{ opacity: 0.8; }
+        }
+
+        &:focus-visible{
+            outline: 3px solid #25BDD2;
+            outline-offset: -3px;
+        }
+    }
+}
+
+// Slide-in panel from the right
+.region-panel-overlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: @region-panel-zindex;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity @region-panel-duration ease, visibility 0s linear @region-panel-duration;
+
+    &.active{
+        opacity: 1;
+        visibility: visible;
+        transition: opacity @region-panel-duration ease, visibility 0s;
+    }
+
+    .region-panel{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        display: none;
+        width: @region-panel-width;
+        max-width: 100%;
+        height: 100%;
+        height: 100dvh; // follows the mobile browser toolbar showing/hiding
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        background: #fff;
+        transform: translateX(100%);
+        transition: transform @region-panel-duration @region-panel-easing;
+
+        &.active{ display: block; }
+        &.open{ transform: translateX(0); }
+    }
+
+    .region-panel-close{
+        position: absolute;
+        top: 22px;
+        right: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        border: 0.625px solid #dbe8ea;
+        border-radius: 19px;
+        background: #fff;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        img{
+            width: 22px;
+            height: 22px;
+        }
+
+        &:hover{ background: #f5f8f8; }
+
+        // Mobile: stick to the top while the panel content scrolls
+        .breakpoint-small-down({
+            position: sticky;
+            top: 16px;
+            right: auto;
+            z-index: 1;
+            margin: 16px 16px 0 auto;
+        });
+    }
+
+    .region-panel-content{
+        padding: 80px 44px 48px;
+
+        .breakpoint-small-down({
+            padding: 18px 20px 32px; // close button sits in the flow above
+        });
+
+        h2{
+            margin: 0 0 35px;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 39px;
+            letter-spacing: -0.8px;
+            color: #010f21;
+
+            .breakpoint-small-down({
+                font-size: 24px;
+                line-height: 32px;
+            });
+        }
+    }
+
+    // Jumbotron body: each <h3> starts a block separated by a divider
+    .region-panel-body{
+        h3{
+            display: block;
+            width: auto;
+            margin: 24px 0 0;
+            padding-top: 24px;
+            border-top: 0.625px solid #dce8ea;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 25.5px;
+            text-align: left;
+            color: #0091dc;
+
+            &:first-child{ margin-top: 0; }
+        }
+
+        p{
+            margin: 13px 0 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 26.6px;
+            color: #536875;
+        }
+    }
+
+    .edit-link{
+        display: inline-block;
+        margin-top: 24px;
+        font-size: 14px;
+    }
+}

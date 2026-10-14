@@ -1,0 +1,67 @@
+{# Popup contents are managed in Pensoft.Jumbotron (see region_jumbotrons in pages/open-call.htm) #}
+{% set regions = [
+    {
+        slug: 'lake-manta',
+        jumbotron: 'associated-region-lake-manta',
+        name: 'Lake Manta',
+        country: 'Moldova',
+        image: 'assets/images/associated-regions/lake-manta.jpg',
+        image_alt: 'Lake Manta bordered by green wetlands',
+        flag: 'assets/images/associated-regions/flag-moldova.jpg'
+    },
+    {
+        slug: 'wieczno-lake',
+        jumbotron: 'associated-region-wieczno-lake',
+        name: 'Wieczno Lake',
+        country: 'Poland',
+        image: 'assets/images/associated-regions/wieczno-lake.jpg',
+        image_alt: 'Aerial view of the Wieczno Lake complex surrounded by fields',
+        flag: 'assets/images/associated-regions/flag-poland.jpg'
+    },
+    {
+        slug: 'reci-lake',
+        jumbotron: 'associated-region-reci-lake',
+        name: 'Reci Lake',
+        country: 'Romania',
+        image: 'assets/images/associated-regions/reci-lake.jpg',
+        image_alt: 'Reci Lake with reeds and green floodplain',
+        flag: 'assets/images/associated-regions/flag-romania.jpg'
+    }
+] %}
+
+<div class="associated-regions">
+    <div class="associated-regions-grid">
+        {% for region in regions %}
+        <button type="button" class="associated-region" data-region="{{ region.slug }}" aria-haspopup="dialog" aria-controls="region-panel-{{ region.slug }}">
+            <img class="associated-region-image" src="{{ region.image|theme }}" alt="{{ region.image_alt }}" loading="lazy">
+            <span class="associated-region-name">{{ region.name }}</span>
+            <span class="associated-region-country">
+                <img src="{{ region.flag|theme }}" alt="" aria-hidden="true">
+                {{ region.country }}
+            </span>
+        </button>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="region-panel-overlay" aria-hidden="true">
+    {% for region in regions %}
+    {% set jumbotron = region_jumbotrons[region.jumbotron] ?? null %}
+    <div class="region-panel" id="region-panel-{{ region.slug }}" data-region="{{ region.slug }}" role="dialog" aria-modal="true" aria-labelledby="region-panel-title-{{ region.slug }}" aria-hidden="true">
+        <button type="button" class="region-panel-close" aria-label="Close">
+            <img src="{{ 'assets/images/associated-regions/close.svg'|theme }}" alt="" aria-hidden="true">
+        </button>
+        <div class="region-panel-content">
+            <h2 id="region-panel-title-{{ region.slug }}">{{ jumbotron.title ?? region.name ~ ', ' ~ region.country }}</h2>
+            {% if jumbotron %}
+            <div class="region-panel-body">{{ jumbotron.body|raw }}</div>
+            {% if backend_user %}
+            <p><a class="edit-link" href="/admin/pensoft/jumbotron/jumbotron/update/{{ jumbotron.id }}" target="_blank">{{ 'Edit'|_ }}</a></p>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script src="{{ 'assets/js/associated-regions.js'|theme }}"></script>

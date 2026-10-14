@@ -44,10 +44,19 @@ description_limit = 0
 function onStart(){
     use Pensoft\Accordions\Models\Item;
     use Pensoft\Accordions\Models\Category;
+    use Pensoft\Jumbotron\Models\Jumbotron;
 
     $this['mission_title'] = Category::where('id', 1)->first();
 $this['work_packages_title'] = Category::where('id', 3)->first();
 $this['work_packages_records'] = Item::where('category_id', 3)->get();
+
+    // Associated regions popup contents (managed in Pensoft.Jumbotron)
+    $this['region_jumbotrons'] = Jumbotron::whereIn('slug', [
+        'associated-region-lake-manta',
+        'associated-region-wieczno-lake',
+        'associated-region-reci-lake',
+    ])->get()->keyBy('slug');
+    $this['backend_user'] = \BackendAuth::getUser();
 }
 ?>
 ==
@@ -90,6 +99,14 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
         </div>
     </section>
 
+    <section aria-labelledby="associated-regions-heading">
+        <div class="container associated-regions-heading">
+            <h2 id="associated-regions-heading">Associated regions</h2>
+        </div>
+        {% partial 'components/associated-regions' %}
+    </section>
+
+    {# Hidden: Call Webinar, Work Packages and Open Call Questions sections
     <section aria-labelledby="webinar-heading">
         <div class="call-webinar">
             <h2 id="webinar-heading" class="sr-only">Call Webinar</h2>
@@ -126,5 +143,6 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
             {% component 'open-call-questions' %}
         </div>
     </section>
+    #}
 
 </div>
