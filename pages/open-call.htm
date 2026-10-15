@@ -109,18 +109,18 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
         </div>
     </section>
 
-    {% partial 'components/news-list'
-        id='associated-regions-news'
-        title='News'
-        news=region_news
-    %}
-
     <section aria-labelledby="associated-regions-heading">
         <div class="container associated-regions-heading">
             <h2 id="associated-regions-heading">Associated regions</h2>
         </div>
         {% partial 'components/associated-regions' %}
     </section>
+
+    {% partial 'components/news-list'
+        id='associated-regions-news'
+        title='News'
+        news=region_news
+    %}
 
     {# Hidden: Call Webinar, Work Packages and Open Call Questions sections
     <section aria-labelledby="webinar-heading">
