@@ -56,6 +56,18 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
         'associated-region-reci-lake',
     ])->get()->keyBy('slug');
     $this['backend_user'] = \BackendAuth::getUser();
+
+    // News selection: articles attached to the "Associated regions" news category
+    $newsCategory = \Pensoft\Articles\Models\Category::where('name', 'Associated regions')->first();
+    $this['region_news'] = $newsCategory
+        ? \Pensoft\Articles\Models\Article::news()
+            ->byCategory($newsCategory->id)
+            ->where('published', 'true')
+            ->where('published_at', '<=', 'now')
+            ->orderBy('published_at', 'desc')
+            ->take(9)
+            ->get()
+        : collect();
 }
 ?>
 ==
@@ -96,6 +108,12 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
             {% partial 'components/timeline' %}
         </div>
     </section>
+
+    {% partial 'components/news-list'
+        id='associated-regions-news'
+        title='News'
+        news=region_news
+    %}
 
     <section aria-labelledby="associated-regions-heading">
         <div class="container associated-regions-heading">

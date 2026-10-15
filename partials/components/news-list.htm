@@ -1,0 +1,54 @@
+==
+==
+{% if news.count %}
+<section aria-labelledby="{{ id }}-heading">
+    <div class="container news">
+        <h3 id="{{ id }}-heading">{{ title }}</h3>
+        <div class="news-list">
+            {% for record in news %}
+            {% spaceless %}
+            <article class="col-md-4 col-xs-12 center-xs center-md mb-2">
+                <div class="row news-item">
+                    <div class="col-md-12 col-xs-12 home-news-cover">
+                        <a href="/news/{{record.slug}}"
+                           aria-label="Read article: {{record.title|striptags}}">
+                            <img src="{{ record.cover.path}}"
+                                 alt="{{record.title|striptags}}">
+                        </a>
+                    </div>
+                    <div class="col-md-12 col-xs-12 news-content">
+                        <h3 class="news-title">
+                            <a href="/news/{{record.slug}}">
+                                {{ record.title|length > 100 ? record.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : record.title|replace({"&nbsp;": " ", ".": ". "}) }}
+                            </a>
+                        </h3>
+                        <time class="news-date" datetime="{{record.published_at|date('Y-m-d')}}">
+                            {{ record.published_at|date('d M Y') }}
+                        </time>
+                        <div class="row read-more-row">
+                            <a href="/news/{{record.slug}}"
+                               class="read-more"
+                               aria-label="Read more about {{record.title|striptags}}">
+                                {{'Read more' |_}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endspaceless %}
+            {% endfor %}
+        </div>
+
+        {% if view_all_url %}
+        <div class="center-xs">
+            <div class="button_su all_news">
+                <span class="su_button_circle" aria-hidden="true"></span>
+                <a href="{{ view_all_url }}" class="button_su_inner">
+                    <span class="button_text_container">View all</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
