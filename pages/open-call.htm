@@ -1,6 +1,6 @@
-url = "/open-call"
+url = "/associated-regions"
 layout = "default"
-title = "Open call"
+title = "Associated regions"
 
 [siteSearchInclude]
 
@@ -38,7 +38,6 @@ title = 0
 background = "transperant"
 templates = "template3"
 description_limit = 0
-
 ==
 <?php
 function onStart(){
@@ -60,7 +59,6 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
 }
 ?>
 ==
-
 {% component 'siteSearchInclude' %}
 
 <div class="open-call">
