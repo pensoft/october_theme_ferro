@@ -57,16 +57,38 @@ $this['work_packages_records'] = Item::where('category_id', 3)->get();
     ])->get()->keyBy('slug');
     $this['backend_user'] = \BackendAuth::getUser();
 
-    // News selection: articles attached to the "Associated regions" news category
-    $newsCategory = \Pensoft\Articles\Models\Category::where('name', 'Associated regions')->first();
-    $this['region_news'] = $newsCategory
-        ? \Pensoft\Articles\Models\Article::news()
-            ->byCategory($newsCategory->id)
+    // News per region: articles tagged with the region's news category (region slug => category name)
+    $regionCategoryNames = [
+        'lake-manta' => 'Moldova',
+        'wieczno-lake' => 'Poland',
+        'reci-lake' => 'Romania',
+    ];
+    $categories = \Pensoft\Articles\Models\Category::whereIn('name', array_merge(['Associated regions'], array_values($regionCategoryNames)))
+        ->get()
+        ->keyBy('name');
+
+    $publishedNews = function ($categoryIds) {
+        return \Pensoft\Articles\Models\Article::news()
+            ->with('cover')
+            ->whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('pensoft_articles_category.id', $categoryIds);
+            })
             ->where('published', 'true')
             ->where('published_at', '<=', 'now')
-            ->orderBy('published_at', 'desc')
-            ->take(9)
-            ->get()
+            ->orderBy('published_at', 'desc');
+    };
+
+    $regionNews = [];
+    foreach ($regionCategoryNames as $slug => $name) {
+        $regionNews[$slug] = isset($categories[$name])
+            ? $publishedNews([$categories[$name]->id])->take(6)->get()
+            : collect();
+    }
+    $this['region_news_by_region'] = $regionNews;
+
+    // News section below the regions: "Associated regions" plus every region-specific article
+    $this['region_news'] = $categories->isNotEmpty()
+        ? $publishedNews($categories->pluck('id')->all())->take(9)->get()
         : collect();
 }
 ?>

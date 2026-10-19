@@ -1,8 +1,9 @@
-// Open call - Associated regions section and slide-in region panel
+// Open call - Associated regions section and region pop-up
 
-@region-panel-width: 640px;
-@region-panel-duration: 0.45s;
+@region-panel-width: 1100px;
+@region-panel-duration: 0.35s;
 @region-panel-easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+@region-panel-collapsed-height: 360px;
 @region-panel-zindex: 100010; // above the fixed header (@zindex-fixed) and theme buttons (100000)
 
 .associated-regions-heading{
@@ -116,7 +117,7 @@
     }
 }
 
-// Slide-in panel from the right
+// Region pop-up: centered modal, full screen on small screens
 .region-panel-overlay{
     position: fixed;
     top: 0;
@@ -124,10 +125,18 @@
     bottom: 0;
     left: 0;
     z-index: @region-panel-zindex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
     background: rgba(0, 0, 0, 0.6);
     opacity: 0;
     visibility: hidden;
     transition: opacity @region-panel-duration ease, visibility 0s linear @region-panel-duration;
+
+    .breakpoint-small-down({
+        padding: 0;
+    });
 
     &.active{
         opacity: 1;
@@ -136,37 +145,48 @@
     }
 
     .region-panel{
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
+        position: relative;
         display: none;
         width: @region-panel-width;
         max-width: 100%;
-        height: 100%;
-        height: 100dvh; // follows the mobile browser toolbar showing/hiding
+        max-height: 100%;
         overflow-x: hidden;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior: contain;
         touch-action: pan-y;
+        border-radius: 10px;
         background: #fff;
-        transform: translateX(100%);
-        transition: transform @region-panel-duration @region-panel-easing;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+        transition: opacity @region-panel-duration ease, transform @region-panel-duration @region-panel-easing;
+
+        .breakpoint-small-down({
+            width: 100%;
+            height: 100%;
+            height: 100dvh; // follows the mobile browser toolbar showing/hiding
+            border-radius: 0;
+        });
 
         &.active{ display: block; }
-        &.open{ transform: translateX(0); }
+        &.open{
+            opacity: 1;
+            transform: none;
+        }
     }
 
+    // Sticks to the top while the panel content scrolls; negative margin lets the hero sit underneath
     .region-panel-close{
-        position: absolute;
-        top: 22px;
-        right: 24px;
+        position: sticky;
+        top: 16px;
+        z-index: 2;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 38px;
         height: 38px;
+        margin: 16px 16px -54px auto;
         padding: 0;
         border: 0.625px solid #dbe8ea;
         border-radius: 19px;
@@ -180,22 +200,60 @@
         }
 
         &:hover{ background: #f5f8f8; }
+    }
 
-        // Mobile: stick to the top while the panel content scrolls
+    .region-panel-hero{
+        position: relative;
+        height: 280px;
+        overflow: hidden;
+        background: #245f68;
+
         .breakpoint-small-down({
-            position: sticky;
-            top: 16px;
-            right: auto;
-            z-index: 1;
-            margin: 16px 16px 0 auto;
+            height: 200px;
         });
+
+        > img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &::after{
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(1, 50, 62, 0) 40%, rgba(1, 50, 62, 0.7) 100%);
+        }
+    }
+
+    .region-panel-country{
+        position: absolute;
+        bottom: 20px;
+        left: 56px;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 16px;
+        color: #fff;
+
+        .breakpoint-small-down({
+            left: 20px;
+        });
+
+        img{
+            width: 35px;
+            height: 23px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
     }
 
     .region-panel-content{
-        padding: 80px 44px 48px;
+        padding: 40px 56px 56px;
 
         .breakpoint-small-down({
-            padding: 18px 20px 32px; // close button sits in the flow above
+            padding: 24px 20px 32px;
         });
 
         h2{
@@ -239,9 +297,108 @@
         }
     }
 
+    // Long region texts are clamped until "Read more" is clicked (toggled in associated-regions.js)
+    .region-panel-body.is-collapsible:not(.expanded){
+        max-height: @region-panel-collapsed-height;
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+        mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+    }
+
+    .region-panel-more{
+        margin-top: 16px;
+        padding: 0;
+        border: 0;
+        background: none;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        color: #0091dc;
+        cursor: pointer;
+
+        &:hover{ text-decoration: underline; }
+
+        .less-label{ display: none; }
+
+        &[aria-expanded="true"]{
+            .more-label{ display: none; }
+            .less-label{ display: inline; }
+        }
+    }
+
     .edit-link{
         display: inline-block;
         margin-top: 24px;
         font-size: 14px;
+    }
+
+    .region-panel-news{
+        margin-top: 48px;
+        padding-top: 32px;
+        border-top: 0.625px solid #dce8ea;
+
+        > h3{
+            margin: 0 0 24px;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 29px;
+            text-align: left;
+            color: #010f21;
+        }
+    }
+
+    .region-panel-news-list{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px 24px;
+
+        .breakpoint-medium-down({
+            grid-template-columns: repeat(2, 1fr);
+        });
+
+        .breakpoint-small-down({
+            grid-template-columns: 1fr;
+        });
+    }
+
+    .region-news-item{
+        text-align: left;
+
+        .region-news-cover{
+            display: block;
+            aspect-ratio: 16 / 10;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border-radius: 6px;
+            background: #eef4f5;
+
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.4s ease;
+            }
+
+            &:hover img{ transform: scale(1.04); }
+        }
+
+        time{
+            font-size: 13px;
+            color: #7a8c96;
+        }
+
+        h4{
+            margin: 6px 0 0;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 23px;
+
+            a{
+                color: #010f21;
+                text-decoration: none;
+
+                &:hover{ color: #0091dc; }
+            }
+        }
     }
 }

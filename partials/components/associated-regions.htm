@@ -47,17 +47,46 @@
 <div class="region-panel-overlay" aria-hidden="true">
     {% for region in regions %}
     {% set jumbotron = region_jumbotrons[region.jumbotron] ?? null %}
+    {% set news = region_news_by_region[region.slug] ?? [] %}
     <div class="region-panel" id="region-panel-{{ region.slug }}" data-region="{{ region.slug }}" role="dialog" aria-modal="true" aria-labelledby="region-panel-title-{{ region.slug }}" aria-hidden="true">
         <button type="button" class="region-panel-close" aria-label="Close">
             <img src="{{ 'assets/images/associated-regions/close.svg'|theme }}" alt="" aria-hidden="true">
         </button>
+        <div class="region-panel-hero">
+            <img src="{{ region.image|theme }}" alt="" aria-hidden="true">
+            <span class="region-panel-country">
+                <img src="{{ region.flag|theme }}" alt="" aria-hidden="true">
+                {{ region.country }}
+            </span>
+        </div>
         <div class="region-panel-content">
             <h2 id="region-panel-title-{{ region.slug }}">{{ jumbotron.title ?? region.name ~ ', ' ~ region.country }}</h2>
             {% if jumbotron %}
-            <div class="region-panel-body">{{ jumbotron.body|raw }}</div>
+            <div class="region-panel-body" id="region-panel-body-{{ region.slug }}">{{ jumbotron.body|raw }}</div>
+            <button type="button" class="region-panel-more" aria-expanded="false" aria-controls="region-panel-body-{{ region.slug }}" hidden>
+                <span class="more-label">{{ 'Read more'|_ }}</span>
+                <span class="less-label">{{ 'Show less'|_ }}</span>
+            </button>
             {% if backend_user %}
             <p><a class="edit-link" href="/admin/pensoft/jumbotron/jumbotron/update/{{ jumbotron.id }}" target="_blank">{{ 'Edit'|_ }}</a></p>
             {% endif %}
+            {% endif %}
+
+            {% if news|length %}
+            <section class="region-panel-news" aria-labelledby="region-panel-news-{{ region.slug }}">
+                <h3 id="region-panel-news-{{ region.slug }}">{{ 'News'|_ }}</h3>
+                <div class="region-panel-news-list">
+                    {% for record in news %}
+                    <article class="region-news-item">
+                        <a class="region-news-cover" href="/news/{{ record.slug }}" tabindex="-1" aria-hidden="true">
+                            {% if record.cover %}<img src="{{ record.cover.thumb(400, 250, {mode: 'crop'}) }}" alt="" loading="lazy">{% endif %}
+                        </a>
+                        <time datetime="{{ record.published_at|date('Y-m-d') }}">{{ record.published_at|date('d M Y') }}</time>
+                        <h4><a href="/news/{{ record.slug }}">{{ record.title|striptags|replace({"&nbsp;": " "}) }}</a></h4>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
             {% endif %}
         </div>
     </div>
